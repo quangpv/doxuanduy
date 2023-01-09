@@ -6,7 +6,7 @@
     <data>
         <variable
             name="ThemHocSinh"
-            type="com.example.truonghoc.presentation.ThemHocSinh" />
+            type="com.example.truonghoc.presentation.ThemHocSinhActivity" />
     </data>
 
     <LinearLayout

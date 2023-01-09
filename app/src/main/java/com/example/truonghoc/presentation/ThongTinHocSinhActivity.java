@@ -9,10 +9,9 @@ import android.view.View;
 
 import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.databinding.ActivityManHinhThongTinHocSinhBinding;
-import com.example.truonghoc.domain.HocSinh;
 import com.example.truonghoc.domain.HocSinhDangHoc;
 
-public class ManHinhThongTinHocSinh extends AppCompatActivity {
+public class ThongTinHocSinhActivity extends AppCompatActivity {
     ActivityManHinhThongTinHocSinhBinding thongTinBinding;
     boolean checkEdit;
     HocSinhDangHoc hocSinh;
@@ -22,16 +21,13 @@ public class ManHinhThongTinHocSinh extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         thongTinBinding = ActivityManHinhThongTinHocSinhBinding.inflate(getLayoutInflater());
         setContentView(thongTinBinding.getRoot());
-        //
         Intent intent = getIntent();
         hocSinh = intent.getParcelableExtra("HS");
-        thongTinBinding.setHocSinhDangHoc(hocSinh);
-        //
-        thongTinBinding.thanhCongCuThemView.setHocSinhDangHoc(hocSinh);
-        thongTinBinding.thanhCongCuThemView.setManHinhThongTin(this);
+
+        thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
+        thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> luuThongTinHocSinh());
+        thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
     }
-
-
 
     public void setSuaThongTin(boolean value) {
         checkEdit = value;

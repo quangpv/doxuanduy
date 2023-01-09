@@ -7,10 +7,10 @@
     <data>
         <variable
             name="ManHinhChinhViewModel"
-            type="com.example.truonghoc.presentation.viewmodel.ManHinhChinhViewModel" />
+            type="com.example.truonghoc.presentation.viewmodel.MainViewModel" />
         <variable
             name="ManHinhChinh"
-            type="com.example.truonghoc.presentation.ManHinhChinh" />
+            type="com.example.truonghoc.presentation.MainActivity" />
     </data>
 
     <LinearLayout

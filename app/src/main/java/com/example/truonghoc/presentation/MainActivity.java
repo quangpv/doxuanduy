@@ -15,17 +15,15 @@ import com.example.truonghoc.data.QuanLyData;
 import com.example.truonghoc.databinding.ActivityManHinhChinhBinding;
 import com.example.truonghoc.databinding.MenuTraiTrencungBinding;
 import com.example.truonghoc.domain.ThongTinTruongHoc;
-import com.example.truonghoc.presentation.fragment.GiaoVien;
-import com.example.truonghoc.presentation.fragment.HocSinh;
-import com.example.truonghoc.presentation.viewmodel.ManHinhChinhViewModel;
-
-import java.util.List;
+import com.example.truonghoc.presentation.fragment.GiaoVienFragment;
+import com.example.truonghoc.presentation.fragment.HocSinhFragment;
+import com.example.truonghoc.presentation.viewmodel.MainViewModel;
 
 
-public class ManHinhChinh extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     public ActivityManHinhChinhBinding binding;
-    private ManHinhChinhViewModel viewModel;
+    private MainViewModel viewModel;
     private MenuTraiTrencungBinding bindingheader;
 
     final int fragmentHocSinh = 0;
@@ -38,11 +36,11 @@ public class ManHinhChinh extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityManHinhChinhBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//
+
         bindingheader = MenuTraiTrencungBinding.bind(binding.navView.getHeaderView(0));
         bindingheader.setManHinhChinh(this);
-//
-        viewModel = new ViewModelProvider(this).get(ManHinhChinhViewModel.class);
+
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         binding.includedThanhCongCu.setManHinhChinhViewModel(viewModel);
         binding.includedThanhCongCu.setManHinhChinh(this);
         fragmentMacDich();
@@ -76,6 +74,7 @@ public class ManHinhChinh extends AppCompatActivity {
         binding.includedThanhCongCu.tieuDe.setVisibility(View.INVISIBLE);
         binding.includedThanhCongCu.noidungTimKiem.setVisibility(View.VISIBLE);
     }
+
     public void anXoaTimKiem() {
         binding.includedThanhCongCu.timKiem.setVisibility(View.VISIBLE);
         binding.includedThanhCongCu.xoaTimKiem.setVisibility(View.INVISIBLE);
@@ -119,10 +118,10 @@ public class ManHinhChinh extends AppCompatActivity {
         viewModel.tieuDeTCC().observe(this, s -> binding.includedThanhCongCu.tieuDe.setText(s));
         checkFragent = tenFragment;
         if (loaiFragment == 1) {
-            replaceFragment(new HocSinh());
+            replaceFragment(new HocSinhFragment());
         }
         if (loaiFragment == 2) {
-            replaceFragment(new GiaoVien());
+            replaceFragment(new GiaoVienFragment());
         }
     }
 

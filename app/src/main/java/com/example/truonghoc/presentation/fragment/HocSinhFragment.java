@@ -10,66 +10,66 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
-    import android.view.View;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.databinding.FragmentHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.Iinterface.ITextWatcher;
-import com.example.truonghoc.presentation.ManHinhChinh;
-import com.example.truonghoc.presentation.ManHinhThongTinHocSinh;
-import com.example.truonghoc.presentation.ThemHocSinh;
+import com.example.truonghoc.presentation.MainActivity;
+import com.example.truonghoc.presentation.ThongTinHocSinhActivity;
+import com.example.truonghoc.presentation.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.apdapter.ClickListListener;
 import com.example.truonghoc.presentation.apdapter.HocSinhDangHocAdapter;
-import com.example.truonghoc.presentation.viewmodel.FragmentHocSinhViewModel;
+import com.example.truonghoc.presentation.viewmodel.HocSinhViewModel;
 
 import java.util.List;
 
 
-public class HocSinh extends Fragment {
+public class HocSinhFragment extends Fragment {
     FragmentHocSinhBinding hocSinhBinding;
     HocSinhDangHocAdapter adapter;
-    FragmentHocSinhViewModel hocSinhViewModel;
+    HocSinhViewModel hocSinhViewModel;
     LiveData<List<HocSinhDangHoc>> danhSachRoom;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         hocSinhBinding = FragmentHocSinhBinding.inflate(inflater, container, false);
-        hocSinhViewModel = new ViewModelProvider(this).get(FragmentHocSinhViewModel.class);
-        hocSinhBinding.setFragmentHocSinh(this);
+        hocSinhViewModel = new ViewModelProvider(this).get(HocSinhViewModel.class);
         adapter = new HocSinhDangHocAdapter();
         danhSachRoom = HocSinhDangHocDataBase.quanLyData(getContext()).hocSinhDAO().layDanhSach();
         danhSachRoom.observe(getViewLifecycleOwner(), this::capNhapDanhSachView);
         danhSachRoom.observe(getViewLifecycleOwner(), this::timKiem);
         hocSinhBinding.recyclerviewHocsinh.setAdapter(adapter);
         moManHinhThongTin();
+
+        hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
         return hocSinhBinding.getRoot();
     }
 
     private void moManHinhThongTin() {
         hocSinhBinding.recyclerviewHocsinh.addOnItemTouchListener(new ClickListListener(getContext(), (view, position) -> {
-            Intent intent = new Intent(getContext(), ManHinhThongTinHocSinh.class);
+            Intent intent = new Intent(getContext(), ThongTinHocSinhActivity.class);
             HocSinhDangHoc hocSinh = hocSinhViewModel.getDanhSach().getValue().get(position);
-            intent.putExtra("HS",hocSinh);
+            intent.putExtra("HS", hocSinh);
             startActivity(intent);
         }));
     }
 
     private void capNhapDanhSachView(List<HocSinhDangHoc> danhSach) {
         hocSinhViewModel.getDanhSach().postValue(danhSach);
-        hocSinhViewModel.getDanhSach().observe(getViewLifecycleOwner(),adapter::setDanhSach);
+        hocSinhViewModel.getDanhSach().observe(getViewLifecycleOwner(), adapter::setDanhSach);
     }
-
 
 
     public void moThemHocSinh() {
-        startActivity(new Intent(getContext(), ThemHocSinh.class));
+        startActivity(new Intent(getContext(), ThemHocSinhActivity.class));
     }
 
     public void timKiem(List<HocSinhDangHoc> danhSach) {
-        ManHinhChinh manHinhChinh = (ManHinhChinh) requireActivity();
-        manHinhChinh.binding.includedThanhCongCu.noidungTimKiem.addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString(), danhSach));
+        MainActivity mainActivity = (MainActivity) requireActivity();
+        mainActivity.binding.includedThanhCongCu.noidungTimKiem.addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString(), danhSach));
     }
 }

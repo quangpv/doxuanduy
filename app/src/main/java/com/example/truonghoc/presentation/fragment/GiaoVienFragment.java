@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.truonghoc.R;
 
-public class GiaoVien extends Fragment {
+public class GiaoVienFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

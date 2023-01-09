@@ -1,111 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="ThemHocSinh"
-            type="com.example.truonghoc.presentation.ThemHocSinh" />
-    </data>
-
-<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ThemHocSinh">
+    tools:context=".presentation.ThemHocSinhActivity">
 
     <include
         android:id="@+id/thanh_cong_cu_them"
         layout="@layout/thanh_cong_cu_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ma_hs_nhap"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ma_hs_nhap_demo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mã Học Sinh" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ma_hs_nhap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/ten_hs_nhap"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ma_hs_nhap_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mã Học Sinh" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ten_hs_nhap_demo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tên Học Sinh" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ten_hs_nhap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/gioi_tinh_hs_nhap"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ten_hs_nhap_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tên Học Sinh" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/gioi_tinh_hs_demo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Giới Tính" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/gioi_tinh_hs_nhap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/sinh_ngay_hs"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gioi_tinh_hs_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Giới Tính" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sinh_ngay_demo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="22/02/1995" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lop_hs_nhap"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sinh_ngay_hs"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lop_hs_nhap_demo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="11A2" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sinh_ngay_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="22/02/1995" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lop_hs_nhap"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lop_hs_nhap_demo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="11A2" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
-</layout>

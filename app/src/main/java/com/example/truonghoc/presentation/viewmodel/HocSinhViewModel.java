@@ -10,7 +10,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentHocSinhViewModel extends ViewModel {
+public class HocSinhViewModel extends ViewModel {
 
     private MutableLiveData<List<HocSinhDangHoc>> danhSachTimKiem;
 

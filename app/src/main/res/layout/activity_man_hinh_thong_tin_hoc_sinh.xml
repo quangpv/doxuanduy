@@ -1,111 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="HocSinhDangHoc"
-            type="com.example.truonghoc.domain.HocSinhDangHoc" />
-        <variable
-            name="ThongTinHocSinh"
-            type="com.example.truonghoc.presentation.ManHinhThongTinHocSinh" />
-    </data>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.ThemHocSinhActivity">
 
-    <LinearLayout
+    <include
+        android:id="@+id/thanh_cong_cu_them_view"
+        layout="@layout/thanh_cong_cu_3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".presentation.ThemHocSinh">
+        android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/thanh_cong_cu_them_view"
-            layout="@layout/thanh_cong_cu_3"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ten_hs_viewtab"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ten_hs_viewtab"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ten_hs_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:enabled="false"
+                    android:hint="@string/ten_view"
+                    tools:text="@{HocSinhDangHoc.hocSinh.hoVaTen}"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ten_hs_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="@{HocSinhDangHoc.hocSinh.hoVaTen}"
-                        android:hint="@string/ten_view"/>
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/gioi_tinh_viewtab"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/gioi_tinh_viewtab"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/gioi_tinh_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:enabled="false"
+                    android:hint="@string/gioitinh_view"
+                    tools:text="@{HocSinhDangHoc.hocSinh.gioiTinh}"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/gioi_tinh_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="@{HocSinhDangHoc.hocSinh.gioiTinh}"
-                        android:hint="@string/gioitinh_view"/>
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sinh_ngay_viewtab"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/sinh_ngay_viewtab"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sinh_ngay_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:enabled="false"
+                    android:hint="@string/sinhngay_view"
+                    tools:text="@{HocSinhDangHoc.hocSinh.sinhNgay}"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sinh_ngay_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="@{HocSinhDangHoc.hocSinh.sinhNgay}"
-                        android:hint="@string/sinhngay_view"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/lop_hs_viewtab"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lop_hs_viewtab"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lop_hs_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/lop_hs_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="@color/black"
-                        android:text="@{HocSinhDangHoc.khoiLop.khoiLop}"
-                        android:hint="@string/lop_view" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
-</layout>
+                    android:enabled="false"
+                    android:hint="@string/lop_view"
+                    tools:text="@{HocSinhDangHoc.khoiLop.khoiLop}"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

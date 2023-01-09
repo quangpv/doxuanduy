@@ -2,6 +2,7 @@ package com.example.truonghoc.presentation;
 
 import android.app.Application;
 
+import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.data.QuanLyData;
 
 public class ChuongTrinh extends Application {
@@ -9,6 +10,7 @@ public class ChuongTrinh extends Application {
     public void onCreate() {
         super.onCreate();
         QuanLyData.init(getApplicationContext());
+        HocSinhDangHocDataBase.init(getApplicationContext());
     }
 }
 

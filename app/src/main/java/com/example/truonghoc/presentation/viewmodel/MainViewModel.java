@@ -1,13 +1,11 @@
 package com.example.truonghoc.presentation.viewmodel;
 
-import android.widget.Toast;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.truonghoc.domain.ThongTinTruongHoc;
 
-public class ManHinhChinhViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
     MutableLiveData<String> tieuDeTCC;
     MutableLiveData<ThongTinTruongHoc> thongTinTruong;
 
