@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="ManHinhChinhViewModel"
+            type="com.example.truonghoc.presentation.viewmodel.ManHinhChinhViewModel" />
+        <variable
+            name="ManHinhChinh"
+            type="com.example.truonghoc.presentation.ManHinhChinh" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout_chinh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <include
+            android:id="@+id/included_thanh_cong_cu"
+            layout="@layout/thanh_cong_cu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/menu_trai_trencung"
+            app:menu="@menu/menu_trai"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

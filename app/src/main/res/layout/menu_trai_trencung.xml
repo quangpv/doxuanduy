@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ManHinhChinhViewModel"
+            type="com.example.truonghoc.presentation.viewmodel.ManHinhChinhViewModel" />
+        <variable
+            name="ManHinhChinh"
+            type="com.example.truonghoc.presentation.ManHinhChinh" />    </data>
+<LinearLayout
+    android:id="@+id/dau_menu_trai_view"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#CCD8A1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/ten_truong_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:enabled="false"
+            android:inputType="text"
+            android:text="@{ManHinhChinhViewModel.thongTinTruong().tenTruong}"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/sua_info_daumenutrai"
+            app:layout_constraintStart_toEndOf="@+id/textView5" />
+
+        <EditText
+            android:id="@+id/diachi_truong_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:enabled="false"
+            android:inputType="text"
+            android:lines="1"
+            android:text="@{ManHinhChinhViewModel.thongTinTruong().diaChiTruong}"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView6" />
+
+        <EditText
+            android:id="@+id/sdt_truong_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:enabled="false"
+            android:inputType="number"
+            android:maxLength="11"
+            android:text="@{ManHinhChinhViewModel.thongTinTruong().sdtTruong}"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView7" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="7dp"
+            android:text="@string/truong_view"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/dia_chi_view"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/sdt_view"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <Button
+            android:id="@+id/sua_info_daumenutrai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="@string/sua"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:onClick="@{()->ManHinhChinh.setCauHinhHeader(true)}"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/luu_info_daumenutrai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:textColor="@color/black"
+            android:text="@string/luu"
+            android:onClick="@{()->ManHinhChinh.setCauHinhHeader(false)}"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+</layout>

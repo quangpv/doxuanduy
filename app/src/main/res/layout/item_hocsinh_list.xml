@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="HocSinhDangHoc"
+            type="com.example.truonghoc.domain.HocSinhDangHoc" />
+    </data>
+
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backgound2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/hoten"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:text="@{@string/ten+' '+HocSinhDangHoc.hocSinh.hoVaTen}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ngay_sinh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{@string/sinh_ngay+' '+HocSinhDangHoc.hocSinh.sinhNgay}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hoten" />
+
+        <TextView
+            android:id="@+id/gioi_tinh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/black"
+            android:text="@{@string/gioi_tinh+' '+HocSinhDangHoc.hocSinh.gioiTinh}"
+            app:layout_constraintStart_toEndOf="@+id/ngay_sinh"
+            app:layout_constraintTop_toBottomOf="@+id/hoten" />
+
+        <TextView
+            android:id="@+id/khoi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{@string/lop+' '+HocSinhDangHoc.khoiLop.khoiLop}"
+            app:layout_constraintStart_toEndOf="@+id/gioi_tinh"
+            app:layout_constraintTop_toBottomOf="@+id/hoten" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
+</layout>

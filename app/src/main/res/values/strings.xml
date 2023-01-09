@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TruongHoc</string>
+    <string name="mac_dinh">Không</string>
+    <string name="truong_view">Trường:</string>
+    <string name="dia_chi_view">D/C:</string>
+    <string name="sdt_view">SĐT:</string>
+    <string name="sua">Sửa</string>
+    <string name="luu">Lưu</string>
+    <string name="tieude_hoc_sinh">Tất Cả Học Sinh</string>
+    <string name="tieude_giao_vien">Tất Cả Giáo Viên</string>
+    <string name="ten">Tên:</string>
+    <string name="gioi_tinh">Giới Tính:</string>
+    <string name="sinh_ngay">Sinh Ngày:</string>
+    <string name="lop">Lớp:</string>
+    <string name="ten_view">Họ Và Tên</string>
+    <string name="gioitinh_view">Giới Tính</string>
+    <string name="sinhngay_view">Ngày/Tháng/Năm Sinh</string>
+    <string name="lop_view"> Lớp Học</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
