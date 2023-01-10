@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.truonghoc.R;
+
 import com.example.truonghoc.data.QuanLyData;
 import com.example.truonghoc.databinding.ActivityMainBinding;
 import com.example.truonghoc.databinding.MenuTraiTrencungBinding;
@@ -38,15 +38,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.includedThanhCongCu.icMenuTraiOpen.setOnClickListener(v->openMenuTrai());
-        binding.includedThanhCongCu.timKiem.setOnClickListener(v->anTimKiem());
-        binding.includedThanhCongCu.xoaTimKiem.setOnClickListener(v->anXoaTimKiem());
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        binding.includedThanhCongCu.icMenuTraiOpen.setOnClickListener(v -> openMenuTrai());
+        binding.includedThanhCongCu.timKiem.setOnClickListener(v -> anTimKiem());
+        binding.includedThanhCongCu.xoaTimKiem.setOnClickListener(v -> anXoaTimKiem());
         binding.navView.setNavigationItemSelectedListener(this::xuLyAnMenuTrai);
 
         bindingheader = MenuTraiTrencungBinding.bind(binding.navView.getHeaderView(0));
-        bindingheader.suaInfoDaumenutrai.setOnClickListener(v->setCauHinhHeader(true));
-        bindingheader.luuInfoDaumenutrai.setOnClickListener(v->setCauHinhHeader(false));
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        bindingheader.suaInfoDaumenutrai.setOnClickListener(v -> setCauHinhHeader(true));
+        bindingheader.luuInfoDaumenutrai.setOnClickListener(v -> setCauHinhHeader(false));
         fragmentMacDich();
 
     }
@@ -92,12 +92,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void layThongTinTruong() {
-        viewModel.thongTinTruong().postValue(QuanLyData.layThongTinTruong());
-        viewModel.thongTinTruong().observe(this, info -> {
-            bindingheader.tenTruongView.setText(info.getTenTruong());
-            bindingheader.diachiTruongView.setText(info.getDiaChiTruong());
-            bindingheader.sdtTruongView.setText(info.getSdtTruong());
-        });
+        ThongTinTruongHoc info = QuanLyData.layThongTinTruong();
+        bindingheader.tenTruongView.setText(info.getTenTruong());
+        bindingheader.diachiTruongView.setText(info.getDiaChiTruong());
+        bindingheader.sdtTruongView.setText(info.getSdtTruong());
 
     }
 
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         String tenTruong = bindingheader.tenTruongView.getText().toString();
         String diaChi = bindingheader.diachiTruongView.getText().toString();
         String sdtTruong = bindingheader.sdtTruongView.getText().toString();
-        viewModel.luuThongTinTruong(tenTruong,diaChi,sdtTruong);
+        QuanLyData.setThongTinTruong(new ThongTinTruongHoc(tenTruong,diaChi,sdtTruong));
     }
 
 
