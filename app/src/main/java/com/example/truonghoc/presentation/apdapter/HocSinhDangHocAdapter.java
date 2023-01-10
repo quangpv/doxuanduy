@@ -1,37 +1,34 @@
 package com.example.truonghoc.presentation.apdapter;
 
 import android.annotation.SuppressLint;
-
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ItemHocsinhListBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
+
 import java.util.List;
 
-public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder>{
-    List<HocSinhDangHoc> danhSach ;
-    Context context;
+public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
+    List<HocSinhDangHoc> danhSach;
 
 
-    public HocSinhDangHocAdapter(Context context) {
-        this.context = context;
+    public HocSinhDangHocAdapter() {
+
     }
 
     @NonNull
     @Override
     public HocSinhDangHocViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HocSinhDangHocViewHolder(ItemHocsinhListBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+        return new HocSinhDangHocViewHolder(ItemHocsinhListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull HocSinhDangHocViewHolder holder, int position) {
         HocSinhDangHoc hs = danhSach.get(position);
-        holder.itemBinding.hoten.setText(context.getResources().getText(R.string.ten,hs.getHocSinh().getHoVaTen()));
+
+        holder.itemBinding.hoten.setText(hs.getHocSinh().getHoVaTen());
         holder.itemBinding.hoten.setText(hs.getHocSinh().getHoVaTen());
         holder.itemBinding.gioiTinh.setText(hs.getHocSinh().getGioiTinh());
         holder.itemBinding.ngaySinh.setText(hs.getHocSinh().getSinhNgay());
@@ -40,7 +37,7 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
 
     @Override
     public int getItemCount() {
-        if(danhSach!=null){
+        if (danhSach != null) {
             return danhSach.size();
         }
         return 0;
@@ -55,6 +52,7 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
 
     public static class HocSinhDangHocViewHolder extends RecyclerView.ViewHolder {
         private final ItemHocsinhListBinding itemBinding;
+
         public HocSinhDangHocViewHolder(@NonNull ItemHocsinhListBinding itemHocsinhListBinding) {
             super(itemHocsinhListBinding.getRoot());
             this.itemBinding = itemHocsinhListBinding;
