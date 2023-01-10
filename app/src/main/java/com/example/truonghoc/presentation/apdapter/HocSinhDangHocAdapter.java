@@ -1,14 +1,13 @@
 package com.example.truonghoc.presentation.apdapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truonghoc.databinding.ItemHocsinhListBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder>{
@@ -25,8 +24,11 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
 
     @Override
     public void onBindViewHolder(@NonNull HocSinhDangHocViewHolder holder, int position) {
-        HocSinhDangHoc hocSinhDangHoc = danhSach.get(position);
-        holder.itemBinding.setHocSinhDangHoc(hocSinhDangHoc);
+        HocSinhDangHoc hs = danhSach.get(position);
+        holder.itemBinding.hoten.setText(hs.getHocSinh().getHoVaTen());
+        holder.itemBinding.gioiTinh.setText(hs.getHocSinh().getGioiTinh());
+        holder.itemBinding.ngaySinh.setText(hs.getHocSinh().getSinhNgay());
+        holder.itemBinding.khoi.setText(hs.getKhoiLop().getKhoiLop());
     }
 
     @Override

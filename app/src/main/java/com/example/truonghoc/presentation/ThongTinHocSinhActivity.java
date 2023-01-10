@@ -25,7 +25,7 @@ public class ThongTinHocSinhActivity extends AppCompatActivity {
         hocSinh = intent.getParcelableExtra("HS");
 
         thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
-        thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> luuThongTinHocSinh());
+        thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> setSuaThongTin(false));
         thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
     }
 
@@ -50,7 +50,6 @@ public class ThongTinHocSinhActivity extends AppCompatActivity {
         hocSinh.getHocSinh().setGioiTinh(thongTinBinding.gioiTinhView.getText().toString());
         hocSinh.getHocSinh().setSinhNgay(thongTinBinding.sinhNgayView.getText().toString());
         hocSinh.getKhoiLop().setKhoiLop(thongTinBinding.lopHsView.getText().toString());
-        HocSinhDangHocDataBase.quanLyData(this).hocSinhDAO().suaHocSinh(hocSinh);
     }
 
     public void xuLyAnBack() {

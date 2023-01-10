@@ -25,7 +25,6 @@ public class ThemHocSinhViewModel extends ViewModel {
             return;
         }
         HocSinhDangHoc hocSinh = new HocSinhDangHoc(new HocSinh(maHs, tenHs, gioiTinh, sinhNgay), new KhoiLop(khoiLop));
-
         Executors.newCachedThreadPool().execute(() -> {
             database.hocSinhDAO().themHocSinh(hocSinh);
             themThanhCong.postValue("Thêm học sinh thành công");
