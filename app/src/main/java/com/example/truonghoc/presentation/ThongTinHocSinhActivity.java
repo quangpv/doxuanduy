@@ -21,12 +21,20 @@ public class ThongTinHocSinhActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         thongTinBinding = ActivityManHinhThongTinHocSinhBinding.inflate(getLayoutInflater());
         setContentView(thongTinBinding.getRoot());
-        Intent intent = getIntent();
-        hocSinh = intent.getParcelableExtra("HS");
-
+        hienThiThongTin();
         thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
         thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> setSuaThongTin(false));
         thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
+    }
+
+    private void hienThiThongTin() {
+        Intent intent = getIntent();
+        hocSinh = intent.getParcelableExtra("HS");
+        thongTinBinding.thanhCongCuThemView.tieuDe.setText(hocSinh.getHocSinh().getMaHocSinh());
+        thongTinBinding.tenHsView.setText(hocSinh.getHocSinh().getHoVaTen());
+        thongTinBinding.gioiTinhView.setText(hocSinh.getHocSinh().getGioiTinh());
+        thongTinBinding.sinhNgayView.setText(hocSinh.getHocSinh().getSinhNgay());
+        thongTinBinding.lopHsView.setText(hocSinh.getKhoiLop().getKhoiLop());
     }
 
     public void setSuaThongTin(boolean value) {

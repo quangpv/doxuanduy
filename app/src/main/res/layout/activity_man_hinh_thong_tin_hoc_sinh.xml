@@ -37,8 +37,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/ten_view"
-                    android:textColor="@color/black"
-                    tools:text="@{HocSinhDangHoc.hocSinh.hoVaTen}" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -56,8 +55,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/gioitinh_view"
-                    android:textColor="@color/black"
-                    tools:text="@{HocSinhDangHoc.hocSinh.gioiTinh}" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -75,8 +73,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/sinhngay_view"
-                    android:textColor="@color/black"
-                    tools:text="@{HocSinhDangHoc.hocSinh.sinhNgay}" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -94,8 +91,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/lop_view"
-                    android:textColor="@color/black"
-                    tools:text="@{HocSinhDangHoc.khoiLop.khoiLop}" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

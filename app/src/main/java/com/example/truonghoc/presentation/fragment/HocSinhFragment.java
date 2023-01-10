@@ -40,7 +40,7 @@ public class HocSinhFragment extends Fragment {
         fragmentHocSinhViewModel = new ViewModelProvider(this).get(FragmentHocSinhViewModel.class);
         hocSinhBinding.recyclerviewHocsinh.addOnItemTouchListener(new ClickListListener(getContext(),(view, position) -> moManHinhThongTin(position)));
         hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
-        adapter = new HocSinhDangHocAdapter();
+        adapter = new HocSinhDangHocAdapter(getContext());
         danhSachRoom = HocSinhDangHocDataBase.getInstance().hocSinhDAO().layDanhSach();
         danhSachRoom.observe(getViewLifecycleOwner(), this::capNhapDanhSachView);
         danhSachRoom.observe(getViewLifecycleOwner(), this::timKiem);
