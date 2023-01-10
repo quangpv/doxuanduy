@@ -8,11 +8,11 @@ import com.google.gson.Gson;
 public class QuanLyData {
     private static final String TRUONGHOC = "TRUONG_HOC";
     private static QuanLyData quanLyData;
-    private dataSharedPreferences dataSharedPreferences;
+    private DataSharedPreferences dataSharedPreferences;
 
     public static void init(Context context) {
         quanLyData = new QuanLyData();
-        quanLyData.dataSharedPreferences = new dataSharedPreferences(context);
+        quanLyData.dataSharedPreferences = new DataSharedPreferences(context);
     }
 
     public static QuanLyData getInstance() {

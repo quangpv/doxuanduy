@@ -3,12 +3,12 @@ package com.example.truonghoc.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class dataSharedPreferences {
+public class DataSharedPreferences {
     private static final String lanDau = "LAN_DAU_CAIDAT";
     private static final String TRUONGHOC = "TRUONG_HOC";
     private final Context mContext;
 
-    public dataSharedPreferences(Context mContext) {
+    public DataSharedPreferences(Context mContext) {
         this.mContext = mContext;
     }
 
