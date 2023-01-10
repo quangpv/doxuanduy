@@ -9,6 +9,10 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class FragmentHocSinhViewModel extends ViewModel {
 
@@ -23,13 +27,17 @@ public class FragmentHocSinhViewModel extends ViewModel {
 
     public void timKiem(String s, List<HocSinhDangHoc> danhSachRoom) {
         List<HocSinhDangHoc> danhSachLoc = new ArrayList<>();
+        LinkedBlockingQueue<Runnable> linkedBlockingQueue = new LinkedBlockingQueue<>();
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,4,60L, TimeUnit.SECONDS,linkedBlockingQueue);
         if (s.isEmpty()) {
             danhSachTimKiem.postValue(danhSachRoom);
         } else {
             for (HocSinhDangHoc hocSinh: danhSachRoom) {
-                if(dieuKien(hocSinh,s)){
-                    danhSachLoc.add(hocSinh);
-                }
+                threadPoolExecutor.execute(() -> {
+                    if(dieuKien(hocSinh,s)){
+                        danhSachLoc.add(hocSinh);
+                    }
+                });
             }
             danhSachTimKiem.postValue(danhSachLoc);
         }
