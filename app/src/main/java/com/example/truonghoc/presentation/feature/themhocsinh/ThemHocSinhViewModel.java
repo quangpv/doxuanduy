@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.viewmodel;
+package com.example.truonghoc.presentation.feature.themhocsinh;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,17 +16,17 @@ public class ThemHocSinhViewModel extends ViewModel {
     public HocSinhDangHocDataBase database = HocSinhDangHocDataBase.getInstance();
 
     public void themHocSinh(String maHs, String tenHs, String gioiTinh, String sinhNgay, String khoiLop) {
-        if (checkThongTinToiThieu(maHs, tenHs)) {
-            themThatBai.setValue("Tối Thiểu Cần Tên Và Mã Hs");
-            return;
-        }
-        if (kiemTraHocSinhTonTai(maHs)) {
-            themThatBai.setValue("Mã Học Sinh Đã Tồn Tại");
-            return;
-        }
-        HocSinhDangHoc hocSinh = new HocSinhDangHoc(new HocSinh(maHs, tenHs, gioiTinh, sinhNgay), new KhoiLop(khoiLop));
-
         Executors.newCachedThreadPool().execute(() -> {
+            if (checkThongTinToiThieu(maHs, tenHs)) {
+                themThatBai.postValue("Tối Thiểu Cần Tên Và Mã Hs");
+                return;
+            }
+            if (kiemTraHocSinhTonTai(maHs)) {
+                themThatBai.postValue("Mã Học Sinh Đã Tồn Tại");
+                return;
+            }
+            HocSinhDangHoc hocSinh = new HocSinhDangHoc(new HocSinh(maHs, tenHs, gioiTinh, sinhNgay), new KhoiLop(khoiLop));
+
             database.hocSinhDAO().themHocSinh(hocSinh);
             themThanhCong.postValue("Thêm học sinh thành công");
         });

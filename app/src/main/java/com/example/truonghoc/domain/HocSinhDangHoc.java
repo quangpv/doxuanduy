@@ -23,6 +23,7 @@ public class HocSinhDangHoc implements Parcelable {
     }
 
     protected HocSinhDangHoc(Parcel in) {
+        Id = in.readLong();
         hocSinh = in.readParcelable(HocSinh.class.getClassLoader());
         khoiLop = in.readParcelable(KhoiLop.class.getClassLoader());
     }
@@ -70,6 +71,7 @@ public class HocSinhDangHoc implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeLong(Id);
         dest.writeParcelable(hocSinh, flags);
         dest.writeParcelable(khoiLop, flags);
     }

@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.fragment;
+package com.example.truonghoc.presentation.feature.giaovien;
 
 import android.os.Bundle;
 

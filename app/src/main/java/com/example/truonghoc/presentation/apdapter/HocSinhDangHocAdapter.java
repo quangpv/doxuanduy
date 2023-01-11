@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truonghoc.R;
@@ -14,6 +15,7 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
+    public Consumer<HocSinhDangHoc> onItemClick;
     List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
@@ -31,9 +33,12 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
         HocSinhDangHoc hs = danhSach.get(position);
 
         holder.itemBinding.hoten.setText(holder.itemView.getResources().getString(R.string.ten, hs.getHocSinh().getHoVaTen()));
-        holder.itemBinding.gioiTinh.setText(holder.itemView.getResources().getString(R.string.gioi_tinh,hs.getHocSinh().getGioiTinh()));
-        holder.itemBinding.ngaySinh.setText(holder.itemView.getResources().getString(R.string.sinh_ngay,hs.getHocSinh().getSinhNgay()));
-        holder.itemBinding.khoi.setText(holder.itemView.getResources().getString(R.string.lop,hs.getKhoiLop().getKhoiLop()));
+        holder.itemBinding.gioiTinh.setText(holder.itemView.getResources().getString(R.string.gioi_tinh, hs.getHocSinh().getGioiTinh()));
+        holder.itemBinding.ngaySinh.setText(holder.itemView.getResources().getString(R.string.sinh_ngay, hs.getHocSinh().getSinhNgay()));
+        holder.itemBinding.khoi.setText(holder.itemView.getResources().getString(R.string.lop, hs.getKhoiLop().getKhoiLop()));
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClick != null) onItemClick.accept(hs);
+        });
     }
 
     @Override

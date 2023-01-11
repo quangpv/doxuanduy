@@ -15,7 +15,6 @@ public abstract class HocSinhDangHocDataBase extends RoomDatabase {
 
     public static void init(Context applicationContext) {
         hocSinhData = Room.databaseBuilder(applicationContext, HocSinhDangHocDataBase.class, DATA_BASE_NAME)
-                .allowMainThreadQueries()
                 .build();
     }
 

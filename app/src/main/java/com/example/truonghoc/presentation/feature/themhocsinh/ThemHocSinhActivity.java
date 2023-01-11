@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation;
+package com.example.truonghoc.presentation.feature.themhocsinh;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
-import com.example.truonghoc.presentation.viewmodel.ThemHocSinhViewModel;
 
 import java.util.Objects;
 
@@ -22,7 +21,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         themHocSinhBinding = ActivityThemHocSinhBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(ThemHocSinhViewModel.class);
         setContentView(themHocSinhBinding.getRoot());
-        themHocSinhBinding.thanhCongCuThem.icBack.setOnClickListener(v->xuLyKhiAnBack());
+        themHocSinhBinding.thanhCongCuThem.icBack.setOnClickListener(v -> xuLyKhiAnBack());
         themHocSinhBinding.thanhCongCuThem.icLuu.setOnClickListener(v -> themHocSinh());
         viewModel.themThanhCong.observe(this, message -> {
             thongBaoThemHocSinh(message);

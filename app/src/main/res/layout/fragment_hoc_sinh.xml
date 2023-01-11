@@ -5,7 +5,7 @@
     android:id="@+id/fragment_hocsinh_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.fragment.HocSinhFragment">
+    tools:context=".presentation.feature.hocsinh.HocSinhFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_hocsinh"

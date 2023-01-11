@@ -1,37 +1,37 @@
 package com.example.truonghoc.data;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.truonghoc.domain.ThongTinTruongHoc;
 import com.google.gson.Gson;
 
 public class QuanLyData {
     private static final String TRUONGHOC = "TRUONG_HOC";
-    private static QuanLyData quanLyData;
-    private DataSharedPreferences dataSharedPreferences;
+    private static QuanLyData sQuanLyData;
+    private final SharedPreferences sharedPreferences;
+    private final Gson parser = new Gson();
 
-    public static void init(Context context) {
-        quanLyData = new QuanLyData();
-        quanLyData.dataSharedPreferences = new DataSharedPreferences(context);
+    public QuanLyData(Application application) {
+        sharedPreferences = application.getSharedPreferences("data", Context.MODE_PRIVATE);
+    }
+
+    public static void init(Application application) {
+        sQuanLyData = new QuanLyData(application);
     }
 
     public static QuanLyData getInstance() {
-        if (quanLyData == null) {
-            synchronized (QuanLyData.class) {
-                quanLyData = new QuanLyData();
-            }
-        }
-        return quanLyData;
-    }
-    public static void setThongTinTruong(ThongTinTruongHoc truongHoc) {
-        Gson truongHocLuu = new Gson();
-        String infoTruong = truongHocLuu.toJson(truongHoc);
-        QuanLyData.getInstance().dataSharedPreferences.nhapTruongHoc(TRUONGHOC, infoTruong);
+        return sQuanLyData;
     }
 
-    public static ThongTinTruongHoc layThongTinTruong() {
-        String thongTin = QuanLyData.getInstance().dataSharedPreferences.layTruongHoc(TRUONGHOC);
-        Gson doiTuong = new Gson();
-        return doiTuong.fromJson(thongTin, ThongTinTruongHoc.class);
+    public void setThongTinTruong(ThongTinTruongHoc truongHoc) {
+        sharedPreferences.edit().putString(TRUONGHOC, parser.toJson(truongHoc)).apply();
+    }
+
+    public ThongTinTruongHoc layThongTinTruong() {
+        String truongHocStr = sharedPreferences.getString(TRUONGHOC, "");
+        if (truongHocStr.isEmpty()) return new ThongTinTruongHoc("", "", "");
+        return parser.fromJson(truongHocStr, ThongTinTruongHoc.class);
     }
 }

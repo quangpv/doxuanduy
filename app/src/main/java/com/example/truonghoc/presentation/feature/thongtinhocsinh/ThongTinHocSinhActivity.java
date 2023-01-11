@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation;
+package com.example.truonghoc.presentation.feature.thongtinhocsinh;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.example.truonghoc.databinding.ActivityManHinhThongTinHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.presentation.viewmodel.ThongTinHocSinhViewModel;
 
 public class ThongTinHocSinhActivity extends AppCompatActivity {
     ActivityManHinhThongTinHocSinhBinding thongTinBinding;
@@ -25,10 +24,12 @@ public class ThongTinHocSinhActivity extends AppCompatActivity {
         thongTinBinding = ActivityManHinhThongTinHocSinhBinding.inflate(getLayoutInflater());
         setContentView(thongTinBinding.getRoot());
         thongTinHocSinhViewModel = new ViewModelProvider(this).get(ThongTinHocSinhViewModel.class);
-        hienThiThongTin();
+
         thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
         thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> setSuaThongTin(false));
         thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
+
+        hienThiThongTin();
     }
 
     private void hienThiThongTin() {
