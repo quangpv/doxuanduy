@@ -1,6 +1,5 @@
 package com.example.truonghoc.data;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -19,10 +18,10 @@ public interface HocSinhDangHocDAO {
     boolean daTonTai(String maHocSinh);
 
     @Query("SELECT * FROM hocSinhDangHoc")
-    LiveData<List<HocSinhDangHoc>> layDanhSach();
+    List<HocSinhDangHoc> layTatCaHocSinh();
 
     @Update
-    void suaHocSinh(HocSinhDangHoc hocSinh);
+    int suaHocSinh(HocSinhDangHoc hocSinhDangHoc);
 
     @Query("select * from hocSinhDangHoc where id=:id")
     HocSinhDangHoc getHocSinh(long id);

@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.Iinterface;
+package com.example.truonghoc.presentation.model;
 
 import android.text.Editable;
 import android.text.TextWatcher;

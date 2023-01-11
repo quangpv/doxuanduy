@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.ThemHocSinhActivity">
+    tools:context=".presentation.feature.themhocsinh.ThemHocSinhActivity">
 
     <include
         android:id="@+id/thanh_cong_cu_them"

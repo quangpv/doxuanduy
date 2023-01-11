@@ -1,10 +1,9 @@
-package com.example.truonghoc.presentation.Iinterface;
+package com.example.truonghoc.presentation.model;
 
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
