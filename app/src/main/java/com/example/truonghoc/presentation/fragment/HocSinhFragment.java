@@ -20,9 +20,9 @@ import com.example.truonghoc.presentation.Iinterface.ITextWatcher;
 import com.example.truonghoc.presentation.MainActivity;
 import com.example.truonghoc.presentation.ThongTinHocSinhActivity;
 import com.example.truonghoc.presentation.ThemHocSinhActivity;
-import com.example.truonghoc.presentation.apdapter.ClickListListener;
+import com.example.truonghoc.presentation.Iinterface.ClickListListener;
 import com.example.truonghoc.presentation.apdapter.HocSinhDangHocAdapter;
-import com.example.truonghoc.presentation.viewmodel.HocSinhViewModel;
+import com.example.truonghoc.presentation.viewmodel.FragmentHocSinhViewModel;
 
 import java.util.List;
 
@@ -30,37 +30,34 @@ import java.util.List;
 public class HocSinhFragment extends Fragment {
     FragmentHocSinhBinding hocSinhBinding;
     HocSinhDangHocAdapter adapter;
-    HocSinhViewModel hocSinhViewModel;
+    FragmentHocSinhViewModel fragmentHocSinhViewModel;
     LiveData<List<HocSinhDangHoc>> danhSachRoom;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         hocSinhBinding = FragmentHocSinhBinding.inflate(inflater, container, false);
-        hocSinhViewModel = new ViewModelProvider(this).get(HocSinhViewModel.class);
+        fragmentHocSinhViewModel = new ViewModelProvider(this).get(FragmentHocSinhViewModel.class);
+        hocSinhBinding.recyclerviewHocsinh.addOnItemTouchListener(new ClickListListener(getContext(),(view, position) -> moManHinhThongTin(position)));
+        hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
         adapter = new HocSinhDangHocAdapter();
-        danhSachRoom = HocSinhDangHocDataBase.quanLyData(getContext()).hocSinhDAO().layDanhSach();
+        danhSachRoom = HocSinhDangHocDataBase.getInstance().hocSinhDAO().layDanhSach();
         danhSachRoom.observe(getViewLifecycleOwner(), this::capNhapDanhSachView);
         danhSachRoom.observe(getViewLifecycleOwner(), this::timKiem);
         hocSinhBinding.recyclerviewHocsinh.setAdapter(adapter);
-        moManHinhThongTin();
-
-        hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
         return hocSinhBinding.getRoot();
     }
 
-    private void moManHinhThongTin() {
-        hocSinhBinding.recyclerviewHocsinh.addOnItemTouchListener(new ClickListListener(getContext(), (view, position) -> {
-            Intent intent = new Intent(getContext(), ThongTinHocSinhActivity.class);
-            HocSinhDangHoc hocSinh = hocSinhViewModel.getDanhSach().getValue().get(position);
-            intent.putExtra("HS", hocSinh);
-            startActivity(intent);
-        }));
+    private void moManHinhThongTin(int position) {
+        Intent intent = new Intent(getContext(), ThongTinHocSinhActivity.class);
+        HocSinhDangHoc hocSinh = fragmentHocSinhViewModel.getDanhSach().getValue().get(position);
+        intent.putExtra("HS", hocSinh);
+        startActivity(intent);
     }
 
     private void capNhapDanhSachView(List<HocSinhDangHoc> danhSach) {
-        hocSinhViewModel.getDanhSach().postValue(danhSach);
-        hocSinhViewModel.getDanhSach().observe(getViewLifecycleOwner(), adapter::setDanhSach);
+        fragmentHocSinhViewModel.getDanhSach().postValue(danhSach);
+        fragmentHocSinhViewModel.getDanhSach().observe(getViewLifecycleOwner(), adapter::setDanhSach);
     }
 
 
@@ -70,6 +67,6 @@ public class HocSinhFragment extends Fragment {
 
     public void timKiem(List<HocSinhDangHoc> danhSach) {
         MainActivity mainActivity = (MainActivity) requireActivity();
-        mainActivity.binding.includedThanhCongCu.noidungTimKiem.addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString(), danhSach));
+        mainActivity.binding.includedThanhCongCu.noidungTimKiem.addTextChangedListener((ITextWatcher) s -> fragmentHocSinhViewModel.timKiem(s.toString(), danhSach));
     }
 }

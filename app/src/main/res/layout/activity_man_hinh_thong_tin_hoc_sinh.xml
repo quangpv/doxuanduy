@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/ten_view"
-                    tools:text="@{HocSinhDangHoc.hocSinh.hoVaTen}"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +55,6 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/gioitinh_view"
-                    tools:text="@{HocSinhDangHoc.hocSinh.gioiTinh}"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,7 +73,6 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/sinhngay_view"
-                    tools:text="@{HocSinhDangHoc.hocSinh.sinhNgay}"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +91,6 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:hint="@string/lop_view"
-                    tools:text="@{HocSinhDangHoc.khoiLop.khoiLop}"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

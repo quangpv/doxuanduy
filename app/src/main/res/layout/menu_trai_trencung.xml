@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="ManHinhChinhViewModel"
-            type="com.example.truonghoc.presentation.viewmodel.MainViewModel" />
-        <variable
-            name="ManHinhChinh"
-            type="com.example.truonghoc.presentation.MainActivity" />    </data>
-<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dau_menu_trai_view"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:background="#CCD8A1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <EditText
             android:id="@+id/ten_truong_view"
@@ -29,7 +19,6 @@
             android:autofillHints=""
             android:enabled="false"
             android:inputType="text"
-            android:text="@{ManHinhChinhViewModel.thongTinTruong().tenTruong}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
@@ -44,7 +33,6 @@
             android:enabled="false"
             android:inputType="text"
             android:lines="1"
-            android:text="@{ManHinhChinhViewModel.thongTinTruong().diaChiTruong}"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
@@ -59,7 +47,6 @@
             android:enabled="false"
             android:inputType="number"
             android:maxLength="11"
-            android:text="@{ManHinhChinhViewModel.thongTinTruong().sdtTruong}"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
@@ -113,7 +100,6 @@
             android:text="@string/sua"
             android:textAllCaps="false"
             android:textSize="12sp"
-            android:onClick="@{()->ManHinhChinh.setCauHinhHeader(true)}"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -126,14 +112,12 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            android:textColor="@color/black"
             android:text="@string/luu"
-            android:onClick="@{()->ManHinhChinh.setCauHinhHeader(false)}"
             android:textAllCaps="false"
+            android:textColor="@color/black"
             android:textSize="12sp"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
-</layout>

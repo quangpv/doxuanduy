@@ -8,10 +8,10 @@
     <string name="luu">Lưu</string>
     <string name="tieude_hoc_sinh">Tất Cả Học Sinh</string>
     <string name="tieude_giao_vien">Tất Cả Giáo Viên</string>
-    <string name="ten">Tên:</string>
-    <string name="gioi_tinh">Giới Tính:</string>
-    <string name="sinh_ngay">Sinh Ngày:</string>
-    <string name="lop">Lớp:</string>
+    <string name="ten">Tên: %1$s</string>
+    <string name="gioi_tinh">Giới Tính: %1$s</string>
+    <string name="sinh_ngay">Sinh Ngày: %1$s</string>
+    <string name="lop">Lớp: %1$s</string>
     <string name="ten_view">Họ Và Tên</string>
     <string name="gioitinh_view">Giới Tính</string>
     <string name="sinhngay_view">Ngày/Tháng/Năm Sinh</string>

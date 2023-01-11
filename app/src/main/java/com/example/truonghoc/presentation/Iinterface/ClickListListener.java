@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.apdapter;
+package com.example.truonghoc.presentation.Iinterface;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -31,10 +31,10 @@ public class ClickListListener implements RecyclerView.OnItemTouchListener {
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         View childView = rv.findChildViewUnder(e.getX(), e.getY());
-        if (childView != null && clickListener != null && gestureDetector.onTouchEvent(e)){
-            clickListener.itemClick(childView,rv.getChildAdapterPosition(childView));
+        if (childView != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+            clickListener.itemClick(childView, rv.getChildAdapterPosition(childView));
         }
-            return false;
+        return false;
     }
 
     @Override
