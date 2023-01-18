@@ -1,6 +1,16 @@
 package com.example.truonghoc.presentation.helper;
 
+
+
+import static androidx.core.app.ActivityCompat.requestPermissions;
+
 import android.app.Application;
+import android.content.pm.PackageManager;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import java.util.Arrays;
 
 public class AppResources {
     private static AppResources sAppResources;
@@ -21,4 +31,5 @@ public class AppResources {
     public String getString(int stringId) {
         return application.getString(stringId);
     }
+
 }

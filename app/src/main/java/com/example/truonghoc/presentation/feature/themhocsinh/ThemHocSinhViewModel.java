@@ -1,5 +1,10 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -7,6 +12,8 @@ import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.domain.HocSinh;
 import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.domain.KhoiLop;
+import com.example.truonghoc.presentation.helper.AppExecutors;
+import com.example.truonghoc.presentation.helper.AppResources;
 
 import java.util.concurrent.Executors;
 
@@ -14,9 +21,10 @@ public class ThemHocSinhViewModel extends ViewModel {
     public MutableLiveData<String> themThanhCong = new MutableLiveData<>();
     public MutableLiveData<String> themThatBai = new MutableLiveData<>();
     public HocSinhDangHocDataBase database = HocSinhDangHocDataBase.getInstance();
+    private final AppExecutors executors = AppExecutors.getInstance();
 
     public void themHocSinh(String maHs, String tenHs, String gioiTinh, String sinhNgay, String khoiLop) {
-        Executors.newCachedThreadPool().execute(() -> {
+        executors.execute(() -> {
             if (checkThongTinToiThieu(maHs, tenHs)) {
                 themThatBai.postValue("Tối Thiểu Cần Tên Và Mã Hs");
                 return;

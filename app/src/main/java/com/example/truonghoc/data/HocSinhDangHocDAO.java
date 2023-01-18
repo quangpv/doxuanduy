@@ -23,6 +23,4 @@ public interface HocSinhDangHocDAO {
     @Update
     int suaHocSinh(HocSinhDangHoc hocSinhDangHoc);
 
-    @Query("select * from hocSinhDangHoc where id=:id")
-    HocSinhDangHoc getHocSinh(long id);
 }

@@ -36,31 +36,23 @@ public class MainActivity extends AppCompatActivity {
         binding.includedThanhCongCu.icMenuTraiOpen.setOnClickListener(v -> openMenuTrai());
         binding.includedThanhCongCu.timKiem.setOnClickListener(v -> anTimKiem());
         binding.includedThanhCongCu.xoaTimKiem.setOnClickListener(v -> anXoaTimKiem());
-
         binding.navView.setNavigationItemSelectedListener(this::xuLyAnMenuTrai);
-
         bindingHeader = MenuTraiTrencungBinding.bind(binding.navView.getHeaderView(0));
-
-        bindingHeader.suaInfoDaumenutrai.setOnClickListener(v -> {
-            setCauHinhHeader(true);
+        bindingHeader.suaInfoDaumenutrai.setOnClickListener(v -> setCauHinhHeader(true));
+        bindingHeader.luuInfoDaumenutrai.setOnClickListener(v -> {
+            setCauHinhHeader(false);
             luuThongTinTruong();
         });
-
-        bindingHeader.luuInfoDaumenutrai.setOnClickListener(v -> setCauHinhHeader(false));
-
-        viewModel.tieuDeTCC.observe(this, s -> {
-            binding.includedThanhCongCu.tieuDe.setText(s);
-        });
-
-        viewModel.thongTinTruongHoc.observe(this, info -> {
-            bindingHeader.tenTruongView.setText(info.getTenTruong());
-            bindingHeader.diachiTruongView.setText(info.getDiaChiTruong());
-            bindingHeader.sdtTruongView.setText(info.getSdtTruong());
-        });
-
+        viewModel.tieuDeTCC.observe(this, s -> binding.includedThanhCongCu.tieuDe.setText(s));
+        viewModel.thongTinTruongHoc.observe(this, this::setInfo);
         viewModel.layThongTinTruong();
-
         caiDatFragmentMacDich();
+    }
+
+    private void setInfo(ThongTinTruongHoc info) {
+        bindingHeader.tenTruongView.setText(info.getTenTruong());
+        bindingHeader.diachiTruongView.setText(info.getDiaChiTruong());
+        bindingHeader.sdtTruongView.setText(info.getSdtTruong());
     }
 
     private void caiDatFragmentMacDich() {

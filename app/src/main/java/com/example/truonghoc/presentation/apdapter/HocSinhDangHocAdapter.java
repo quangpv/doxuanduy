@@ -15,11 +15,10 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
-    public Consumer<HocSinhDangHoc> onItemClick;
+    public Consumer<HocSinhDangHoc> onItemClick,onClickAvata;
     List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
-
     }
 
     @NonNull
@@ -31,7 +30,6 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
     @Override
     public void onBindViewHolder(@NonNull HocSinhDangHocViewHolder holder, int position) {
         HocSinhDangHoc hs = danhSach.get(position);
-
         holder.itemBinding.hoten.setText(holder.itemView.getResources().getString(R.string.ten, hs.getHocSinh().getHoVaTen()));
         holder.itemBinding.gioiTinh.setText(holder.itemView.getResources().getString(R.string.gioi_tinh, hs.getHocSinh().getGioiTinh()));
         holder.itemBinding.ngaySinh.setText(holder.itemView.getResources().getString(R.string.sinh_ngay, hs.getHocSinh().getSinhNgay()));

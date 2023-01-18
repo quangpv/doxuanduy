@@ -23,7 +23,7 @@ public class MainViewModel extends ViewModel {
     }
 
     public void luuThongTinTruongHoc(ThongTinTruongHoc thongTinTruongHoc) {
-        executors.execute(() -> quanLyData.setThongTinTruong(thongTinTruongHoc));
+        executors.execute(() -> quanLyData. setThongTinTruong(thongTinTruongHoc));
     }
 
     public void layThongTinTruong() {

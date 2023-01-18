@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.data.QuanLyData;
+import com.example.truonghoc.presentation.helper.AppPermission;
 import com.example.truonghoc.presentation.helper.AppResources;
 
 public class ChuongTrinh extends Application {
@@ -12,6 +13,7 @@ public class ChuongTrinh extends Application {
         super.onCreate();
         AppResources.init(this);
         QuanLyData.init(this);
+        AppPermission.init(this);
         HocSinhDangHocDataBase.init(getApplicationContext());
     }
 }

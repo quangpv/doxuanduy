@@ -1,7 +1,7 @@
 package com.example.truonghoc.domain;
 
 public class ThongTinTruongHoc {
-    private String tenTruong,diaChiTruong,sdtTruong = "Không";
+    private String tenTruong,diaChiTruong,sdtTruong;
 
     public ThongTinTruongHoc(String tenTruong, String diaChiTruong, String sdtTruong) {
         this.tenTruong = tenTruong;

@@ -5,41 +5,52 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:contentDescription="@string/app_name"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/backgound2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/chan_dung_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/hoten"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chan_dung_view"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ngay_sinh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/chan_dung_view"
             app:layout_constraintTop_toBottomOf="@+id/hoten" />
 
         <TextView
             android:id="@+id/gioi_tinh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/ngay_sinh"
             app:layout_constraintTop_toBottomOf="@+id/hoten" />
@@ -49,7 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/gioi_tinh"
             app:layout_constraintTop_toBottomOf="@+id/hoten" />
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -13,10 +13,10 @@ import com.example.truonghoc.databinding.ActivityManHinhThongTinHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
 
 public class ThongTinHocSinhActivity extends AppCompatActivity {
-    ActivityManHinhThongTinHocSinhBinding thongTinBinding;
+    private ActivityManHinhThongTinHocSinhBinding thongTinBinding;
     boolean checkEdit;
-    HocSinhDangHoc hocSinh;
-    ThongTinHocSinhViewModel thongTinHocSinhViewModel;
+    private HocSinhDangHoc hocSinh;
+    private ThongTinHocSinhViewModel thongTinHocSinhViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,11 @@ public class ThongTinHocSinhActivity extends AppCompatActivity {
         thongTinBinding = ActivityManHinhThongTinHocSinhBinding.inflate(getLayoutInflater());
         setContentView(thongTinBinding.getRoot());
         thongTinHocSinhViewModel = new ViewModelProvider(this).get(ThongTinHocSinhViewModel.class);
-
+        hienThiThongTin();
         thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
         thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> setSuaThongTin(false));
         thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
 
-        hienThiThongTin();
     }
 
     private void hienThiThongTin() {
