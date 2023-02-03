@@ -98,7 +98,7 @@ public class CameraProviewFragment extends Fragment {
                 super.onCaptureSuccess(image);
                 Toast.makeText(sContext, "ok", Toast.LENGTH_SHORT).show();
                 viewImg();
-                cameraViewModel.anhDaChup.postValue(getBitMap(image));
+                cameraViewModel.guiAnh(image);
             }
 
             @Override
@@ -117,15 +117,4 @@ public class CameraProviewFragment extends Fragment {
         transaction.addToBackStack("a");
         transaction.commit();
     }
-
-    private Bitmap getBitMap(ImageProxy image) {
-        ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
-        byteBuffer.rewind();
-        byte[] bytes = new byte[byteBuffer.capacity()];
-        byteBuffer.get(bytes);
-        byte[] bytes1 = bytes.clone();
-        return BitmapFactory.decodeByteArray(bytes1, 0, bytes1.length);
-    }
-
-
 }

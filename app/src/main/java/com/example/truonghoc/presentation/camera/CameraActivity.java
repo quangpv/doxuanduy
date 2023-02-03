@@ -35,7 +35,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private void anHienThiHeThong() {
         activityCameraBinding.fragment.fragmentNoidungView.postDelayed(
-                (Runnable) this::heThongUi, 500L
+                this::heThongUi, 500L
         );
     }
 
