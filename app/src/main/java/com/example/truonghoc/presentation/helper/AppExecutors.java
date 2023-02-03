@@ -17,4 +17,8 @@ public class AppExecutors {
     public void execute(Runnable runnable) {
         executor.execute(runnable);
     }
+
+    public ExecutorService executors() {
+        return executor;
+    }
 }

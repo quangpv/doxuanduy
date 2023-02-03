@@ -16,6 +16,8 @@
     <string name="gioitinh_view">Giới Tính</string>
     <string name="sinhngay_view">Ngày/Tháng/Năm Sinh</string>
     <string name="lop_view"> Lớp Học</string>
+    <string name="chup_anh">Chụp Ảnh</string>
+    <string name="thu_vien">Thư Viện</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

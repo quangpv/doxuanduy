@@ -31,19 +31,18 @@ public class AppPermission {
         String[] quyenChinh = {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
         String[] quyenPhu = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         List<String> dsQuyen = Arrays.asList(quyenChinh);
-        List<String> ds = Arrays.asList(quyenChinh);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             dsQuyen.add(Arrays.toString(quyenPhu));
         }
         return dsQuyen;
     }
-    public boolean checkQuyenCameRa() {
-        for (String quyen : dsQuyenCamera()) {
-            if (ContextCompat.checkSelfPermission(application, quyen) == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            }
-        }
-        return false;
-    }
 
+    public boolean checkQuyenCamera() {
+            for (String quyen : dsQuyenCamera()) {
+                if (ContextCompat.checkSelfPermission(application, quyen) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+            return true;
+    }
 }
