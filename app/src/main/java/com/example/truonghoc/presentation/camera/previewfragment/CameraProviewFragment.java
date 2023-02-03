@@ -104,7 +104,7 @@ public class CameraProviewFragment extends Fragment {
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
                 super.onError(exception);
-                Toast.makeText(sContext, "Lỗi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(sContext, "sida", Toast.LENGTH_SHORT).show();
 
             }
         });

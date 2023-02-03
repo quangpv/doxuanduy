@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import androidx.annotation.NonNull;
 import androidx.camera.core.ImageProxy;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -21,7 +22,7 @@ public class CameraViewModel extends ViewModel {
     public void guiAnh(ImageProxy imageProxy) {
         appExecutors.execute(() -> anhDaChup.postValue(getBitMap(imageProxy)));
     }
-    private Bitmap getBitMap(ImageProxy image) {
+    private Bitmap getBitMap(@NonNull ImageProxy image) {
         ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
         byteBuffer.rewind();
         byte[] bytes = new byte[byteBuffer.capacity()];
