@@ -12,18 +12,17 @@ import android.os.Bundle;
 
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ActivityCameraBinding;
-import com.example.truonghoc.presentation.camera.previewfragment.CameraProviewFragment;
+import com.example.truonghoc.presentation.camera.previewfragment.CameraPreviewFragment;
 
 public class CameraActivity extends AppCompatActivity {
     private ActivityCameraBinding activityCameraBinding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityCameraBinding = ActivityCameraBinding.inflate(getLayoutInflater());
         setContentView(activityCameraBinding.getRoot());
-        replaceFragment(new CameraProviewFragment());
+        replaceFragment(new CameraPreviewFragment());
         anHienThiHeThong();
     }
 
@@ -59,9 +58,9 @@ public class CameraActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount()>0){
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        }else {
+        } else {
             finish();
         }
     }

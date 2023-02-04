@@ -1,16 +1,14 @@
 package com.example.truonghoc.presentation.camera.previewfragment;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
@@ -22,13 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.FragmentCameraProviewBinding;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
@@ -36,12 +27,9 @@ import com.example.truonghoc.presentation.camera.viewimgfragment.ViewImageFragme
 import com.example.truonghoc.presentation.helper.AppExecutors;
 import com.google.common.util.concurrent.ListenableFuture;
 
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class CameraProviewFragment extends Fragment {
+public class CameraPreviewFragment extends Fragment {
     private FragmentCameraProviewBinding fragmentCameraProviewBinding;
     private CameraViewModel cameraViewModel;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;

@@ -3,25 +3,33 @@ package com.example.truonghoc.presentation.camera;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.camera.core.ImageProxy;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.Callable;
 
 public class CameraViewModel extends ViewModel {
     AppExecutors appExecutors = AppExecutors.getInstance();
+    FileManager fileManager = FileManager.getInstance();
 
-    public MutableLiveData<ImageProxy> anhDaChup = new MutableLiveData<>();
-
+    public MutableLiveData<Bitmap> anhDaChup = new MutableLiveData<>();
+    public MutableLiveData<Uri> anhDaLuu = new MutableLiveData<>();
+    public MutableLiveData<String> luuAnhLoi = new MutableLiveData<>();
 
     public void guiAnh(ImageProxy imageProxy) {
-        appExecutors.execute(() -> anhDaChup.postValue(imageProxy));
+        appExecutors.execute(() -> {
+            anhDaChup.postValue(xoayAnh(getBitMap(imageProxy), imageProxy.getImageInfo().getRotationDegrees()));
+        });
     }
 
     private Bitmap xoayAnh(Bitmap bitMap, int rotationDegrees) {
@@ -53,9 +61,18 @@ public class CameraViewModel extends ViewModel {
         return BitmapFactory.decodeByteArray(bytes1, 0, bytes1.length);
     }
 
-    public Bitmap conventerBitmap(ImageProxy imageProxy) {
-        appExecutors.executeCallbale((Callable<Bitmap>) ()
-                -> xoayAnh(getBitMap(imageProxy), imageProxy.getImageInfo().getRotationDegrees()));
-        return null;
+    public void luuAnh() {
+        Bitmap bitmap = anhDaChup.getValue();
+        if (bitmap == null) return;
+        appExecutors.execute(() -> {
+            String uri = null;
+            try {
+                uri = fileManager.save(bitmap, System.currentTimeMillis() + "");
+                anhDaLuu.postValue(Uri.fromFile(new File(uri)));
+            } catch (IOException e) {
+                e.printStackTrace();
+                luuAnhLoi.postValue(e.getMessage());
+            }
+        });
     }
 }

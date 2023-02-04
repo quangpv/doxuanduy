@@ -3,8 +3,10 @@ package com.example.truonghoc.presentation.helper;
 import android.graphics.Bitmap;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AppExecutors {
     private static AppExecutors sAppExecutors;
@@ -21,8 +23,8 @@ public class AppExecutors {
         executor.execute(runnable);
     }
 
-    public void executeCallbale(Callable<Bitmap> callable) {
-        executor.submit(callable);
+    public Future<Bitmap> submit(Callable<Bitmap> callable) {
+        return executor.submit(callable);
     }
 
     public ExecutorService executors() {

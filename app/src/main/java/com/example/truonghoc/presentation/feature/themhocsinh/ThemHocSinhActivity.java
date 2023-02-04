@@ -26,8 +26,6 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     private final AppPermission appPermission = AppPermission.getInstance();
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +34,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         setContentView(themHocSinhBinding.getRoot());
         themHocSinhBinding.thanhCongCuThem.icBack.setOnClickListener(v -> xuLyKhiAnBack());
         themHocSinhBinding.thanhCongCuThem.icLuu.setOnClickListener(v -> themHocSinh());
-        themHocSinhBinding.chupAnh.setOnClickListener(v-> moCamera());
+        themHocSinhBinding.chupAnh.setOnClickListener(v -> moCamera());
         viewModel.themThanhCong.observe(this, message -> {
             thongBaoThemHocSinh(message);
             finish();
@@ -45,14 +43,12 @@ public class ThemHocSinhActivity extends AppCompatActivity {
 
     }
 
-       private ActivityResultLauncher<Intent> layAnh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-           @Override
-           public void onActivityResult(ActivityResult result) {
+    private ActivityResultLauncher<Intent> layAnh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
 
-           }
-       });
-
-
+        }
+    });
 
 
     private void moCamera() {
@@ -62,18 +58,19 @@ public class ThemHocSinhActivity extends AppCompatActivity {
             phanHoiCapQuyen.launch(appPermission.dsQuyenCamera().toArray(new String[0]));
         }
     }
+
     private final ActivityResultLauncher<String[]> phanHoiCapQuyen =
             registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
-            if (appPermission.checkQuyenCamera()) {
-                moCameRa();
-            } else {
-                Toast.makeText(this, "Có Quyền Chưa Kích Hoạt", Toast.LENGTH_SHORT).show();
-            }
-        });
+                if (appPermission.checkQuyenCamera()) {
+                    moCameRa();
+                } else {
+                    Toast.makeText(this, "Có Quyền Chưa Kích Hoạt", Toast.LENGTH_SHORT).show();
+                }
+            });
 
     private void moCameRa() {
         Toast.makeText(this, "Mở Máy Ảnh", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,CameraActivity.class);
+        Intent intent = new Intent(this, CameraActivity.class);
         layAnh.launch(intent);
     }
 
