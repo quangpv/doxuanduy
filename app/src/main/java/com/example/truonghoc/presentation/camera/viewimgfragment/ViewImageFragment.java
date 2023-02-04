@@ -3,15 +3,17 @@ package com.example.truonghoc.presentation.camera.viewimgfragment;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,9 @@ import com.example.truonghoc.databinding.FragmentViewImageBinding;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
 
 public class ViewImageFragment extends Fragment {
-    FragmentViewImageBinding fragmentViewImageBinding;
-    CameraViewModel cameraViewModel;
-    Context sContext;
+    private FragmentViewImageBinding fragmentViewImageBinding;
+    private CameraViewModel cameraViewModel;
+    private Context sContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,13 +38,28 @@ public class ViewImageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentViewImageBinding = FragmentViewImageBinding.inflate(inflater, container, false);
-        cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), bitmap ->
-                Glide.with(sContext).load(bitmap).into(fragmentViewImageBinding.viewimage));
+        cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), imageProxy -> {
+            Glide.with(sContext).load(cameraViewModel.conventerBitmap(imageProxy)).into(fragmentViewImageBinding.viewimage);
+        });
         fragmentViewImageBinding.huyAnh.setOnClickListener(v -> backFragment());
+        fragmentViewImageBinding.layAnh.setOnClickListener(v -> anLuuAnh());
         return fragmentViewImageBinding.getRoot();
     }
 
+    private void anLuuAnh() {
+        new AlertDialog.Builder(sContext)
+                .setMessage("Thêm Ảnh Này?")
+                .setNegativeButton("Yes", (dialog, which) -> layAnh())
+                .setPositiveButton("No", (dialog, which) -> {
+                }).show();
+    }
+
+    private void layAnh() {
+    }
+
+
     private void backFragment() {
+
         if(requireActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
             requireActivity().getSupportFragmentManager().popBackStackImmediate();}
     }
@@ -57,7 +74,6 @@ public class ViewImageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
 

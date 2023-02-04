@@ -1,5 +1,7 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
@@ -7,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,7 +24,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     public ActivityThemHocSinhBinding themHocSinhBinding;
     private ThemHocSinhViewModel viewModel;
     private final AppPermission appPermission = AppPermission.getInstance();
-    private ActivityResultLauncher<Intent> layAnh;
+
 
 
 
@@ -38,14 +42,18 @@ public class ThemHocSinhActivity extends AppCompatActivity {
             finish();
         });
         viewModel.themThatBai.observe(this, this::thongBaoThemHocSinh);
-        xuLyLayAnh();
+
     }
 
-    private void xuLyLayAnh() {
-        layAnh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            //XuLyLayAnh
-        });
-    }
+       private ActivityResultLauncher<Intent> layAnh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+           @Override
+           public void onActivityResult(ActivityResult result) {
+
+           }
+       });
+
+
+
 
     private void moCamera() {
         if (appPermission.checkQuyenCamera()) {
@@ -66,7 +74,6 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     private void moCameRa() {
         Toast.makeText(this, "Mở Máy Ảnh", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,CameraActivity.class);
-        intent.putExtra("ID",Objects.requireNonNull(themHocSinhBinding.maHsNhapDemo.getText()).toString());
         layAnh.launch(intent);
     }
 
