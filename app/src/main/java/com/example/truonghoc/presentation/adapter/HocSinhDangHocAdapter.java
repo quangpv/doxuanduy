@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.apdapter;
+package com.example.truonghoc.presentation.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.truonghoc.databinding.FragmentHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.presentation.apdapter.HocSinhDangHocAdapter;
+import com.example.truonghoc.presentation.adapter.HocSinhDangHocAdapter;
 import com.example.truonghoc.presentation.feature.main.MainActivity;
 import com.example.truonghoc.presentation.feature.themhocsinh.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.feature.thongtinhocsinh.ThongTinHocSinhActivity;
-import com.example.truonghoc.presentation.model.ClickListListener;
 import com.example.truonghoc.presentation.model.ITextWatcher;
-
-import java.util.List;
 
 
 public class HocSinhFragment extends Fragment {
