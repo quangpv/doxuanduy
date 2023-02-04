@@ -43,7 +43,8 @@ public class ViewImageFragment extends Fragment {
     }
 
     private void backFragment() {
-
+        if(requireActivity().getSupportFragmentManager().getBackStackEntryCount()>0){
+            requireActivity().getSupportFragmentManager().popBackStackImmediate();}
     }
 
     @Override
@@ -51,6 +52,7 @@ public class ViewImageFragment extends Fragment {
         super.onAttach(context);
         sContext = context;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

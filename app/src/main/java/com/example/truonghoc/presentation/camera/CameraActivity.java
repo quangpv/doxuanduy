@@ -59,14 +59,16 @@ public class CameraActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        if(getSupportFragmentManager().getBackStackEntryCount()>0){
+            getSupportFragmentManager().popBackStackImmediate();
+        }else {
+            finish();
+        }
     }
 
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_noidung_view, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

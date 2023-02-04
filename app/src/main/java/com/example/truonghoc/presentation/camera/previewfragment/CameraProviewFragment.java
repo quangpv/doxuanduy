@@ -114,7 +114,7 @@ public class CameraProviewFragment extends Fragment {
 
     private void viewImg() {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_noidung_view, new ViewImageFragment());
+        transaction.add(R.id.fragment_noidung_view, new ViewImageFragment());
         transaction.addToBackStack(null);
         transaction.commit();
     }
