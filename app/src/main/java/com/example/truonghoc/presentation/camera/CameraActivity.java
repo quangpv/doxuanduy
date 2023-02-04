@@ -66,6 +66,7 @@ public class CameraActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_noidung_view, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

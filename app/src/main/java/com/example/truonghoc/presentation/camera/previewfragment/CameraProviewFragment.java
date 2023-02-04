@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class CameraProviewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        cameraViewModel = new ViewModelProvider(this).get(CameraViewModel.class);
+        cameraViewModel = new ViewModelProvider(requireActivity()).get(CameraViewModel.class);
     }
 
     @Override
@@ -61,12 +62,13 @@ public class CameraProviewFragment extends Fragment {
         cameraProviderFuture = ProcessCameraProvider.getInstance(sContext);
         cameraProviderFuture.addListener(this::hienThiXemTruoc, ContextCompat.getMainExecutor(sContext));
         fragmentCameraProviewBinding.chupAnh2.setOnClickListener(v -> layAnh2());
+        fragmentCameraProviewBinding.icBackCamera.setOnClickListener(v -> requireActivity().finish());
         return fragmentCameraProviewBinding.getRoot();
 
     }
 
     private void hienThiXemTruoc() {
-        ProcessCameraProvider cameraProvider = null;
+        ProcessCameraProvider cameraProvider;
         try {
             cameraProvider = cameraProviderFuture.get();
             bindView(cameraProvider);
@@ -81,7 +83,6 @@ public class CameraProviewFragment extends Fragment {
         preview.setSurfaceProvider(fragmentCameraProviewBinding.previewView.getSurfaceProvider());
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
         imageCapture = new ImageCapture.Builder().build();
-        cameraProvider.unbindAll();
         cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
     }
 
@@ -96,7 +97,7 @@ public class CameraProviewFragment extends Fragment {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 super.onCaptureSuccess(image);
-                Toast.makeText(sContext, "ok", Toast.LENGTH_SHORT).show();
+                Toast.makeText(sContext, "ok" + image.getImageInfo().getRotationDegrees(), Toast.LENGTH_SHORT).show();
                 viewImg();
                 cameraViewModel.guiAnh(image);
             }
@@ -114,7 +115,7 @@ public class CameraProviewFragment extends Fragment {
     private void viewImg() {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_noidung_view, new ViewImageFragment());
-        transaction.addToBackStack("a");
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
