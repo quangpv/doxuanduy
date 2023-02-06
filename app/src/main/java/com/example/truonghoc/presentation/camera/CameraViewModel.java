@@ -64,10 +64,10 @@ public class CameraViewModel extends ViewModel {
         if (bitmap == null) return;
         if(!fileManager.kiemTraVaTaoThuMuc()) return;
         appExecutors.execute(() -> {
-            String uri;
+            Uri uri;
             try {
                 uri = fileManager.save(bitmap, System.currentTimeMillis() + "");
-                anhDaLuu.postValue(Uri.fromFile(new File(uri)));
+                anhDaLuu.postValue(uri);
             } catch (IOException e) {
                 e.printStackTrace();
                 luuAnhLoi.postValue(e.getMessage());

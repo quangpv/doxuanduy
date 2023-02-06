@@ -1,12 +1,10 @@
 package com.example.truonghoc.presentation.camera.viewimgfragment;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,13 +53,13 @@ public class ViewImageFragment extends Fragment {
     }
 
     private void guiAnhVe(Uri uri) {
-        Log.v("chaythu2",uri.toString());
         Intent intent = new Intent();
-        intent.putExtra("image", uri.toString());
+        intent.putExtra("image", uri);
         requireActivity().setResult(20, intent);
         requireActivity().finish();
     }
-    private void hienThiAnh(Bitmap bitmap){
+
+    private void hienThiAnh(Bitmap bitmap) {
         Glide.with(requireContext()).load(bitmap).into(fragmentViewImageBinding.viewimage);
     }
 

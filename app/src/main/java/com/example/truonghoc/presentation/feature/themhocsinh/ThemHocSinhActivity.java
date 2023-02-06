@@ -49,13 +49,13 @@ public class ThemHocSinhActivity extends AppCompatActivity {
                 if (result.getResultCode() == 20) {
                     if (result.getData() != null) {
                         Intent intent = result.getData();
-                        String uri = intent.getStringExtra("image");
+                        Uri uri = intent.getParcelableExtra("image");
                         hienThiAnhThuNho(uri);
                     }
                 }
             });
 
-    private void hienThiAnhThuNho(String uri) {
+    private void hienThiAnhThuNho(Uri uri) {
         Glide.with(themHocSinhBinding.avatar)
                 .load(uri)
                 .override(100,100)

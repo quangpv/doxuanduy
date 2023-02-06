@@ -2,10 +2,10 @@ package com.example.truonghoc.presentation.helper;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.os.Environment;
+import android.net.Uri;
+import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -43,7 +43,7 @@ public class AppFileManager {
     }
 
 
-    public String save(Bitmap bitmap, String s) throws IOException {
+    public Uri save(Bitmap bitmap, String s) throws IOException {
         //Vị Trí Thư Mục Lưu File
         String path = String.valueOf(application.getExternalFilesDir("TenThuMuc"));
         //Tiến Hành Lưu File
@@ -53,7 +53,8 @@ public class AppFileManager {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
         fOut.flush();
         fOut.close();
-        return file.toURI().toString();
+        Log.e("Exists", file.exists() + "");
+        return Uri.fromFile(file);
     }
 
 }
