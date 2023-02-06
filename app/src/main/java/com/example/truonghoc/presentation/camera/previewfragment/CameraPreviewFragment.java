@@ -1,6 +1,6 @@
 package com.example.truonghoc.presentation.camera.previewfragment;
 
-import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +33,6 @@ public class CameraPreviewFragment extends Fragment {
     private FragmentCameraProviewBinding fragmentCameraProviewBinding;
     private CameraViewModel cameraViewModel;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-    private Context sContext;
     private ImageCapture imageCapture;
     private final AppExecutors appExecutors = AppExecutors.getInstance();
 
@@ -47,8 +46,8 @@ public class CameraPreviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentCameraProviewBinding = FragmentCameraProviewBinding.inflate(inflater, container, false);
-        cameraProviderFuture = ProcessCameraProvider.getInstance(sContext);
-        cameraProviderFuture.addListener(this::hienThiXemTruoc, ContextCompat.getMainExecutor(sContext));
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
+        cameraProviderFuture.addListener(this::hienThiXemTruoc, ContextCompat.getMainExecutor(requireContext()));
         fragmentCameraProviewBinding.chupAnh2.setOnClickListener(v -> layAnh2());
         fragmentCameraProviewBinding.icBackCamera.setOnClickListener(v -> requireActivity().finish());
         return fragmentCameraProviewBinding.getRoot();
@@ -74,33 +73,35 @@ public class CameraPreviewFragment extends Fragment {
         cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        sContext = context;
-    }
-
     private void layAnh2() {
-        imageCapture.takePicture(ContextCompat.getMainExecutor(sContext), new ImageCapture.OnImageCapturedCallback() {
+        imageCapture.takePicture(appExecutors.executors(), new ImageCapture.OnImageCapturedCallback() {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 super.onCaptureSuccess(image);
-                Toast.makeText(sContext, "ok" + image.getImageInfo().getRotationDegrees(), Toast.LENGTH_SHORT).show();
-                viewImg();
+                thongBaoToast("ok");
+                loadFragmentViewImage();
                 cameraViewModel.guiAnh(image);
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
                 super.onError(exception);
-                Toast.makeText(sContext, "sida", Toast.LENGTH_SHORT).show();
+                thongBaoToast("sida");
 
             }
         });
 
     }
 
-    private void viewImg() {
+    private void thongBaoToast(String string) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            requireContext().getMainExecutor().execute(()
+                    -> Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show());
+        }
+
+    }
+
+    private void loadFragmentViewImage() {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.fragment_noidung_view, new ViewImageFragment());
         transaction.addToBackStack(null);

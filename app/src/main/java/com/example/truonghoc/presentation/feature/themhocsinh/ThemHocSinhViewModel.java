@@ -1,8 +1,11 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Size;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.lifecycle.MutableLiveData;
@@ -46,5 +49,9 @@ public class ThemHocSinhViewModel extends ViewModel {
 
     private boolean checkThongTinToiThieu(String maHs, String tenHs) {
         return maHs.isEmpty() || tenHs.isEmpty();
+    }
+
+    public void layAnhThuNho(Uri uri) {
+         Size thumbal = new Size(100,100);
     }
 }

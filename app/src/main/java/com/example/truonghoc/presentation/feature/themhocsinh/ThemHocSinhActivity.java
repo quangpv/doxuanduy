@@ -1,19 +1,20 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
 import com.example.truonghoc.presentation.camera.CameraActivity;
 import com.example.truonghoc.presentation.helper.AppPermission;
@@ -36,20 +37,36 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         themHocSinhBinding.thanhCongCuThem.icLuu.setOnClickListener(v -> themHocSinh());
         themHocSinhBinding.chupAnh.setOnClickListener(v -> moCamera());
         viewModel.themThanhCong.observe(this, message -> {
-            thongBaoThemHocSinh(message);
+            thongBaoToast(message);
             finish();
         });
-        viewModel.themThatBai.observe(this, this::thongBaoThemHocSinh);
+        viewModel.themThatBai.observe(this, this::thongBaoToast);
 
     }
 
-    private ActivityResultLauncher<Intent> layAnh = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
+    private final ActivityResultLauncher<Intent> layAnh =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == 20) {
+                    if (result.getData() != null) {
+                        Intent intent = result.getData();
+                        String uri = intent.getStringExtra("image");
+                        hienThiAnhThuNho(uri);
+                    }
+                }
+            });
 
-        }
-    });
+    private void hienThiAnhThuNho(String uri) {
+        Glide.with(themHocSinhBinding.avatar)
+                .load(uri)
+                .override(100,100)
+                .centerCrop()
+                .into(themHocSinhBinding.avatar);
+    }
 
+
+    private void thongBaoToast(String s) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
 
     private void moCamera() {
         if (appPermission.checkQuyenCamera()) {
@@ -64,20 +81,16 @@ public class ThemHocSinhActivity extends AppCompatActivity {
                 if (appPermission.checkQuyenCamera()) {
                     moCameRa();
                 } else {
-                    Toast.makeText(this, "Có Quyền Chưa Kích Hoạt", Toast.LENGTH_SHORT).show();
+                    thongBaoToast("Có Quyền Chưa Kích Hoạt");
                 }
             });
 
     private void moCameRa() {
-        Toast.makeText(this, "Mở Máy Ảnh", Toast.LENGTH_SHORT).show();
+        thongBaoToast("Open Camera");
         Intent intent = new Intent(this, CameraActivity.class);
         layAnh.launch(intent);
     }
 
-
-    private void thongBaoThemHocSinh(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
 
     private void themHocSinh() {
         String maHs = Objects.requireNonNull(themHocSinhBinding.maHsNhapDemo.getText()).toString();

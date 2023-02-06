@@ -3,7 +3,10 @@ package com.example.truonghoc.presentation.camera.viewimgfragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,29 +43,33 @@ public class ViewImageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), bitmap -> {
-            Glide.with(requireContext()).load(bitmap).into(fragmentViewImageBinding.viewimage);
-        });
-
-        cameraViewModel.anhDaLuu.observe(getViewLifecycleOwner(), uri -> {
-            Intent intent = new Intent();
-            intent.putExtra("image", uri);
-            requireActivity().setResult(Activity.RESULT_OK, intent);
-            requireActivity().finish();
-        });
-        cameraViewModel.luuAnhLoi.observe(getViewLifecycleOwner(), error -> {
-            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
-        });
-
+        cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), this::hienThiAnh);
+        cameraViewModel.anhDaLuu.observe(getViewLifecycleOwner(), this::guiAnhVe);
+        cameraViewModel.luuAnhLoi.observe(getViewLifecycleOwner(), this::thongBaoToast);
         fragmentViewImageBinding.huyAnh.setOnClickListener(v -> backFragment());
         fragmentViewImageBinding.layAnh.setOnClickListener(v -> anLuuAnh());
+    }
+
+    private void thongBaoToast(String error) {
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    private void guiAnhVe(Uri uri) {
+        Log.v("chaythu2",uri.toString());
+        Intent intent = new Intent();
+        intent.putExtra("image", uri.toString());
+        requireActivity().setResult(20, intent);
+        requireActivity().finish();
+    }
+    private void hienThiAnh(Bitmap bitmap){
+        Glide.with(requireContext()).load(bitmap).into(fragmentViewImageBinding.viewimage);
     }
 
 
     private void anLuuAnh() {
         new AlertDialog.Builder(requireContext())
                 .setMessage("Thêm Ảnh Này?")
-                .setNegativeButton("Yes", (dialog, which) -> cameraViewModel.luuAnh())
+                .setNegativeButton("Yes", (dialog, which) -> cameraViewModel.luuAnhTamThoi())
                 .setPositiveButton("No", (dialog, which) -> {
                 }).show();
     }
