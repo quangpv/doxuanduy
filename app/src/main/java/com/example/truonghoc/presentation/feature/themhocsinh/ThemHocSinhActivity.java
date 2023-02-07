@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
 import com.example.truonghoc.presentation.camera.CameraActivity;
+import com.example.truonghoc.presentation.helper.AppFileManager;
 import com.example.truonghoc.presentation.helper.AppPermission;
 
 import java.util.Objects;
@@ -25,6 +24,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     public ActivityThemHocSinhBinding themHocSinhBinding;
     private ThemHocSinhViewModel viewModel;
     private final AppPermission appPermission = AppPermission.getInstance();
+    private final AppFileManager appFileManager = AppFileManager.getInstance();
 
 
     @Override
@@ -47,21 +47,24 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Intent> layAnh =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == 20) {
-                    if (result.getData() != null) {
-                        Intent intent = result.getData();
-                        Uri uri = intent.getParcelableExtra("image");
-                        hienThiAnhThuNho(uri);
+                    Intent intent = result.getData();
+                    if (intent != null) {
+                       String tenAnhTamThoi = intent.getStringExtra("image");
+                       timVaHienThiAnhThuNho(tenAnhTamThoi);
+                       viewModel.truyenTenAnh(tenAnhTamThoi);
                     }
                 }
             });
 
-    private void hienThiAnhThuNho(Uri uri) {
+    private void timVaHienThiAnhThuNho(String tenAnh) {
+        Uri uri = Uri.parse(appFileManager.layUriThuMucAnhTamThoi()+"/"+tenAnh+".jpg");
         Glide.with(themHocSinhBinding.avatar)
                 .load(uri)
                 .override(100,100)
                 .centerCrop()
                 .into(themHocSinhBinding.avatar);
     }
+
 
 
     private void thongBaoToast(String s) {

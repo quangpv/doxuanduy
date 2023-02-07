@@ -1,25 +1,37 @@
 package com.example.truonghoc.domain;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class HocSinh implements Parcelable {
-    private String maHocSinh,hoVaTen,gioiTinh,sinhNgay;
+import com.example.truonghoc.presentation.helper.AppFileManager;
 
-    public HocSinh(String maHocSinh, String hoVaTen, String gioiTinh, String sinhNgay) {
+public class HocSinh implements Parcelable {
+    private String maHocSinh;
+    private String hoVaTen;
+    private String gioiTinh;
+    private String sinhNgay;
+    private String avatar;
+
+
+    public HocSinh(String avatar,String maHocSinh, String hoVaTen, String gioiTinh, String sinhNgay) {
         this.maHocSinh = maHocSinh;
         this.hoVaTen = hoVaTen;
         this.gioiTinh = gioiTinh;
         this.sinhNgay = sinhNgay;
+        this.avatar = avatar;
     }
+
+
 
     protected HocSinh(Parcel in) {
         maHocSinh = in.readString();
         hoVaTen = in.readString();
         gioiTinh = in.readString();
         sinhNgay = in.readString();
+        avatar = in.readString();
     }
 
     public static final Creator<HocSinh> CREATOR = new Creator<HocSinh>() {
@@ -46,6 +58,15 @@ public class HocSinh implements Parcelable {
         return gioiTinh;
     }
 
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getSinhNgay() {
         return sinhNgay;
     }
@@ -66,6 +87,7 @@ public class HocSinh implements Parcelable {
         this.sinhNgay = sinhNgay;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -77,6 +99,7 @@ public class HocSinh implements Parcelable {
         dest.writeString(hoVaTen);
         dest.writeString(gioiTinh);
         dest.writeString(sinhNgay);
+        dest.writeString(avatar);
     }
 }
 

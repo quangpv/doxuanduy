@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class ViewImageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), this::hienThiAnh);
-        cameraViewModel.anhDaLuu.observe(getViewLifecycleOwner(), this::guiAnhVe);
+        cameraViewModel.tenAnhTamThoi.observe(getViewLifecycleOwner(), this::guiAnhVe);
         cameraViewModel.luuAnhLoi.observe(getViewLifecycleOwner(), this::thongBaoToast);
         fragmentViewImageBinding.huyAnh.setOnClickListener(v -> backFragment());
         fragmentViewImageBinding.layAnh.setOnClickListener(v -> anLuuAnh());
@@ -52,9 +53,9 @@ public class ViewImageFragment extends Fragment {
         Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
     }
 
-    private void guiAnhVe(Uri uri) {
+    private void guiAnhVe(String tenAnhTamThoi) {
         Intent intent = new Intent();
-        intent.putExtra("image", uri);
+        intent.putExtra("image", tenAnhTamThoi);
         requireActivity().setResult(20, intent);
         requireActivity().finish();
     }

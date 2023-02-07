@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -22,7 +21,7 @@ public class CameraViewModel extends ViewModel {
     AppFileManager fileManager = AppFileManager.getInstance();
 
     public MutableLiveData<Bitmap> anhDaChup = new MutableLiveData<>();
-    public MutableLiveData<Uri> anhDaLuu = new MutableLiveData<>();
+    public MutableLiveData<String> tenAnhTamThoi = new MutableLiveData<>();
     public MutableLiveData<String> luuAnhLoi = new MutableLiveData<>();
 
     public void guiAnh(ImageProxy imageProxy) {
@@ -62,12 +61,12 @@ public class CameraViewModel extends ViewModel {
     public void luuAnhTamThoi() {
         Bitmap bitmap = anhDaChup.getValue();
         if (bitmap == null) return;
-        if(!fileManager.kiemTraVaTaoThuMuc()) return;
+        if(!fileManager.kiemTraVaTaoThuMucAo()) return;
         appExecutors.execute(() -> {
-            Uri uri;
+            String tenAnhTamThoi2 = System.currentTimeMillis()+ "";
             try {
-                uri = fileManager.save(bitmap, System.currentTimeMillis() + "");
-                anhDaLuu.postValue(uri);
+                fileManager.save(bitmap, tenAnhTamThoi2 );
+                tenAnhTamThoi.postValue(tenAnhTamThoi2);
             } catch (IOException e) {
                 e.printStackTrace();
                 luuAnhLoi.postValue(e.getMessage());
