@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.example.truonghoc.databinding.FragmentViewImageBinding;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
 
+import java.time.Instant;
+
 public class ViewImageFragment extends Fragment {
     private FragmentViewImageBinding fragmentViewImageBinding;
     private CameraViewModel cameraViewModel;
@@ -61,6 +63,7 @@ public class ViewImageFragment extends Fragment {
     }
 
     private void hienThiAnh(Bitmap bitmap) {
+
         Glide.with(requireContext()).load(bitmap).into(fragmentViewImageBinding.viewimage);
     }
 

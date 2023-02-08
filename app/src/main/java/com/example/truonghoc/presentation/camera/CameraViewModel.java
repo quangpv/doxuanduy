@@ -61,8 +61,8 @@ public class CameraViewModel extends ViewModel {
     public void luuAnhTamThoi() {
         Bitmap bitmap = anhDaChup.getValue();
         if (bitmap == null) return;
-        if(!fileManager.kiemTraVaTaoThuMucAo()) return;
         appExecutors.execute(() -> {
+            fileManager.kiemTraVaTaoThuMucAo();
             String tenAnhTamThoi2 = System.currentTimeMillis()+ "";
             try {
                 fileManager.save(bitmap, tenAnhTamThoi2 );

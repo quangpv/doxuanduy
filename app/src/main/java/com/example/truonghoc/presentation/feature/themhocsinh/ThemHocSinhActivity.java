@@ -4,26 +4,28 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
+
 import com.example.truonghoc.presentation.camera.CameraActivity;
+import com.example.truonghoc.presentation.dialog.addavatar.AddAvatarBottomSheetFragment;
 import com.example.truonghoc.presentation.helper.AppFileManager;
-import com.example.truonghoc.presentation.helper.AppPermission;
 
 import java.util.Objects;
 
 public class ThemHocSinhActivity extends AppCompatActivity {
     public ActivityThemHocSinhBinding themHocSinhBinding;
     private ThemHocSinhViewModel viewModel;
-    private final AppPermission appPermission = AppPermission.getInstance();
     private final AppFileManager appFileManager = AppFileManager.getInstance();
 
 
@@ -35,65 +37,34 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         setContentView(themHocSinhBinding.getRoot());
         themHocSinhBinding.thanhCongCuThem.icBack.setOnClickListener(v -> xuLyKhiAnBack());
         themHocSinhBinding.thanhCongCuThem.icLuu.setOnClickListener(v -> themHocSinh());
-        themHocSinhBinding.chupAnh.setOnClickListener(v -> moCamera());
+        themHocSinhBinding.avatar.setOnClickListener(v -> moDiaLogCamera());
         viewModel.themThanhCong.observe(this, message -> {
             thongBaoToast(message);
             finish();
         });
         viewModel.themThatBai.observe(this, this::thongBaoToast);
+        appFileManager.tenAnhTamThoi.observe(this, this::timVaHienThiAnhThuNho);
 
     }
 
-    private final ActivityResultLauncher<Intent> layAnh =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == 20) {
-                    Intent intent = result.getData();
-                    if (intent != null) {
-                       String tenAnhTamThoi = intent.getStringExtra("image");
-                       timVaHienThiAnhThuNho(tenAnhTamThoi);
-                       viewModel.truyenTenAnh(tenAnhTamThoi);
-                    }
-                }
-            });
+    private void moDiaLogCamera() {
+        AddAvatarBottomSheetFragment diaLog = new AddAvatarBottomSheetFragment();
+        diaLog.show(getSupportFragmentManager(),diaLog.getTag());
+    }
 
-    private void timVaHienThiAnhThuNho(String tenAnh) {
-        Uri uri = Uri.parse(appFileManager.layUriThuMucAnhTamThoi()+"/"+tenAnh+".jpg");
+    private void timVaHienThiAnhThuNho(String s) {
+      Uri uri = Uri.parse(Uri.fromFile(appFileManager.layThuMucAnhTamThoi())+"/"+s+".jpg");
         Glide.with(themHocSinhBinding.avatar)
                 .load(uri)
                 .override(100,100)
+                .placeholder(R.drawable.avatardemo)
+                .error(R.drawable.errorloadimg)
                 .centerCrop()
                 .into(themHocSinhBinding.avatar);
     }
-
-
-
     private void thongBaoToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
-
-    private void moCamera() {
-        if (appPermission.checkQuyenCamera()) {
-            moCameRa();
-        } else {
-            phanHoiCapQuyen.launch(appPermission.dsQuyenCamera().toArray(new String[0]));
-        }
-    }
-
-    private final ActivityResultLauncher<String[]> phanHoiCapQuyen =
-            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), result -> {
-                if (appPermission.checkQuyenCamera()) {
-                    moCameRa();
-                } else {
-                    thongBaoToast("Có Quyền Chưa Kích Hoạt");
-                }
-            });
-
-    private void moCameRa() {
-        thongBaoToast("Open Camera");
-        Intent intent = new Intent(this, CameraActivity.class);
-        layAnh.launch(intent);
-    }
-
 
     private void themHocSinh() {
         String maHs = Objects.requireNonNull(themHocSinhBinding.maHsNhapDemo.getText()).toString();
@@ -113,8 +84,6 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setMessage("Hủy Thêm ?")
                 .setNegativeButton("Yes", (dialog, which) -> finish())
-                .setPositiveButton("No", (dialog, which) -> {
-
-                }).show();
+                .setPositiveButton("No", (dialog, which) -> {}).show();
     }
 }

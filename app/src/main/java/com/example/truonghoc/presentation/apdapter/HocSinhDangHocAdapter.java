@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ItemHocsinhListBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
@@ -15,7 +17,7 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
-    public Consumer<HocSinhDangHoc> onItemClick,onClickAvata;
+    public Consumer<HocSinhDangHoc> onItemClick,onClickAvatar;
     List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
@@ -34,10 +36,32 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
         holder.itemBinding.gioiTinh.setText(holder.itemView.getResources().getString(R.string.gioi_tinh, hs.getHocSinh().getGioiTinh()));
         holder.itemBinding.ngaySinh.setText(holder.itemView.getResources().getString(R.string.sinh_ngay, hs.getHocSinh().getSinhNgay()));
         holder.itemBinding.khoi.setText(holder.itemView.getResources().getString(R.string.lop, hs.getKhoiLop().getKhoiLop()));
-        holder.itemView.setOnClickListener(v -> {
-            if (onItemClick != null) onItemClick.accept(hs);
-        });
+        holder.itemView.setOnClickListener(v -> suKienClickHocSinh(hs));
+        loadAnhNhoHocSinh(holder,hs.getHocSinh().getAvatar());
+        holder.itemBinding.chanDungView.setOnClickListener(v -> clickAvatar(hs));
+
     }
+
+
+    private void loadAnhNhoHocSinh(HocSinhDangHocViewHolder holder, String avatar) {
+        Glide.with(holder.itemBinding.chanDungView)
+                .load(avatar)
+                .placeholder(R.drawable.avatardemo)
+                .error(R.drawable.errorloadimg)
+                .override(100, 100)
+                .centerCrop()
+                .transform(new CircleCrop())
+                .into(holder.itemBinding.chanDungView);
+    }
+    private void clickAvatar(HocSinhDangHoc hs) {
+        if (onItemClick != null) onItemClick.accept(hs);
+    }
+
+
+    private void suKienClickHocSinh(HocSinhDangHoc hs) {
+        if (onItemClick != null) onItemClick.accept(hs);
+    }
+
 
     @Override
     public int getItemCount() {

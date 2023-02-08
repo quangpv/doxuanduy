@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.truonghoc.databinding.FragmentHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.apdapter.HocSinhDangHocAdapter;
+import com.example.truonghoc.presentation.dialog.addavatar.AddAvatarBottomSheetFragment;
 import com.example.truonghoc.presentation.feature.main.MainActivity;
 import com.example.truonghoc.presentation.feature.themhocsinh.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.feature.thongtinhocsinh.ThongTinHocSinhActivity;
@@ -52,6 +53,7 @@ public class HocSinhFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         adapter = new HocSinhDangHocAdapter();
         adapter.onItemClick = this::moManHinhThongTin;
+        adapter.onClickAvatar = this::moBottomSheetFragment;
         hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
         hocSinhViewModel.danhSachHocSinh.observe(getViewLifecycleOwner(), adapter::setDanhSach);
         getNoiDungTimKiemView().addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString()));
@@ -67,6 +69,10 @@ public class HocSinhFragment extends Fragment {
     private EditText getNoiDungTimKiemView() {
         MainActivity mainActivity = (MainActivity) requireActivity();
         return mainActivity.binding.includedThanhCongCu.noidungTimKiem;
+    }
+    private void moBottomSheetFragment(HocSinhDangHoc hocSinhDangHoc) {
+        AddAvatarBottomSheetFragment fragment = new AddAvatarBottomSheetFragment();
+        fragment.show(requireActivity().getSupportFragmentManager(), fragment.getTag());
     }
 
     private void moManHinhThongTin(HocSinhDangHoc hocSinhDangHoc) {
