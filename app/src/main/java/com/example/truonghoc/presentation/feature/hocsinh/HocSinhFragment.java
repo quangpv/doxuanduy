@@ -3,13 +3,11 @@ package com.example.truonghoc.presentation.feature.hocsinh;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,11 +21,7 @@ import com.example.truonghoc.presentation.dialog.addavatar.AddAvatarBottomSheetF
 import com.example.truonghoc.presentation.feature.main.MainActivity;
 import com.example.truonghoc.presentation.feature.themhocsinh.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.feature.thongtinhocsinh.ThongTinHocSinhActivity;
-import com.example.truonghoc.presentation.model.ClickListListener;
 import com.example.truonghoc.presentation.model.ITextWatcher;
-
-import java.io.File;
-import java.util.List;
 
 
 public class HocSinhFragment extends Fragment {
@@ -53,7 +47,7 @@ public class HocSinhFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         adapter = new HocSinhDangHocAdapter();
         adapter.onItemClick = this::moManHinhThongTin;
-        adapter.onClickAvatar = this::moBottomSheetFragment;
+        adapter.clickAvatar = this::moBottomSheetFragment;
         hocSinhBinding.themHs.setOnClickListener(v -> moThemHocSinh());
         hocSinhViewModel.danhSachHocSinh.observe(getViewLifecycleOwner(), adapter::setDanhSach);
         getNoiDungTimKiemView().addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString()));
@@ -70,8 +64,11 @@ public class HocSinhFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) requireActivity();
         return mainActivity.binding.includedThanhCongCu.noidungTimKiem;
     }
-    private void moBottomSheetFragment(HocSinhDangHoc hocSinhDangHoc) {
+    private void moBottomSheetFragment(HocSinhDangHoc hs) {
         AddAvatarBottomSheetFragment fragment = new AddAvatarBottomSheetFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("hs",hs);
+        fragment.setArguments(bundle);
         fragment.show(requireActivity().getSupportFragmentManager(), fragment.getTag());
     }
 

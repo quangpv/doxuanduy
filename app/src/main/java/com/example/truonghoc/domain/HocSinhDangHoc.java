@@ -1,8 +1,5 @@
 package com.example.truonghoc.domain;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 

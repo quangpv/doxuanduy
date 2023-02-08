@@ -7,7 +7,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -15,10 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.FragmentAddAvatarBottomSheetBinding;
 import com.example.truonghoc.presentation.camera.CameraActivity;
-import com.example.truonghoc.presentation.feature.themhocsinh.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.helper.AppPermission;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -28,6 +25,7 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
     AppPermission appPermission = AppPermission.getInstance();
     FragmentAddAvatarBottomSheetBinding binding;
     AddAvatarBottomSheetViewModel viewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +35,7 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentAddAvatarBottomSheetBinding.inflate(inflater,container,false);
+        binding = FragmentAddAvatarBottomSheetBinding.inflate(inflater, container, false);
         binding.openCamera.setOnClickListener(v -> openCamera());
         return binding.getRoot();
     }
@@ -60,7 +58,14 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
             });
 
     private void moCameRa() {
-       requireActivity().startActivity(new Intent(requireActivity(),CameraActivity.class));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            Intent intent = new Intent(requireActivity(),CameraActivity.class);
+            intent.putExtra("hs", bundle);
+            requireActivity().startActivity(intent);
+        } else {
+            requireActivity().startActivity(new Intent(requireActivity(), CameraActivity.class));
+        }
     }
 
 

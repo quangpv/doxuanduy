@@ -3,9 +3,7 @@ package com.example.truonghoc.presentation.camera.viewimgfragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.truonghoc.databinding.FragmentViewImageBinding;
+import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
 
-import java.time.Instant;
 
 public class ViewImageFragment extends Fragment {
     private FragmentViewImageBinding fragmentViewImageBinding;
@@ -45,7 +43,6 @@ public class ViewImageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         cameraViewModel.anhDaChup.observe(getViewLifecycleOwner(), this::hienThiAnh);
-        cameraViewModel.tenAnhTamThoi.observe(getViewLifecycleOwner(), this::guiAnhVe);
         cameraViewModel.luuAnhLoi.observe(getViewLifecycleOwner(), this::thongBaoToast);
         fragmentViewImageBinding.huyAnh.setOnClickListener(v -> backFragment());
         fragmentViewImageBinding.layAnh.setOnClickListener(v -> anLuuAnh());
@@ -55,15 +52,7 @@ public class ViewImageFragment extends Fragment {
         Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
     }
 
-    private void guiAnhVe(String tenAnhTamThoi) {
-        Intent intent = new Intent();
-        intent.putExtra("image", tenAnhTamThoi);
-        requireActivity().setResult(20, intent);
-        requireActivity().finish();
-    }
-
     private void hienThiAnh(Bitmap bitmap) {
-
         Glide.with(requireContext()).load(bitmap).into(fragmentViewImageBinding.viewimage);
     }
 
@@ -71,9 +60,23 @@ public class ViewImageFragment extends Fragment {
     private void anLuuAnh() {
         new AlertDialog.Builder(requireContext())
                 .setMessage("Thêm Ảnh Này?")
-                .setNegativeButton("Yes", (dialog, which) -> cameraViewModel.luuAnhTamThoi())
+                .setNegativeButton("Yes", (dialog, which) -> {
+                    xuLyLuuAnh();
+                    requireActivity().finish();
+                })
                 .setPositiveButton("No", (dialog, which) -> {
                 }).show();
+    }
+
+    private void xuLyLuuAnh() {
+        Intent intent = requireActivity().getIntent();
+        Bundle bundle = intent.getBundleExtra("hs");
+        if (bundle!=null) {
+            HocSinhDangHoc hs = bundle.getParcelable("hs");
+            cameraViewModel.luuAnhDaCoThongTin(hs);
+        } else {
+            cameraViewModel.luuAnhTamThoi();
+        }
     }
 
     private void backFragment() {

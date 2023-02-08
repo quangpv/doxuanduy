@@ -21,6 +21,6 @@ public interface HocSinhDangHocDAO {
     List<HocSinhDangHoc> layTatCaHocSinh();
 
     @Update
-    int suaHocSinh(HocSinhDangHoc hocSinhDangHoc);
+    void suaHocSinh(HocSinhDangHoc hocSinhDangHoc);
 
 }

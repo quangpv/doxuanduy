@@ -1,11 +1,6 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
-
-import android.net.Uri;
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.truonghoc.data.HocSinhDangHocDataBase;
 import com.example.truonghoc.domain.HocSinh;
 import com.example.truonghoc.domain.HocSinhDangHoc;
@@ -13,7 +8,7 @@ import com.example.truonghoc.domain.KhoiLop;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
-import java.io.File;
+
 
 public class ThemHocSinhViewModel extends ViewModel {
     public MutableLiveData<String> themThanhCong = new MutableLiveData<>();

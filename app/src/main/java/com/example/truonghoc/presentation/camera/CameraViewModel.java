@@ -3,13 +3,14 @@ package com.example.truonghoc.presentation.camera;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.net.Uri;
+
 
 import androidx.annotation.NonNull;
 import androidx.camera.core.ImageProxy;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
@@ -19,9 +20,7 @@ import java.nio.ByteBuffer;
 public class CameraViewModel extends ViewModel {
     AppExecutors appExecutors = AppExecutors.getInstance();
     AppFileManager fileManager = AppFileManager.getInstance();
-
     public MutableLiveData<Bitmap> anhDaChup = new MutableLiveData<>();
-    public MutableLiveData<String> tenAnhTamThoi = new MutableLiveData<>();
     public MutableLiveData<String> luuAnhLoi = new MutableLiveData<>();
 
     public void guiAnh(ImageProxy imageProxy) {
@@ -62,15 +61,28 @@ public class CameraViewModel extends ViewModel {
         Bitmap bitmap = anhDaChup.getValue();
         if (bitmap == null) return;
         appExecutors.execute(() -> {
-            fileManager.kiemTraVaTaoThuMucAo();
             String tenAnhTamThoi2 = System.currentTimeMillis()+ "";
             try {
-                fileManager.save(bitmap, tenAnhTamThoi2 );
-                tenAnhTamThoi.postValue(tenAnhTamThoi2);
+                fileManager.saveAnhTamThoi(bitmap, tenAnhTamThoi2 );
             } catch (IOException e) {
                 e.printStackTrace();
                 luuAnhLoi.postValue(e.getMessage());
             }
         });
+    }
+
+    public void luuAnhDaCoThongTin(HocSinhDangHoc hs) {
+        Bitmap bitmap = anhDaChup.getValue();
+        if(bitmap==null)return;
+        appExecutors.execute(() -> {
+            try {
+                fileManager.saveDaCoMaHs(bitmap,hs.getHocSinh().getMaHocSinh());
+            } catch (IOException e) {
+                e.printStackTrace();
+                luuAnhLoi.postValue(e.getMessage());
+            }
+
+        });
+
     }
 }

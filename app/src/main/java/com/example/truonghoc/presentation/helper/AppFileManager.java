@@ -2,7 +2,6 @@ package com.example.truonghoc.presentation.helper;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Environment;
 
 import androidx.lifecycle.MutableLiveData;
@@ -31,7 +30,7 @@ public class AppFileManager {
         mAppFileManager = new AppFileManager(applicationContext);
     }
 
-    public void kiemTraVaTaoThuMucAo() {
+    public void kiemTraVaTaoThuMucTamThoi() {
         thuMucTamThoi = application.getExternalFilesDir("TenThuMuc");
         if (!thuMucTamThoi.exists()) {
             thuMucTamThoi.mkdir();
@@ -47,7 +46,7 @@ public class AppFileManager {
 
     public File layThuMucAnhTamThoi() {
         if (thuMucTamThoi == null) {
-            kiemTraVaTaoThuMucAo();
+            kiemTraVaTaoThuMucTamThoi();
         }
         return thuMucTamThoi;
     }
@@ -60,18 +59,16 @@ public class AppFileManager {
     }
 
 
-    public void save(Bitmap bitmap, String s) throws IOException {
+    public void saveAnhTamThoi(Bitmap bitmap, String s) throws IOException {
         this.tenAnhTamThoi.postValue(s);
-        //Vị Trí Thư Mục Lưu File
-        String path = String.valueOf(application.getExternalFilesDir("TenThuMuc"));
-        //Tiến Hành Lưu File
         OutputStream fOut;
-        File file = new File(path, s + ".jpg");
+        File file = new File(String.valueOf(layThuMucAnhTamThoi()), s + ".jpg");
         fOut = new FileOutputStream(file);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
         fOut.flush();
         fOut.close();
     }
+
     public String xuLyAvatar(String maHs) {
         File tenGoc = new File(layThuMucAnhTamThoi() + "/" + tenAnhTamThoi.getValue() + ".jpg");
         File tenCanDoi = new File(layThuMucAnh() + "/" + maHs + ".jpg");
@@ -80,4 +77,18 @@ public class AppFileManager {
         return tenCanDoi.getPath();
     }
 
+
+    public void saveDaCoMaHs(Bitmap bitmap, String maHocSinh) throws IOException{
+        OutputStream fOut;
+        File file = new File(String.valueOf(layThuMucAnh()), maHocSinh + ".jpg");
+        fOut = new FileOutputStream(file);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+        fOut.flush();
+        fOut.close();
+    }
+
+    public void xoaAnhTamThoi() {
+        File tenGoc = new File(layThuMucAnhTamThoi() + "/" + tenAnhTamThoi.getValue() + ".jpg");
+        tenGoc.delete();
+    }
 }

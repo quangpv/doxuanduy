@@ -17,7 +17,7 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
-    public Consumer<HocSinhDangHoc> onItemClick,onClickAvatar;
+    public Consumer<HocSinhDangHoc> onItemClick,clickAvatar;
     List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
@@ -47,14 +47,14 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
         Glide.with(holder.itemBinding.chanDungView)
                 .load(avatar)
                 .placeholder(R.drawable.avatardemo)
-                .error(R.drawable.errorloadimg)
+                .error(R.drawable.avatardemo)
                 .override(100, 100)
                 .centerCrop()
                 .transform(new CircleCrop())
                 .into(holder.itemBinding.chanDungView);
     }
     private void clickAvatar(HocSinhDangHoc hs) {
-        if (onItemClick != null) onItemClick.accept(hs);
+        if (clickAvatar != null) clickAvatar.accept(hs);
     }
 
 

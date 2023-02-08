@@ -1,23 +1,22 @@
 package com.example.truonghoc.presentation.feature.themhocsinh;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModelProvider;
 
 
-import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
 
-import com.example.truonghoc.presentation.camera.CameraActivity;
 import com.example.truonghoc.presentation.dialog.addavatar.AddAvatarBottomSheetFragment;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
@@ -49,19 +48,22 @@ public class ThemHocSinhActivity extends AppCompatActivity {
 
     private void moDiaLogCamera() {
         AddAvatarBottomSheetFragment diaLog = new AddAvatarBottomSheetFragment();
-        diaLog.show(getSupportFragmentManager(),diaLog.getTag());
+        diaLog.show(getSupportFragmentManager(), diaLog.getTag());
     }
 
     private void timVaHienThiAnhThuNho(String s) {
-      Uri uri = Uri.parse(Uri.fromFile(appFileManager.layThuMucAnhTamThoi())+"/"+s+".jpg");
+        Uri uri = Uri.parse(Uri.fromFile(appFileManager.layThuMucAnhTamThoi()) + "/" + s + ".jpg");
         Glide.with(themHocSinhBinding.avatar)
                 .load(uri)
-                .override(100,100)
+                .override(100, 100)
                 .placeholder(R.drawable.avatardemo)
-                .error(R.drawable.errorloadimg)
+                .error(R.drawable.avatardemo)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .into(themHocSinhBinding.avatar);
     }
+
     private void thongBaoToast(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
@@ -83,7 +85,10 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     public void xuLyKhiAnBack() {
         new AlertDialog.Builder(this)
                 .setMessage("Hủy Thêm ?")
-                .setNegativeButton("Yes", (dialog, which) -> finish())
-                .setPositiveButton("No", (dialog, which) -> {}).show();
+                .setNegativeButton("Yes", (dialog, which) -> {
+                    appFileManager.xoaAnhTamThoi();
+                            finish();})
+                .setPositiveButton("No", (dialog, which) -> {
+                }).show();
     }
 }
