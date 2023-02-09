@@ -2,7 +2,9 @@ package com.example.truonghoc.presentation.helper;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,13 +12,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 
 public class AppFileManager {
     private static AppFileManager mAppFileManager;
     private final Application application;
     private File thuMucTamThoi, thuMucAnh;
-    public MutableLiveData<String> tenAnhTamThoi =new MutableLiveData<>();
+    public MutableLiveData<Uri> anhTamThoi =new MutableLiveData<>();
 
     public AppFileManager(Application applicationContext) {
         this.application = applicationContext;
@@ -60,19 +63,24 @@ public class AppFileManager {
 
 
     public void saveAnhTamThoi(Bitmap bitmap, String s) throws IOException {
-        this.tenAnhTamThoi.postValue(s);
         OutputStream fOut;
         File file = new File(String.valueOf(layThuMucAnhTamThoi()), s + ".jpg");
+        this.anhTamThoi.postValue(Uri.fromFile(file));
         fOut = new FileOutputStream(file);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
         fOut.flush();
         fOut.close();
+
     }
 
     public String xuLyAvatar(String maHs) {
-        File tenGoc = new File(layThuMucAnhTamThoi() + "/" + tenAnhTamThoi.getValue() + ".jpg");
+        File tenGoc = new File(Objects.requireNonNull(anhTamThoi.getValue()).getPath());
         File tenCanDoi = new File(layThuMucAnh() + "/" + maHs + ".jpg");
-        tenGoc.renameTo(tenCanDoi);
+        if(tenGoc.renameTo(tenCanDoi)){
+            Log.i("doiten","ok");
+        }else {
+            Log.i("doiten","sida");
+        }
         tenGoc.delete();
         return tenCanDoi.getPath();
     }
@@ -88,7 +96,7 @@ public class AppFileManager {
     }
 
     public void xoaAnhTamThoi() {
-        File tenGoc = new File(layThuMucAnhTamThoi() + "/" + tenAnhTamThoi.getValue() + ".jpg");
+        File tenGoc = new File(Objects.requireNonNull(anhTamThoi.getValue()).getPath());
         tenGoc.delete();
     }
 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class AppPermission {
     private static AppPermission sAppPermission;
     private final Application application;
+    public MutableLiveData<String> checkThatBai = new MutableLiveData<>();
 
     public AppPermission(Application applicationContext) {
         this.application = applicationContext;
@@ -43,6 +45,6 @@ public class AppPermission {
                     return false;
                 }
             }
-            return true;
+           return true;
     }
 }

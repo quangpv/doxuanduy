@@ -42,7 +42,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
             finish();
         });
         viewModel.themThatBai.observe(this, this::thongBaoToast);
-        appFileManager.tenAnhTamThoi.observe(this, this::timVaHienThiAnhThuNho);
+        appFileManager.anhTamThoi.observe(this, this::hienThiAnhThuNho);
 
     }
 
@@ -51,8 +51,7 @@ public class ThemHocSinhActivity extends AppCompatActivity {
         diaLog.show(getSupportFragmentManager(), diaLog.getTag());
     }
 
-    private void timVaHienThiAnhThuNho(String s) {
-        Uri uri = Uri.parse(Uri.fromFile(appFileManager.layThuMucAnhTamThoi()) + "/" + s + ".jpg");
+    private void hienThiAnhThuNho(Uri uri) {
         Glide.with(themHocSinhBinding.avatar)
                 .load(uri)
                 .override(100, 100)
