@@ -1,6 +1,10 @@
 package com.example.truonghoc.presentation.helper;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.arch.core.executor.ArchTaskExecutor;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -11,6 +15,7 @@ import java.util.concurrent.Future;
 public class AppExecutors {
     private static AppExecutors sAppExecutors;
     private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public static AppExecutors getInstance() {
         if (sAppExecutors == null) synchronized (AppExecutors.class) {
@@ -29,5 +34,9 @@ public class AppExecutors {
 
     public ExecutorService executors() {
         return executor;
+    }
+
+    public void onMainThread(Runnable runnable) {
+        handler.post(runnable);
     }
 }

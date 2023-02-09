@@ -52,13 +52,10 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
         return binding.getRoot();
     }
 
-    private ActivityResultLauncher<PickVisualMediaRequest> hinhAnh = registerForActivityResult(new PickVisualMedia(), new ActivityResultCallback<Uri>() {
-        @Override
-        public void onActivityResult(Uri result) {
-            String a = result.getPath();
-            Log.i("uri",a);
-           appFileManager.anhTamThoi.setValue(result);
-        }
+    private ActivityResultLauncher<PickVisualMediaRequest> hinhAnh = registerForActivityResult(new PickVisualMedia(), result -> {
+        String a = result.getPath();
+        Log.i("uri",a);
+       appFileManager.anhTamThoi.setValue(result);
     });
 
     private void moThuVien() {

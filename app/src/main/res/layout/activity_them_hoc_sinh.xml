@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,9 +31,9 @@
                     android:id="@+id/avatar"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:background="@drawable/bg_border_gray"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

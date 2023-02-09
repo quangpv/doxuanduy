@@ -15,6 +15,7 @@ import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.FragmentCameraProviewBinding;
+import com.example.truonghoc.presentation.ChuongTrinh;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
 import com.example.truonghoc.presentation.camera.viewimgfragment.ViewImageFragment;
 import com.example.truonghoc.presentation.helper.AppExecutors;
@@ -74,7 +76,7 @@ public class CameraPreviewFragment extends Fragment {
     }
 
     private void layAnh2() {
-        imageCapture.takePicture(appExecutors.executors(), new ImageCapture.OnImageCapturedCallback() {
+        imageCapture.takePicture(ActivityCompat.getMainExecutor(requireContext()), new ImageCapture.OnImageCapturedCallback() {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 super.onCaptureSuccess(image);
@@ -87,7 +89,6 @@ public class CameraPreviewFragment extends Fragment {
             public void onError(@NonNull ImageCaptureException exception) {
                 super.onError(exception);
                 thongBaoToast("sida");
-
             }
         });
 
@@ -95,10 +96,8 @@ public class CameraPreviewFragment extends Fragment {
 
     private void thongBaoToast(String string) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            requireContext().getMainExecutor().execute(()
-                    -> Toast.makeText(requireContext(), string, Toast.LENGTH_SHORT).show());
+            AppExecutors.getInstance().onMainThread(() -> Toast.makeText(ChuongTrinh.getInstance(), string, Toast.LENGTH_SHORT).show());
         }
-
     }
 
     private void loadFragmentViewImage() {
