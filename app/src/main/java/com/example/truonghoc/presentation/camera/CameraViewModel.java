@@ -10,7 +10,6 @@ import androidx.camera.core.ImageProxy;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
@@ -22,6 +21,7 @@ public class CameraViewModel extends ViewModel {
     AppFileManager fileManager = AppFileManager.getInstance();
     public MutableLiveData<Bitmap> anhDaChup = new MutableLiveData<>();
     public MutableLiveData<String> luuAnhLoi = new MutableLiveData<>();
+    public String maHs;
 
     public void guiAnh(ImageProxy imageProxy) {
         appExecutors.execute(() ->
@@ -61,28 +61,21 @@ public class CameraViewModel extends ViewModel {
         Bitmap bitmap = anhDaChup.getValue();
         if (bitmap == null) return;
         appExecutors.execute(() -> {
-            String tenAnhTamThoi2 = System.currentTimeMillis()+ "";
+            String tenAnhTamThoi2 = System.currentTimeMillis() + "";
             try {
-                fileManager.saveAnhTamThoi(bitmap, tenAnhTamThoi2 );
+                fileManager.saveAnhTamThoi(bitmap, tenAnhTamThoi2);
             } catch (IOException e) {
                 e.printStackTrace();
                 luuAnhLoi.postValue(e.getMessage());
+            }
+            if(maHs!=null){
+                fileManager.luuAnhVaTraVeUriAvarta(maHs);
+                maHs=null;
             }
         });
     }
 
-    public void luuAnhDaCoThongTin(HocSinhDangHoc hs) {
-        Bitmap bitmap = anhDaChup.getValue();
-        if(bitmap==null)return;
-        appExecutors.execute(() -> {
-            try {
-                fileManager.saveDaCoMaHs(bitmap,hs.getHocSinh().getMaHocSinh());
-            } catch (IOException e) {
-                e.printStackTrace();
-                luuAnhLoi.postValue(e.getMessage());
-            }
-
-        });
-
+    public void truyenMaHocSinh(String maHs) {
+        this.maHs=maHs;
     }
 }

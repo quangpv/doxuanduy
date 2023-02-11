@@ -29,6 +29,12 @@ public class ViewImageFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cameraViewModel = new ViewModelProvider(requireActivity()).get(CameraViewModel.class);
+        cameraViewModel.truyenMaHocSinh(layMaHocSinh());
+    }
+
+    private String layMaHocSinh() {
+        Intent intent = requireActivity().getIntent();
+        return intent.getStringExtra("maHs");
     }
 
     @Override
@@ -61,23 +67,14 @@ public class ViewImageFragment extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setMessage("Thêm Ảnh Này?")
                 .setNegativeButton("Yes", (dialog, which) -> {
-                    xuLyLuuAnh();
+                    cameraViewModel.luuAnhTamThoi();
                     requireActivity().finish();
                 })
-                .setPositiveButton("No", (dialog, which) -> {
+                .setPositiveButton( "No", (dialog, which) -> {
                 }).show();
     }
 
-    private void xuLyLuuAnh() {
-        Intent intent = requireActivity().getIntent();
-        Bundle bundle = intent.getBundleExtra("hs");
-        if (bundle!=null) {
-            HocSinhDangHoc hs = bundle.getParcelable("hs");
-            cameraViewModel.luuAnhDaCoThongTin(hs);
-        } else {
-            cameraViewModel.luuAnhTamThoi();
-        }
-    }
+
 
     private void backFragment() {
         if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {

@@ -96,7 +96,7 @@ public class CameraPreviewFragment extends Fragment {
 
     private void thongBaoToast(String string) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            AppExecutors.getInstance().onMainThread(() -> Toast.makeText(ChuongTrinh.getInstance(), string, Toast.LENGTH_SHORT).show());
+         AppExecutors.getInstance().onMainThread(() -> Toast.makeText(ChuongTrinh.getInstance(), string, Toast.LENGTH_SHORT).show());
         }
     }
 

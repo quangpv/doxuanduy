@@ -28,7 +28,7 @@ public class ThemHocSinhViewModel extends ViewModel {
                 themThatBai.postValue("Mã Học Sinh Đã Tồn Tại");
                 return;
             }
-            uriAvatar = appFileManager.xuLyAvatar(maHs);
+            uriAvatar = appFileManager.luuAnhVaTraVeUriAvarta(maHs);
             HocSinhDangHoc hocSinh = new HocSinhDangHoc(new HocSinh(uriAvatar, maHs, tenHs, gioiTinh, sinhNgay), new KhoiLop(khoiLop));
             database.hocSinhDAO().themHocSinh(hocSinh);
             themThanhCong.postValue("Thêm học sinh thành công");

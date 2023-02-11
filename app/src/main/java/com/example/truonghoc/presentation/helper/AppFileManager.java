@@ -4,25 +4,18 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.FileUtils;
+
 import android.util.Log;
 
-import androidx.camera.core.internal.ByteBufferOutputStream;
 import androidx.lifecycle.MutableLiveData;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.Objects;
 
 
 public class AppFileManager {
@@ -80,26 +73,30 @@ public class AppFileManager {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
         fOut.flush();
         fOut.close();
-
     }
 
-    public String xuLyAvatar(String maHs) {
+    public String luuAnhVaTraVeUriAvarta(String maHs) {
+        String viTriLuu = layThuMucAnh() + "/" + maHs + ".jpg";
         Uri uri = anhTamThoi.getValue();
-        if (uri == null) return "";
-        String outputPath = layThuMucAnh() + "/" + maHs + ".jpg";
-        if (uri.toString().contains("content://")) xuLyAnhTuThuVien(uri, outputPath);
-        else xuLyAnhTuCamera(uri.getPath(), outputPath);
-        return outputPath;
+        if(uri==null) return viTriLuu;
+        if (kiemTraUriThuocLoaiNao(uri))
+            xuLyAnhTuThuVien(uri, viTriLuu);
+        else xuLyAnhTuCamera(uri.getPath(), viTriLuu);
+        xoaAnhTamThoi();
+        return viTriLuu;
     }
+
+    private boolean kiemTraUriThuocLoaiNao(Uri uri) {
+        return uri.toString().contains("content://");
+    }
+
 
     private void xuLyAnhTuCamera(String input, String output) {
         File tenGoc = new File(input);
         File tenCanDoi = new File(output);
-        if (tenGoc.renameTo(tenCanDoi)) {
-            Log.i("doiten", "ok");
-        } else {
-            Log.i("doiten", "sida");
-        }
+        if (tenGoc.renameTo(tenCanDoi)) Log.i("doiten", "ok");
+        else Log.i("doiten", "sida");
+
         tenGoc.delete();
     }
 
@@ -107,8 +104,12 @@ public class AppFileManager {
         FileOutputStream fileOutputStream = null;
         InputStream inputStream = null;
         try {
+            // lấy đối tượng trong bộ nhớ
             inputStream = application.getContentResolver().openInputStream(input);
-            byte[] bytes = new byte[inputStream.available()];
+            // lấy kích thước của đối tượng - > chuyển sang byte
+            int a = inputStream.available();
+            byte[] bytes = new byte[a];
+            //bytes có kích thước mảng là 138395byte. giá trị từng byte {-1,-40,1, vân vân}
             if (inputStream.read(bytes) > 0) {
                 fileOutputStream = new FileOutputStream(outputPath);
                 fileOutputStream.write(bytes);
@@ -125,18 +126,7 @@ public class AppFileManager {
         }
     }
 
-
-    public void saveDaCoMaHs(Bitmap bitmap, String maHocSinh) throws IOException {
-        OutputStream fOut;
-        File file = new File(String.valueOf(layThuMucAnh()), maHocSinh + ".jpg");
-        fOut = new FileOutputStream(file);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
-        fOut.flush();
-        fOut.close();
-    }
-
     public void xoaAnhTamThoi() {
-        File tenGoc = new File(Objects.requireNonNull(anhTamThoi.getValue()).getPath());
-        tenGoc.delete();
+        anhTamThoi.postValue(null);
     }
 }

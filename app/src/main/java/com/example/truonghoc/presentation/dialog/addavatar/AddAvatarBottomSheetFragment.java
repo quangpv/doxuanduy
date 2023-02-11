@@ -34,12 +34,12 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
     AppPermission appPermission = AppPermission.getInstance();
     FragmentAddAvatarBottomSheetBinding binding;
     AddAvatarBottomSheetViewModel viewModel;
-    AppFileManager appFileManager = AppFileManager.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(AddAvatarBottomSheetViewModel.class);
+        viewModel.truyenMaHocSinh(getArguments());
     }
 
     @Nullable
@@ -52,11 +52,9 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
         return binding.getRoot();
     }
 
-    private ActivityResultLauncher<PickVisualMediaRequest> hinhAnh = registerForActivityResult(new PickVisualMedia(), result -> {
-        String a = result.getPath();
-        Log.i("uri",a);
-       appFileManager.anhTamThoi.setValue(result);
-    });
+    private final ActivityResultLauncher<PickVisualMediaRequest> hinhAnh =
+            registerForActivityResult(new PickVisualMedia(), result ->
+                    viewModel.luuAnhTuThuVien(result));
 
     private void moThuVien() {
         hinhAnh.launch(new PickVisualMediaRequest.Builder()
@@ -81,14 +79,14 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
 
     }
 
+
     private void moCameRa() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            Intent intent = new Intent(requireActivity(), CameraActivity.class);
-            intent.putExtra("hs", bundle);
+        Intent intent = new Intent(requireActivity(), CameraActivity.class);
+        if (viewModel.layMaHocSinh() != null) {
+            intent.putExtra("maHs", viewModel.layMaHocSinh());
             requireActivity().startActivity(intent);
         } else {
-            requireActivity().startActivity(new Intent(requireActivity(), CameraActivity.class));
+            requireActivity().startActivity(intent);
         }
     }
 
