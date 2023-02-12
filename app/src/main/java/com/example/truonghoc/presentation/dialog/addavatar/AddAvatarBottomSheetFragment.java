@@ -87,7 +87,6 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void moCameRa() {
         Intent intent = new Intent(requireActivity(), CameraActivity.class);
-       String i = viewModel.layMaHocSinh();
         if (viewModel.layMaHocSinh() != null) {
             intent.putExtra("maHs", viewModel.layMaHocSinh());
             requireActivity().startActivity(intent);
