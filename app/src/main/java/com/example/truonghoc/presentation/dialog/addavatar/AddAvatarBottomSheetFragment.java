@@ -46,10 +46,15 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddAvatarBottomSheetBinding.inflate(inflater, container, false);
-        binding.openCamera.setOnClickListener(v -> openCamera());
-        appPermission.checkThatBai.observe(getViewLifecycleOwner(), this::yeuCauLaiQuyen);
-        binding.openThuVien.setOnClickListener(v -> moThuVien());
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        appPermission.checkThatBai.observe(getViewLifecycleOwner(), this::yeuCauLaiQuyen);
+        binding.openCamera.setOnClickListener(v -> openCamera());
+        binding.openThuVien.setOnClickListener(v -> moThuVien());
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private final ActivityResultLauncher<PickVisualMediaRequest> hinhAnh =
@@ -82,6 +87,7 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
 
     private void moCameRa() {
         Intent intent = new Intent(requireActivity(), CameraActivity.class);
+       String i = viewModel.layMaHocSinh();
         if (viewModel.layMaHocSinh() != null) {
             intent.putExtra("maHs", viewModel.layMaHocSinh());
             requireActivity().startActivity(intent);

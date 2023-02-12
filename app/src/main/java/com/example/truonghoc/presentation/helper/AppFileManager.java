@@ -111,7 +111,7 @@ public class AppFileManager {
             byte[] bytes = new byte[a];
             //bytes có kích thước mảng là 138395byte. giá trị từng byte {-1,-40,1, vân vân}
             if (inputStream.read(bytes) > 0) {
-                fileOutputStream = new FileOutputStream(outputPath);
+                fileOutputStream = new FileOutputStream(outputPath,false);
                 fileOutputStream.write(bytes);
                 fileOutputStream.close();
             }
@@ -127,6 +127,6 @@ public class AppFileManager {
     }
 
     public void xoaAnhTamThoi() {
-        anhTamThoi.postValue(null);
+        anhTamThoi.postValue(Uri.parse(""));
     }
 }

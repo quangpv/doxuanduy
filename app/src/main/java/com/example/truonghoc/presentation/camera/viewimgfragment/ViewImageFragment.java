@@ -29,13 +29,9 @@ public class ViewImageFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cameraViewModel = new ViewModelProvider(requireActivity()).get(CameraViewModel.class);
-        cameraViewModel.truyenMaHocSinh(layMaHocSinh());
+
     }
 
-    private String layMaHocSinh() {
-        Intent intent = requireActivity().getIntent();
-        return intent.getStringExtra("maHs");
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

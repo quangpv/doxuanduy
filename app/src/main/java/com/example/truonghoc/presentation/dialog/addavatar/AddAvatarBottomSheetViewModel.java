@@ -17,7 +17,7 @@ public class AddAvatarBottomSheetViewModel extends ViewModel {
     private final AppExecutors appExecutors = AppExecutors.getInstance();
 
     public void truyenMaHocSinh(Bundle bundle) {
-        appExecutors.execute(() -> this.bundle = bundle);
+        this.bundle = bundle;
     }
 
     public String layMaHocSinh() {
@@ -32,10 +32,9 @@ public class AddAvatarBottomSheetViewModel extends ViewModel {
 
 
     public void luuAnhTuThuVien(Uri result) {
-        appExecutors.execute(() -> {
-            appFileManager.anhTamThoi.postValue(result);
+            appFileManager.anhTamThoi.setValue(result);
+            String a = layMaHocSinh();
             appFileManager.luuAnhVaTraVeUriAvarta(layMaHocSinh());
-        });
 
     }
 }

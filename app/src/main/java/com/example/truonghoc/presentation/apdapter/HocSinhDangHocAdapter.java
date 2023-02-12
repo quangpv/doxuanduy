@@ -9,6 +9,7 @@ import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ItemHocsinhListBinding;
@@ -17,7 +18,7 @@ import com.example.truonghoc.domain.HocSinhDangHoc;
 import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
-    public Consumer<HocSinhDangHoc> onItemClick,clickAvatar;
+    public Consumer<HocSinhDangHoc> onItemClick, clickAvatar;
     List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
@@ -37,8 +38,10 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
         holder.itemBinding.ngaySinh.setText(holder.itemView.getResources().getString(R.string.sinh_ngay, hs.getHocSinh().getSinhNgay()));
         holder.itemBinding.khoi.setText(holder.itemView.getResources().getString(R.string.lop, hs.getKhoiLop().getKhoiLop()));
         holder.itemView.setOnClickListener(v -> suKienClickHocSinh(hs));
-        loadAnhNhoHocSinh(holder,hs.getHocSinh().getAvatar());
-        holder.itemBinding.chanDungView.setOnClickListener(v -> clickAvatar(hs));
+        loadAnhNhoHocSinh(holder, hs.getHocSinh().getAvatar());
+        holder.itemBinding.chanDungView.setOnClickListener(v -> {
+            clickAvatar(hs);
+        });
 
     }
 
@@ -51,8 +54,11 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
                 .override(100, 100)
                 .centerCrop()
                 .transform(new CircleCrop())
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.itemBinding.chanDungView);
     }
+
     private void clickAvatar(HocSinhDangHoc hs) {
         if (clickAvatar != null) clickAvatar.accept(hs);
     }
