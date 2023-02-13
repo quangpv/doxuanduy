@@ -17,15 +17,13 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class CameraViewModel extends ViewModel {
-    AppExecutors appExecutors = AppExecutors.getInstance();
     AppFileManager fileManager = AppFileManager.getInstance();
     public MutableLiveData<Bitmap> anhDaChup = new MutableLiveData<>();
     public MutableLiveData<String> luuAnhLoi = new MutableLiveData<>();
     public String maHs;
 
     public void guiAnh(ImageProxy imageProxy) {
-        appExecutors.execute(() ->
-                anhDaChup.postValue(xoayAnh(getBitMap(imageProxy), imageProxy.getImageInfo().getRotationDegrees())));
+        anhDaChup.setValue(xoayAnh(getBitMap(imageProxy), imageProxy.getImageInfo().getRotationDegrees()));
     }
 
     private Bitmap xoayAnh(Bitmap bitMap, int rotationDegrees) {
@@ -60,22 +58,20 @@ public class CameraViewModel extends ViewModel {
     public void luuAnhTamThoi() {
         Bitmap bitmap = anhDaChup.getValue();
         if (bitmap == null) return;
-        appExecutors.execute(() -> {
-            String tenAnhTamThoi2 = System.currentTimeMillis() + "";
-            try {
-                fileManager.saveAnhTamThoi(bitmap, tenAnhTamThoi2);
-            } catch (IOException e) {
-                e.printStackTrace();
-                luuAnhLoi.postValue(e.getMessage());
-            }
-            if(maHs!=null){
-                fileManager.luuAnhVaTraVeUriAvarta(maHs);
-                maHs=null;
-            }
-        });
+        String tenAnhTamThoi2 = System.currentTimeMillis() + "";
+        try {
+            fileManager.saveAnhTamThoi(bitmap, tenAnhTamThoi2);
+        } catch (IOException e) {
+            e.printStackTrace();
+            luuAnhLoi.postValue(e.getMessage());
+        }
+        if (maHs != null) {
+            fileManager.luuAnhVaTraVeUriAvarta(maHs);
+            maHs = null;
+        }
     }
 
     public void truyenMaHocSinh(String maHs) {
-        this.maHs=maHs;
+        this.maHs = maHs;
     }
 }

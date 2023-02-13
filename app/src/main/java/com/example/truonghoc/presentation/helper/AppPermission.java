@@ -31,7 +31,7 @@ public class AppPermission {
 
     public List<String> dsQuyenCamera() {
         String[] quyenChinh = {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
-        String[] quyenPhu = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] quyenPhu = {};
         List<String> dsQuyen = Arrays.asList(quyenChinh);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
             dsQuyen.add(Arrays.toString(quyenPhu));

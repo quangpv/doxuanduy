@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ItemHocsinhListBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
+import com.example.truonghoc.presentation.model.IItemTouchHelper;
 
 import java.util.List;
 
@@ -42,7 +44,6 @@ public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAd
         holder.itemBinding.chanDungView.setOnClickListener(v -> {
             clickAvatar(hs);
         });
-
     }
 
 

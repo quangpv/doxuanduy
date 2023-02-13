@@ -8,11 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truonghoc.databinding.FragmentHocSinhBinding;
 import com.example.truonghoc.domain.HocSinhDangHoc;
@@ -21,6 +24,7 @@ import com.example.truonghoc.presentation.dialog.addavatar.AddAvatarBottomSheetF
 import com.example.truonghoc.presentation.feature.main.MainActivity;
 import com.example.truonghoc.presentation.feature.themhocsinh.ThemHocSinhActivity;
 import com.example.truonghoc.presentation.feature.thongtinhocsinh.ThongTinHocSinhActivity;
+import com.example.truonghoc.presentation.model.IItemTouchHelper;
 import com.example.truonghoc.presentation.model.ITextWatcher;
 
 
@@ -52,6 +56,17 @@ public class HocSinhFragment extends Fragment {
         hocSinhViewModel.danhSachHocSinh.observe(getViewLifecycleOwner(), adapter::setDanhSach);
         getNoiDungTimKiemView().addTextChangedListener((ITextWatcher) s -> hocSinhViewModel.timKiem(s.toString()));
         hocSinhBinding.recyclerviewHocsinh.setAdapter(adapter);
+        vuotDeXoaHocSinh();
+    }
+
+    private void vuotDeXoaHocSinh() {
+        ItemTouchHelper b = new ItemTouchHelper(new IItemTouchHelper(requireContext()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+        b.attachToRecyclerView(hocSinhBinding.recyclerviewHocsinh);
     }
 
     @Override

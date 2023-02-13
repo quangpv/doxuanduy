@@ -77,6 +77,12 @@ public class ThemHocSinhActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        appFileManager.anhTamThoi.observe(this, this::hienThiAnhThuNho);
+    }
+
+    @Override
     public void onBackPressed() {
         xuLyKhiAnBack();
     }
