@@ -64,8 +64,5 @@
             app:layout_constraintStart_toEndOf="@+id/gioi_tinh"
             app:layout_constraintTop_toBottomOf="@+id/hoten" />
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

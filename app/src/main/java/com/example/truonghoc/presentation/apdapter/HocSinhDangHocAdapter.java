@@ -21,7 +21,7 @@ import java.util.List;
 
 public class HocSinhDangHocAdapter extends RecyclerView.Adapter<HocSinhDangHocAdapter.HocSinhDangHocViewHolder> {
     public Consumer<HocSinhDangHoc> onItemClick, clickAvatar;
-    List<HocSinhDangHoc> danhSach;
+    private List<HocSinhDangHoc> danhSach;
 
     public HocSinhDangHocAdapter() {
     }

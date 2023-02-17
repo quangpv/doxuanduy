@@ -16,7 +16,7 @@ public class AppResources {
     private static AppResources sAppResources;
     private final Application application;
 
-    public AppResources(Application applicationContext) {
+    private AppResources(Application applicationContext) {
         this.application = applicationContext;
     }
 

@@ -5,12 +5,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.File;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import java.io.IOException;
@@ -39,14 +38,14 @@ public class AppFileManager {
     public void kiemTraVaTaoThuMucTamThoi() {
         thuMucTamThoi = application.getExternalFilesDir("TenThuMuc");
         if (!thuMucTamThoi.exists()) {
-            thuMucTamThoi.mkdir();
+            thuMucTamThoi.mkdirs();
         }
     }
 
     public void kiemTraVaTaoThuMucAnh() {
         thuMucAnh = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Avatar");
         if (!thuMucAnh.exists()) {
-            thuMucAnh.mkdir();
+            thuMucAnh.mkdirs();
         }
     }
 
@@ -79,9 +78,7 @@ public class AppFileManager {
         String viTriLuu = layThuMucAnh() + "/" + maHs + ".jpg";
         Uri uri = anhTamThoi.getValue();
         if(uri==null) return viTriLuu;
-        if (kiemTraUriThuocLoaiNao(uri))
-            xuLyAnhTuThuVien(uri, viTriLuu);
-        else xuLyAnhTuCamera(uri.getPath(), viTriLuu);
+        xuLyHinhAnh(uri,viTriLuu);
         xoaAnhTamThoi();
         return viTriLuu;
     }
@@ -90,28 +87,16 @@ public class AppFileManager {
         return uri.toString().contains("content://");
     }
 
-
-    private void xuLyAnhTuCamera(String input, String output) {
-        File tenGoc = new File(input);
-        File tenCanDoi = new File(output);
-        if (tenGoc.renameTo(tenCanDoi)) Log.i("doiten", "ok");
-        else Log.i("doiten", "sida");
-
-        tenGoc.delete();
-    }
-
-    private void xuLyAnhTuThuVien(Uri input, String outputPath) {
+    private void xuLyHinhAnh(Uri input, String outputPath) {
         FileOutputStream fileOutputStream = null;
         InputStream inputStream = null;
         try {
-            // lấy đối tượng trong bộ nhớ
-            inputStream = application.getContentResolver().openInputStream(input);
-            // lấy kích thước của đối tượng - > chuyển sang byte
-            int a = inputStream.available();
-            byte[] bytes = new byte[a];
+            if(kiemTraUriThuocLoaiNao(input))inputStream = application.getContentResolver().openInputStream(input);
+            else inputStream = new FileInputStream(input.getPath());
+            byte[] bytes = new byte[ inputStream.available()];
             //bytes có kích thước mảng là 138395byte. giá trị từng byte {-1,-40,1, vân vân}
             if (inputStream.read(bytes) > 0) {
-                fileOutputStream = new FileOutputStream(outputPath,false);
+                fileOutputStream = new FileOutputStream(outputPath);
                 fileOutputStream.write(bytes);
                 fileOutputStream.close();
             }
@@ -121,6 +106,7 @@ public class AppFileManager {
             try {
                 if (inputStream != null) inputStream.close();
                 if (fileOutputStream != null) fileOutputStream.close();
+                if(!kiemTraUriThuocLoaiNao(input)) new File(input.getPath()).delete();
             } catch (IOException ignored) {
             }
         }
