@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="offset_horizontal">12dp</dimen>
+    <dimen name="size_50">50dp</dimen>
+    <dimen name="size_40">40dp</dimen>
+    <dimen name="size_5">5dp</dimen>
+</resources>

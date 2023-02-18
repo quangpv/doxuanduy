@@ -7,22 +7,22 @@ import android.content.SharedPreferences;
 import com.example.truonghoc.domain.ThongTinTruongHoc;
 import com.google.gson.Gson;
 
-public class QuanLyData {
+public class AppDatasource {
     private static final String TRUONGHOC = "TRUONG_HOC";
-    private static QuanLyData sQuanLyData;
+    private static AppDatasource sAppDatasource;
     private final SharedPreferences sharedPreferences;
     private final Gson parser = new Gson();
 
-    public QuanLyData(Application application) {
+    public AppDatasource(Application application) {
         sharedPreferences = application.getSharedPreferences("data", Context.MODE_PRIVATE);
     }
 
     public static void init(Application application) {
-        sQuanLyData = new QuanLyData(application);
+        sAppDatasource = new AppDatasource(application);
     }
 
-    public static QuanLyData getInstance() {
-        return sQuanLyData;
+    public static AppDatasource getInstance() {
+        return sAppDatasource;
     }
 
     public void setThongTinTruong(ThongTinTruongHoc truongHoc) {

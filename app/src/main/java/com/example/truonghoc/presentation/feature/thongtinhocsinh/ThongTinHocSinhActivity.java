@@ -1,91 +1,96 @@
 package com.example.truonghoc.presentation.feature.thongtinhocsinh;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import com.example.truonghoc.databinding.ActivityManHinhThongTinHocSinhBinding;
-import com.example.truonghoc.domain.HocSinhDangHoc;
+import androidx.annotation.Nullable;
 
-public class ThongTinHocSinhActivity extends AppCompatActivity {
-    private ActivityManHinhThongTinHocSinhBinding thongTinBinding;
-    boolean checkEdit;
-    private HocSinhDangHoc hocSinh;
-    private ThongTinHocSinhViewModel thongTinHocSinhViewModel;
+import com.example.truonghoc.databinding.ActivityThongTinHocSinhBinding;
+import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.presentation.base.BaseActivity;
+import com.example.truonghoc.presentation.helper.DialogFactory;
+import com.example.truonghoc.presentation.helper.OnTextChangeListener;
+import com.example.truonghoc.presentation.helper.router.Arguments;
+import com.example.truonghoc.presentation.helper.router.Routings;
+import com.example.truonghoc.presentation.model.BiConsumer;
+
+
+public class ThongTinHocSinhActivity extends BaseActivity {
+    private ActivityThongTinHocSinhBinding binding;
+    private ThongTinHocSinhViewModel viewModel;
+    private Routings.ThongTinHocSinh args;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        thongTinBinding = ActivityManHinhThongTinHocSinhBinding.inflate(getLayoutInflater());
-        setContentView(thongTinBinding.getRoot());
-        thongTinHocSinhViewModel = new ViewModelProvider(this).get(ThongTinHocSinhViewModel.class);
-        hienThiThongTin();
-        thongTinBinding.thanhCongCuThemView.icBack.setOnClickListener(v -> xuLyAnBack());
-        thongTinBinding.thanhCongCuThemView.icLuu.setOnClickListener(v -> setSuaThongTin(false));
-        thongTinBinding.thanhCongCuThemView.icSua.setOnClickListener(v -> setSuaThongTin(true));
+        binding = setBinding(ActivityThongTinHocSinhBinding::inflate);
+        viewModel = getViewModel(ThongTinHocSinhViewModel.class);
+        args = Arguments.of(getIntent());
 
-    }
+        viewModel.chiTiet.observe(this, it -> {
+            binding.edtTen.setText(it.getName());
+            binding.edtDob.setText(it.getDob());
+            binding.edtGioiTinh.setText(it.getGender());
+            binding.edtLop.setText(it.getLop());
 
-    private void hienThiThongTin() {
-        Intent intent = getIntent();
-        hocSinh = intent.getParcelableExtra("HS");
-        thongTinBinding.thanhCongCuThemView.tieuDe.setText(hocSinh.getHocSinh().getMaHocSinh());
-        thongTinBinding.tenHsView.setText(hocSinh.getHocSinh().getHoVaTen());
-        thongTinBinding.gioiTinhView.setText(hocSinh.getHocSinh().getGioiTinh());
-        thongTinBinding.sinhNgayView.setText(hocSinh.getHocSinh().getSinhNgay());
-        thongTinBinding.lopHsView.setText(hocSinh.getKhoiLop().getKhoiLop());
-    }
+            boolean isEditable = it instanceof IChiTietHocSinhEditable;
+            binding.edtTen.setEnabled(isEditable);
+            binding.edtGioiTinh.setEnabled(isEditable);
+            binding.edtLop.setEnabled(isEditable);
+            binding.edtDob.setEnabled(isEditable);
+        });
 
-    public void setSuaThongTin(boolean value) {
-        checkEdit = value;
-        thongTinBinding.gioiTinhView.setEnabled(value);
-        thongTinBinding.tenHsView.setEnabled(value);
-        thongTinBinding.sinhNgayView.setEnabled(value);
-        thongTinBinding.lopHsView.setEnabled(value);
-        if (value) {
-            thongTinBinding.thanhCongCuThemView.icSua.setVisibility(View.INVISIBLE);
-            thongTinBinding.thanhCongCuThemView.icLuu.setVisibility(View.VISIBLE);
-        } else {
-            if (thongTinBinding.tenHsView.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Bạn Chưa Nhập Tên", Toast.LENGTH_SHORT).show();
-                setSuaThongTin(true);
+        registerTextChange(binding.edtTen, (it, editable) -> editable.setName(it));
+        registerTextChange(binding.edtGioiTinh, (it, editable) -> editable.setGioiTinh(it));
+        registerTextChange(binding.edtLop, (it, editable) -> editable.setLop(it));
+        registerTextChange(binding.edtDob, (it, editable) -> editable.setDob(it));
+
+        binding.btnEdit.setOnClickListener(v -> {
+            v.setSelected(!v.isSelected());
+            if (v.isSelected()) {
+                viewModel.enableEdit();
                 return;
             }
-            thongTinBinding.thanhCongCuThemView.icSua.setVisibility(View.VISIBLE);
-            thongTinBinding.thanhCongCuThemView.icLuu.setVisibility(View.INVISIBLE);
-            luuThongTinHocSinh();
-        }
+            if (!viewModel.isEdit()) {
+                viewModel.disableEdit();
+                return;
+            }
+            DialogFactory.createXacNhanSuaThongTinHocSinh(this, () -> {
+                viewModel.save();
+            }, () -> {
+                viewModel.disableEdit();
+            }).show();
+        });
+
+        binding.btnDelete.setOnClickListener(v -> {
+            viewModel.delete(args.id);
+        });
+
+        binding.btnBack.setOnClickListener(v -> onBackPressed());
+
+        viewModel.xoaThanhCong.observe(this, v -> {
+            finish();
+        });
+        viewModel.setId(args.id);
     }
 
+    void registerTextChange(EditText editText, BiConsumer<String, IChiTietHocSinhEditable> callback) {
 
-    private void luuThongTinHocSinh() {
-        hocSinh.getHocSinh().setHoVaTen(thongTinBinding.tenHsView.getText().toString());
-        hocSinh.getHocSinh().setGioiTinh(thongTinBinding.gioiTinhView.getText().toString());
-        hocSinh.getHocSinh().setSinhNgay(thongTinBinding.sinhNgayView.getText().toString());
-        hocSinh.getKhoiLop().setKhoiLop(thongTinBinding.lopHsView.getText().toString());
-        thongTinHocSinhViewModel.capNhapLaiThongTinHocSinh(hocSinh);
+        editText.addTextChangedListener((OnTextChangeListener) it -> {
+            if (!(viewModel.chiTiet.getValue() instanceof IChiTietHocSinhEditable)) {
+                return;
+            }
+            IChiTietHocSinhEditable editable = (IChiTietHocSinhEditable) viewModel.chiTiet.getValue();
+            callback.accept(it, editable);
+        });
     }
 
     public void xuLyAnBack() {
-        if (checkEdit) {
-            hienThiDiaLog();
+        if (viewModel.isEdit()) {
+            DialogFactory.createHuySuaThongTinHocSinh(this).show();
         } else {
             finish();
         }
-    }
-
-    private void hienThiDiaLog() {
-        AlertDialog.Builder dialogExit = new AlertDialog.Builder(this);
-        dialogExit.setMessage("Hủy Sửa Thông Tin ?");
-        dialogExit.setNegativeButton("Yes", (dialog, which) -> finish());
-        dialogExit.setPositiveButton("No", (dialog, which) -> {
-        });
-        dialogExit.show();
     }
 
     @Override

@@ -1,30 +1,24 @@
 package com.example.truonghoc.presentation.dialog.addavatar;
 
-import static androidx.activity.result.contract.ActivityResultContracts.*;
+import static androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.truonghoc.databinding.FragmentAddAvatarBottomSheetBinding;
 import com.example.truonghoc.presentation.camera.CameraActivity;
-import com.example.truonghoc.presentation.helper.AppFileManager;
 import com.example.truonghoc.presentation.helper.AppPermission;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -73,7 +67,6 @@ public class AddAvatarBottomSheetFragment extends BottomSheetDialogFragment {
             requireActivity().requestPermissions(appPermission.dsQuyenCamera().toArray(new String[0]), 20);
         }
     }
-
 
     private void openCamera() {
         if (appPermission.checkQuyenCamera()) {

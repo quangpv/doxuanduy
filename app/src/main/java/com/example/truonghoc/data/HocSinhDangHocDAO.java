@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.truonghoc.domain.HocSinhDangHoc;
+import com.example.truonghoc.domain.IChiTietHocSinh;
 
 import java.util.List;
 
@@ -27,4 +28,9 @@ public interface HocSinhDangHocDAO {
     @Delete
     void xoaHocSinh(HocSinhDangHoc hocSinhDangHoc);
 
+    @Query("delete from hocSinhDangHoc where maHocSinh=:id")
+    void xoaHocSinhById(String id);
+
+    @Query("select * from hocSinhDangHoc where maHocSinh=:id")
+    HocSinhDangHoc getHocSinh(String id);
 }

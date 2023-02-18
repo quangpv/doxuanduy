@@ -20,4 +20,6 @@
     <string name="thu_vien">Thư Viện</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_danh_sach_hoc_sinh">Danh Sách Học Sinh</string>
+    <string name="tim_kiem_hoc_sinh">Tìm kiếm học sinh</string>
 </resources>

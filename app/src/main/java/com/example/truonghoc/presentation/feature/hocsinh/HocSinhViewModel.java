@@ -1,50 +1,29 @@
 package com.example.truonghoc.presentation.feature.hocsinh;
 
 
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.data.HocSinhDangHocDataBase;
-import com.example.truonghoc.domain.HocSinhDangHoc;
+import com.example.truonghoc.domain.IHocSinh;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
-import java.text.Normalizer;
-import java.util.ArrayList;
 import java.util.List;
 
-
 public class HocSinhViewModel extends ViewModel {
-    private final AppExecutors executors = AppExecutors.getInstance();
-    private final HocSinhDangHocDataBase dataBase = HocSinhDangHocDataBase.getInstance();
-    public final MediatorLiveData<List<HocSinhDangHoc>> danhSachHocSinh = new MediatorLiveData<>();
+    private final AppExecutors appExecutors = AppExecutors.getInstance();
+    private final HocSinhRepository hocSinhRepository = HocSinhRepository.getInstance();
 
-    public void timKiem(String tuKhoa) {
-        executors.execute(() -> {
-            List<HocSinhDangHoc> tatCaHocSinh = dataBase.hocSinhDAO().layTatCaHocSinh();
-            List<HocSinhDangHoc> danhSachLoc = new ArrayList<>();
-            if (tuKhoa.isEmpty()) {
-                danhSachHocSinh.postValue(tatCaHocSinh);
-                return;
-            }
+    public final MutableLiveData<List<IHocSinh>> hocSinhList = new MutableLiveData<>();
+    private String mSearch = "";
 
-            for (HocSinhDangHoc hocSinh : tatCaHocSinh) {
-                if (dieuKien(hocSinh, tuKhoa)) {
-                    danhSachLoc.add(hocSinh);
-                }
-            }
-            danhSachHocSinh.postValue(danhSachLoc);
+    public void search(String text) {
+        mSearch = text;
+        appExecutors.execute(() -> {
+            hocSinhList.postValue(hocSinhRepository.getHocSinhList(text));
         });
     }
 
-    private boolean dieuKien(HocSinhDangHoc hocSinh, String s) {
-        return xoaDauChu(hocSinh.getHocSinh().getHoVaTen()).contains(xoaDauChu(s));
-    }
-
-    private String xoaDauChu(String noiDungDau) {
-        return Normalizer.normalize(noiDungDau, Normalizer.Form.NFD)
-                .toLowerCase()
-                .replaceAll("\\p{M}", "")
-                .replace('đ', 'd')
-                .replace('Đ', 'D');
+    public void tryFetch() {
+        search(mSearch);
     }
 }
