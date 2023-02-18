@@ -1,10 +1,10 @@
-package com.example.truonghoc.presentation.feature.hocsinh;
+package com.example.truonghoc.data.repository;
 
-import com.example.truonghoc.data.HocSinhDangHocDAO;
-import com.example.truonghoc.data.HocSinhDangHocDataBase;
-import com.example.truonghoc.domain.HocSinh;
-import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.domain.IHocSinh;
+import com.example.truonghoc.data.datasource.HocSinhDangHocDAO;
+import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
+import com.example.truonghoc.data.model.HocSinh;
+import com.example.truonghoc.data.model.HocSinhDangHoc;
+import com.example.truonghoc.domain.ui.IHocSinh;
 
 import java.util.ArrayList;
 import java.util.List;

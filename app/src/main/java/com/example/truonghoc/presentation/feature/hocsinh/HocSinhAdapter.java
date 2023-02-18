@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truonghoc.databinding.ItemHocsinhBinding;
-import com.example.truonghoc.domain.IHocSinh;
+import com.example.truonghoc.domain.ui.IHocSinh;
 
 import java.util.List;
 

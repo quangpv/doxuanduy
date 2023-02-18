@@ -1,8 +1,8 @@
-package com.example.truonghoc.presentation.feature.thongtinhocsinh;
+package com.example.truonghoc.domain.bo;
 
-import com.example.truonghoc.domain.HasIsEdited;
-import com.example.truonghoc.domain.IChiTietHocSinh;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.HasIsEdited;
+import com.example.truonghoc.domain.ui.IChiTietHocSinh;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 
 import java.util.Objects;
 

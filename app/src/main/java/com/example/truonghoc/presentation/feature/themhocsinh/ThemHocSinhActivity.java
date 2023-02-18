@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.example.truonghoc.databinding.ActivityThemHocSinhBinding;
-import com.example.truonghoc.domain.HasSetId;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.HasSetId;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 import com.example.truonghoc.presentation.base.BaseActivity;
 import com.example.truonghoc.presentation.helper.OnTextChangeListener;
 import com.example.truonghoc.presentation.model.BiConsumer;

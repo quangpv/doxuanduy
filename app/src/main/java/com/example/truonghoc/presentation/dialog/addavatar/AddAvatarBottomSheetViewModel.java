@@ -6,8 +6,7 @@ import android.os.Bundle;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.presentation.helper.AppExecutors;
+import com.example.truonghoc.data.model.HocSinhDangHoc;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
 public class AddAvatarBottomSheetViewModel extends ViewModel {

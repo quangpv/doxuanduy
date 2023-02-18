@@ -1,4 +1,4 @@
-package com.example.truonghoc.data;
+package com.example.truonghoc.data.datasource;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-import com.example.truonghoc.domain.HocSinhDangHoc;
+import com.example.truonghoc.data.model.HocSinhDangHoc;
 
 @Database(entities = {HocSinhDangHoc.class}, version = 1)
 public abstract class HocSinhDangHocDataBase extends RoomDatabase {

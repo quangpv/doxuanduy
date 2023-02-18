@@ -1,7 +1,6 @@
 package com.example.truonghoc.presentation.camera.viewimgfragment;
 
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.truonghoc.databinding.FragmentViewImageBinding;
-import com.example.truonghoc.domain.HocSinhDangHoc;
 import com.example.truonghoc.presentation.camera.CameraViewModel;
 
 

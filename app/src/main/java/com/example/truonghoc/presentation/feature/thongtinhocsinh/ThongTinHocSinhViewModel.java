@@ -3,9 +3,11 @@ package com.example.truonghoc.presentation.feature.thongtinhocsinh;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.domain.HasIsEdited;
-import com.example.truonghoc.domain.IChiTietHocSinh;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.data.repository.ThongSinhHocSinhRepository;
+import com.example.truonghoc.domain.bo.ChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.HasIsEdited;
+import com.example.truonghoc.domain.ui.IChiTietHocSinh;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
 public class ThongTinHocSinhViewModel extends ViewModel {

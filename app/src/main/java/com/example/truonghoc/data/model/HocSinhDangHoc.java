@@ -1,4 +1,4 @@
-package com.example.truonghoc.domain;
+package com.example.truonghoc.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

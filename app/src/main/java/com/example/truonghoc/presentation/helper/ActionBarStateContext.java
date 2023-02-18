@@ -1,4 +1,4 @@
-package com.example.truonghoc.presentation.feature.hocsinh;
+package com.example.truonghoc.presentation.helper;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,7 +29,7 @@ public class ActionBarStateContext {
         mPrevious = state;
     }
 
-    interface State {
+    public interface State {
         ViewBinding onCreate(LayoutInflater inflater, ViewGroup parent);
 
         void onApply();

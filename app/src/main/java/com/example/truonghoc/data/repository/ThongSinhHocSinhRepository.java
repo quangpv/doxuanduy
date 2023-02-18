@@ -1,10 +1,10 @@
-package com.example.truonghoc.presentation.feature.thongtinhocsinh;
+package com.example.truonghoc.data.repository;
 
-import com.example.truonghoc.data.HocSinhDangHocDataBase;
-import com.example.truonghoc.domain.HocSinh;
-import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.domain.IChiTietHocSinh;
-import com.example.truonghoc.domain.KhoiLop;
+import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
+import com.example.truonghoc.data.model.HocSinh;
+import com.example.truonghoc.data.model.HocSinhDangHoc;
+import com.example.truonghoc.domain.ui.IChiTietHocSinh;
+import com.example.truonghoc.data.model.KhoiLop;
 
 public class ThongSinhHocSinhRepository {
     private static final ThongSinhHocSinhRepository sInstance = new ThongSinhHocSinhRepository();

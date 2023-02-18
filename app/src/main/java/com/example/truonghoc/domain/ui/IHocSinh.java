@@ -1,4 +1,4 @@
-package com.example.truonghoc.domain;
+package com.example.truonghoc.domain.ui;
 
 public interface IHocSinh {
     String getId();

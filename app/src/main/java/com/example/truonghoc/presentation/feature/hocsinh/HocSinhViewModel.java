@@ -4,7 +4,8 @@ package com.example.truonghoc.presentation.feature.hocsinh;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.domain.IHocSinh;
+import com.example.truonghoc.data.repository.HocSinhRepository;
+import com.example.truonghoc.domain.ui.IHocSinh;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
 import java.util.List;

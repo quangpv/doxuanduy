@@ -1,4 +1,4 @@
-package com.example.truonghoc.domain;
+package com.example.truonghoc.data.model;
 
 public class ThongTinTruongHoc {
     private String tenTruong,diaChiTruong,sdtTruong;

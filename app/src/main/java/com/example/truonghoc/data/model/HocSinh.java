@@ -1,12 +1,9 @@
-package com.example.truonghoc.domain;
+package com.example.truonghoc.data.model;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-
-import com.example.truonghoc.presentation.helper.AppFileManager;
 
 public class HocSinh implements Parcelable {
     private String maHocSinh;

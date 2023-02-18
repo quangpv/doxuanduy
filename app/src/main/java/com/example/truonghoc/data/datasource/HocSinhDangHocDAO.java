@@ -1,4 +1,4 @@
-package com.example.truonghoc.data;
+package com.example.truonghoc.data.datasource;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,8 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.truonghoc.domain.HocSinhDangHoc;
-import com.example.truonghoc.domain.IChiTietHocSinh;
+import com.example.truonghoc.data.model.HocSinhDangHoc;
 
 import java.util.List;
 

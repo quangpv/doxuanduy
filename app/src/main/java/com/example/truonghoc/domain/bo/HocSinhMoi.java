@@ -1,7 +1,7 @@
-package com.example.truonghoc.presentation.feature.themhocsinh;
+package com.example.truonghoc.domain.bo;
 
-import com.example.truonghoc.domain.HasSetId;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.HasSetId;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 
 public class HocSinhMoi implements IChiTietHocSinhEditable, HasSetId {
     private String mLop;

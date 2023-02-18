@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "8c374b055a68fde77b17d09eb7c08f8a",
+    "entities": [
+      {
+        "tableName": "hocSinhDangHoc",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `maHocSinh` TEXT, `hoVaTen` TEXT, `gioiTinh` TEXT, `sinhNgay` TEXT, `avatar` TEXT, `khoiLop` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "Id",
+            "columnName": "Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hocSinh.maHocSinh",
+            "columnName": "maHocSinh",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hocSinh.hoVaTen",
+            "columnName": "hoVaTen",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hocSinh.gioiTinh",
+            "columnName": "gioiTinh",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hocSinh.sinhNgay",
+            "columnName": "sinhNgay",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hocSinh.avatar",
+            "columnName": "avatar",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "khoiLop.khoiLop",
+            "columnName": "khoiLop",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "Id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8c374b055a68fde77b17d09eb7c08f8a')"
+    ]
+  }
+}

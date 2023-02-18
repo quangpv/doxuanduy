@@ -2,8 +2,8 @@ package com.example.truonghoc.presentation;
 
 import android.app.Application;
 
-import com.example.truonghoc.data.HocSinhDangHocDataBase;
-import com.example.truonghoc.data.AppDatasource;
+import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
+import com.example.truonghoc.data.datasource.AppDatasource;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 import com.example.truonghoc.presentation.helper.AppPermission;
 import com.example.truonghoc.presentation.helper.AppResources;

@@ -1,10 +1,10 @@
-package com.example.truonghoc.data;
+package com.example.truonghoc.data.datasource;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.truonghoc.domain.ThongTinTruongHoc;
+import com.example.truonghoc.data.model.ThongTinTruongHoc;
 import com.google.gson.Gson;
 
 public class AppDatasource {

@@ -6,7 +6,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 
 import com.example.truonghoc.databinding.ActivityThongTinHocSinhBinding;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 import com.example.truonghoc.presentation.base.BaseActivity;
 import com.example.truonghoc.presentation.helper.DialogFactory;
 import com.example.truonghoc.presentation.helper.OnTextChangeListener;

@@ -3,9 +3,10 @@ package com.example.truonghoc.presentation.feature.themhocsinh;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.domain.IChiTietHocSinh;
-import com.example.truonghoc.domain.IChiTietHocSinhEditable;
-import com.example.truonghoc.presentation.feature.thongtinhocsinh.ThongSinhHocSinhRepository;
+import com.example.truonghoc.domain.bo.HocSinhMoi;
+import com.example.truonghoc.domain.ui.IChiTietHocSinh;
+import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
+import com.example.truonghoc.data.repository.ThongSinhHocSinhRepository;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
 public class ThemHocSinhViewModel extends ViewModel {
@@ -24,6 +25,10 @@ public class ThemHocSinhViewModel extends ViewModel {
         IChiTietHocSinh hocSinh1 = hocSinh.getValue();
         if (hocSinh1 == null) return;
         executors.execute(() -> {
+            if (hocSinh1.getId().isEmpty()) {
+                themThatBai.postValue("Mã học sinh trống");
+                return;
+            }
             if (thongSinhHocSinhRepository.exists(hocSinh1)) {
                 themThatBai.postValue("Đã tồn tại học sinh " + hocSinh1.getId());
                 return;
