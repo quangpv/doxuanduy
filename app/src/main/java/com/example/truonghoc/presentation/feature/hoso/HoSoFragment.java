@@ -46,6 +46,9 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
             }
             ViewUtils.show(binding.btnSave, it instanceof IHoSoEditable);
         });
+        viewModel.saveSuccess.observe(getViewLifecycleOwner(), it -> {
+            toast("Lưu thành công");
+        });
     }
 
     private void registerTextChange(EditText editText, BiConsumer<String, IHoSoEditable> callback) {

@@ -9,9 +9,11 @@ import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.presentation.helper.AppExecutors;
 
 public class HoSoViewModel extends ViewModel {
-    public MutableLiveData<IHoSo> hoso = new MutableLiveData<>();
     private final TruongHocRepository truongHocRepository = new TruongHocRepository();
     private final AppExecutors executors = AppExecutors.getInstance();
+
+    public MutableLiveData<IHoSo> hoso = new MutableLiveData<>();
+    public MutableLiveData<Boolean> saveSuccess = new MutableLiveData<>();
 
     public void save() {
         IHoSo hoso1 = hoso.getValue();
@@ -20,6 +22,7 @@ public class HoSoViewModel extends ViewModel {
         }
         executors.execute(() -> {
             truongHocRepository.save(hoso1);
+            saveSuccess.postValue(true);
         });
     }
 
