@@ -12,6 +12,7 @@ import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.presentation.base.BindingFragment;
 import com.example.truonghoc.presentation.helper.ObserveUtils;
+import com.example.truonghoc.presentation.helper.ValidationUtils;
 import com.example.truonghoc.presentation.helper.ViewUtils;
 import com.example.truonghoc.presentation.model.BiConsumer;
 import com.example.truonghoc.presentation.model.ITextWatcher;
@@ -47,7 +48,7 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
             }
             ViewUtils.show(binding.btnSave, it instanceof IHoSoEditable);
 
-            binding.btnSave.setEnabled(ObserveUtils.isAllValid(
+            binding.btnSave.setEnabled(ValidationUtils.isAllValid(
                     it.getPhoneNumber(),
                     it.getAddress(),
                     it.getName()

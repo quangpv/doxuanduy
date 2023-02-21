@@ -34,9 +34,9 @@ public class ObserveUtils {
     }
 
     public static void combineValidation(Consumer<Boolean> consumer, CharSequence... fields) {
-        final boolean[] isAllValid = {isAllValid(fields)};
+        final boolean[] isAllValid = {ValidationUtils.isAllValid(fields)};
         Runnable onChange = () -> {
-            boolean nextInvalid = isAllValid(fields);
+            boolean nextInvalid = ValidationUtils.isAllValid(fields);
             if (nextInvalid != isAllValid[0]) {
                 isAllValid[0] = nextInvalid;
                 consumer.accept(isAllValid[0]);
@@ -47,15 +47,5 @@ public class ObserveUtils {
                 ((Subject) field).subscribe(onChange);
             }
         }
-    }
-
-    public static boolean isAllValid(CharSequence... fields) {
-        boolean isAllValid = true;
-        for (CharSequence field : fields) {
-            if (field instanceof ValidateAble) {
-                isAllValid = isAllValid && ((ValidateAble) field).isValid();
-            }
-        }
-        return isAllValid;
     }
 }
