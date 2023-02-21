@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class HocSinh implements Parcelable {
+public class HocSinhEntity implements Parcelable {
     private String maHocSinh;
     private String hoVaTen;
     private String gioiTinh;
@@ -13,7 +13,7 @@ public class HocSinh implements Parcelable {
     private String avatar;
 
 
-    public HocSinh(String avatar,String maHocSinh, String hoVaTen, String gioiTinh, String sinhNgay) {
+    public HocSinhEntity(String avatar, String maHocSinh, String hoVaTen, String gioiTinh, String sinhNgay) {
         this.maHocSinh = maHocSinh;
         this.hoVaTen = hoVaTen;
         this.gioiTinh = gioiTinh;
@@ -23,7 +23,7 @@ public class HocSinh implements Parcelable {
 
 
 
-    protected HocSinh(Parcel in) {
+    protected HocSinhEntity(Parcel in) {
         maHocSinh = in.readString();
         hoVaTen = in.readString();
         gioiTinh = in.readString();
@@ -31,15 +31,15 @@ public class HocSinh implements Parcelable {
         avatar = in.readString();
     }
 
-    public static final Creator<HocSinh> CREATOR = new Creator<HocSinh>() {
+    public static final Creator<HocSinhEntity> CREATOR = new Creator<HocSinhEntity>() {
         @Override
-        public HocSinh createFromParcel(Parcel in) {
-            return new HocSinh(in);
+        public HocSinhEntity createFromParcel(Parcel in) {
+            return new HocSinhEntity(in);
         }
 
         @Override
-        public HocSinh[] newArray(int size) {
-            return new HocSinh[size];
+        public HocSinhEntity[] newArray(int size) {
+            return new HocSinhEntity[size];
         }
     };
 

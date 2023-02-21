@@ -5,26 +5,26 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class KhoiLop implements Parcelable {
+public class KhoiEntity implements Parcelable {
     private String khoiLop;
 
-    public KhoiLop(String khoiLop) {
+    public KhoiEntity(String khoiLop) {
         this.khoiLop = khoiLop;
     }
 
-    protected KhoiLop(Parcel in) {
+    protected KhoiEntity(Parcel in) {
         khoiLop = in.readString();
     }
 
-    public static final Creator<KhoiLop> CREATOR = new Creator<KhoiLop>() {
+    public static final Creator<KhoiEntity> CREATOR = new Creator<KhoiEntity>() {
         @Override
-        public KhoiLop createFromParcel(Parcel in) {
-            return new KhoiLop(in);
+        public KhoiEntity createFromParcel(Parcel in) {
+            return new KhoiEntity(in);
         }
 
         @Override
-        public KhoiLop[] newArray(int size) {
-            return new KhoiLop[size];
+        public KhoiEntity[] newArray(int size) {
+            return new KhoiEntity[size];
         }
     };
 

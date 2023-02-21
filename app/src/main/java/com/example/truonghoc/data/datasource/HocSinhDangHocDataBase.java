@@ -7,9 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-import com.example.truonghoc.data.model.HocSinhDangHoc;
+import com.example.truonghoc.data.model.HocSinhDangHocEntity;
 
-@Database(entities = {HocSinhDangHoc.class}, version = 1)
+@Database(entities = {HocSinhDangHocEntity.class}, version = 1)
 public abstract class HocSinhDangHocDataBase extends RoomDatabase {
     private static final String DATA_BASE_NAME = "hocSinh.db";
     private static HocSinhDangHocDataBase hocSinhData;

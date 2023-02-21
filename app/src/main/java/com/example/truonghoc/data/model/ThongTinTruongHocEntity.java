@@ -1,9 +1,9 @@
 package com.example.truonghoc.data.model;
 
-public class ThongTinTruongHoc {
+public class ThongTinTruongHocEntity {
     private String tenTruong,diaChiTruong,sdtTruong;
 
-    public ThongTinTruongHoc(String tenTruong, String diaChiTruong, String sdtTruong) {
+    public ThongTinTruongHocEntity(String tenTruong, String diaChiTruong, String sdtTruong) {
         this.tenTruong = tenTruong;
         this.diaChiTruong = diaChiTruong;
         this.sdtTruong = sdtTruong;

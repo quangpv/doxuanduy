@@ -2,24 +2,21 @@ package com.example.truonghoc.presentation.feature.hocsinh;
 
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.FragmentHocSinhBinding;
-import com.example.truonghoc.presentation.base.BaseFragment;
+import com.example.truonghoc.presentation.base.BindingFragment;
 import com.example.truonghoc.presentation.helper.ActionBarStateContext;
 import com.example.truonghoc.presentation.helper.ViewUtils;
 import com.example.truonghoc.presentation.helper.router.Router;
 import com.example.truonghoc.presentation.helper.router.Routings;
 
 
-public class HocSinhFragment extends BaseFragment {
-    private FragmentHocSinhBinding binding;
+public class HocSinhFragment extends BindingFragment<FragmentHocSinhBinding> {
     private HocSinhViewModel viewModel;
     private HocSinhAdapter hocSinhAdapter;
     private ActionBarStateContext actionBarContext;
@@ -27,14 +24,8 @@ public class HocSinhFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setInflate(FragmentHocSinhBinding::inflate);
         viewModel = getViewModel(HocSinhViewModel.class);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentHocSinhBinding.inflate(inflater, container, false);
-        return binding.getRoot();
     }
 
     @Override
