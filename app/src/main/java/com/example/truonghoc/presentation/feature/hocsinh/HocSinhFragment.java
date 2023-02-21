@@ -45,13 +45,11 @@ public class HocSinhFragment extends BaseFragment {
 
         ActionBarTitleAndSearchButtonState titleState = new ActionBarTitleAndSearchButtonState(R.string.title_danh_sach_hoc_sinh);
         ActionBarInputSearchState searchState = new ActionBarInputSearchState(R.string.tim_kiem_hoc_sinh);
-
         titleState.onSearchClick = () -> actionBarContext.setState(searchState);
         searchState.onExitClick = () -> actionBarContext.setState(titleState);
         searchState.onSearching = (text) -> viewModel.search(text);
 
         hocSinhAdapter.onItemClick = item -> Router.open(this, new Routings.ThongTinHocSinh(item.getId()));
-
         binding.btnAdd.setOnClickListener(v -> Router.open(this, new Routings.TaoMoiHocSinh()));
 
         viewModel.hocSinhList.observe(getViewLifecycleOwner(), it -> {

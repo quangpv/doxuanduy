@@ -39,12 +39,8 @@ public class ActionBarInputSearchState implements ActionBarStateContext.State, T
     @Override
     public void onApply() {
         binding.edtSearch.addTextChangedListener(this);
-        binding.btnClose.setOnClickListener(v -> {
-            binding.edtSearch.setText("");
-        });
-        binding.btnExit.setOnClickListener(v -> {
-            onExitClick.run();
-        });
+        binding.btnClose.setOnClickListener(v -> binding.edtSearch.setText(""));
+        binding.btnExit.setOnClickListener(v -> onExitClick.run());
         ViewUtils.show(binding.btnClose, binding.edtSearch.length() > 0);
         binding.edtSearch.setHint(binding.getRoot().getResources().getString(hintRes));
     }

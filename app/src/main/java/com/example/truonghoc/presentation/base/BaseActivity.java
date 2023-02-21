@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
+import com.example.truonghoc.R;
+
 
 public class BaseActivity extends AppCompatActivity {
 
     public <T extends ViewModel> T getViewModel(Class<T> clazz) {
         return new ViewModelProvider(this).get(clazz);
     }
+
 
     public <T extends ViewBinding> T setBinding(Function<LayoutInflater, T> inflate) {
         T binding = inflate.apply(getLayoutInflater());

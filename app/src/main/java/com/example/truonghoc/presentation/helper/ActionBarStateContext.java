@@ -31,7 +31,6 @@ public class ActionBarStateContext {
 
     public interface State {
         ViewBinding onCreate(LayoutInflater inflater, ViewGroup parent);
-
         void onApply();
     }
 }

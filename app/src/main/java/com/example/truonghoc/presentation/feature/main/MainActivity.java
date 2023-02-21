@@ -2,6 +2,10 @@ package com.example.truonghoc.presentation.feature.main;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+
+import androidx.arch.core.util.Function;
+import androidx.viewbinding.ViewBinding;
 
 import com.example.truonghoc.R;
 import com.example.truonghoc.databinding.ActivityMainBinding;
