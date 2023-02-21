@@ -11,6 +11,7 @@ import com.example.truonghoc.databinding.FragmentHoSoBinding;
 import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.presentation.base.BindingFragment;
+import com.example.truonghoc.presentation.helper.ObserveUtils;
 import com.example.truonghoc.presentation.helper.ViewUtils;
 import com.example.truonghoc.presentation.model.BiConsumer;
 import com.example.truonghoc.presentation.model.ITextWatcher;
@@ -45,9 +46,37 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
                 editText.setEnabled(it instanceof IHoSoEditable);
             }
             ViewUtils.show(binding.btnSave, it instanceof IHoSoEditable);
+
+            binding.btnSave.setEnabled(ObserveUtils.isAllValid(
+                    it.getPhoneNumber(),
+                    it.getAddress(),
+                    it.getName()
+            ));
+
+            ObserveUtils.bindValidation(this, it.getPhoneNumber(), (validateAble) -> {
+                ViewUtils.setActivated(binding.edtSDT, !validateAble.isValid());
+                ViewUtils.show(binding.txtPhoneError, validateAble);
+            });
+            ObserveUtils.bindValidation(this, it.getAddress(), (validateAble) -> {
+                ViewUtils.setActivated(binding.edtAddress, !validateAble.isValid());
+            });
+            ObserveUtils.bindValidation(this, it.getName(), (validateAble) -> {
+                ViewUtils.setActivated(binding.edtName, !validateAble.isValid());
+            });
+            ObserveUtils.combineValidation(
+                    (isValid) -> binding.btnSave.setEnabled(isValid),
+                    it.getPhoneNumber(),
+                    it.getAddress(),
+                    it.getName()
+            );
         });
+
         viewModel.saveSuccess.observe(getViewLifecycleOwner(), it -> {
             toast("Lưu thành công");
+        });
+
+        viewModel.error.observe(getViewLifecycleOwner(), it -> {
+            toast(it.getMessage());
         });
     }
 
