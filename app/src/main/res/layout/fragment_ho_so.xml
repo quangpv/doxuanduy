@@ -1,27 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_hocsinh_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".presentation.feature.hocsinh.HocSinhFragment">
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/actionBar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/green" />
+        android:background="@color/green">
+
+        <TextView
+            style="@style/Theme.TruongHoc.Actionbar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hồ sơ"
+            android:textColor="@color/white" />
+    </FrameLayout>
 
     <View style="@style/Theme.TruongHoc.Line.Horizontal" />
 
     <TextView
-        android:id="@+id/txtEmpty"
+        style="@style/Theme.TruongHoc.Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/offset_horizontal"
+        android:text="@string/ten_truong" />
+
+    <EditText
+        android:id="@+id/edtName"
+        style="@style/Theme.TruongHoc.EditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Chưa có hồ sơ" />
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/size_5"
+        android:hint="@string/ten_truong" />
+
+    <TextView
+        style="@style/Theme.TruongHoc.Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/offset_horizontal"
+        android:text="@string/dia_chi_truong" />
+
+    <EditText
+        android:id="@+id/edtAddress"
+        style="@style/Theme.TruongHoc.EditText"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/size_5"
+        android:hint="@string/dia_chi_truong" />
+
+    <TextView
+        style="@style/Theme.TruongHoc.Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/offset_horizontal"
+        android:text="@string/so_dien_thoai" />
+
+    <EditText
+        android:id="@+id/edtSDT"
+        style="@style/Theme.TruongHoc.EditText"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/size_5"
+        android:hint="@string/so_dien_thoai" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:text="Lưu thay đổi"
+        android:layout_margin="@dimen/offset_horizontal"
+        style="@style/Theme.TruongHoc.Button"
+        android:layout_width="match_parent"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:stateListAnimator="@null" />
 
 </LinearLayout>
 

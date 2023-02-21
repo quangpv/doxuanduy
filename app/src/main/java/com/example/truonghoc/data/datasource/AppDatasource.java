@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.truonghoc.data.model.ThongTinTruongHoc;
+import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
 import com.google.gson.Gson;
 
 public class AppDatasource {
@@ -25,13 +25,13 @@ public class AppDatasource {
         return sAppDatasource;
     }
 
-    public void setThongTinTruong(ThongTinTruongHoc truongHoc) {
+    public void setThongTinTruong(ThongTinTruongHocEntity truongHoc) {
         sharedPreferences.edit().putString(TRUONGHOC, parser.toJson(truongHoc)).apply();
     }
 
-    public ThongTinTruongHoc layThongTinTruong() {
+    public ThongTinTruongHocEntity layThongTinTruong() {
         String truongHocStr = sharedPreferences.getString(TRUONGHOC, "");
-        if (truongHocStr.isEmpty()) return new ThongTinTruongHoc("", "", "");
-        return parser.fromJson(truongHocStr, ThongTinTruongHoc.class);
+        if (truongHocStr.isEmpty()) return new ThongTinTruongHocEntity("", "", "");
+        return parser.fromJson(truongHocStr, ThongTinTruongHocEntity.class);
     }
 }

@@ -1,10 +1,10 @@
 package com.example.truonghoc.data.repository;
 
 import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
-import com.example.truonghoc.data.model.HocSinh;
-import com.example.truonghoc.data.model.HocSinhDangHoc;
+import com.example.truonghoc.data.model.HocSinhEntity;
+import com.example.truonghoc.data.model.HocSinhDangHocEntity;
+import com.example.truonghoc.data.model.KhoiEntity;
 import com.example.truonghoc.domain.ui.IChiTietHocSinh;
-import com.example.truonghoc.data.model.KhoiLop;
 
 public class ThongSinhHocSinhRepository {
     private static final ThongSinhHocSinhRepository sInstance = new ThongSinhHocSinhRepository();
@@ -15,7 +15,7 @@ public class ThongSinhHocSinhRepository {
     }
 
     public IChiTietHocSinh findById(String id) {
-        HocSinhDangHoc hocSinhDangHoc = database.hocSinhDAO().getHocSinh(id);
+        HocSinhDangHocEntity hocSinhDangHoc = database.hocSinhDAO().getHocSinh(id);
         if (hocSinhDangHoc == null) return null;
         return new IChiTietHocSinh() {
             @Override
@@ -46,26 +46,26 @@ public class ThongSinhHocSinhRepository {
     }
 
     public void save(IChiTietHocSinh hocSinh) {
-        HocSinhDangHoc hocSinhDangHoc = database.hocSinhDAO().getHocSinh(hocSinh.getId());
-        HocSinhDangHoc hoc = new HocSinhDangHoc(new HocSinh(
+        HocSinhDangHocEntity hocSinhDangHoc = database.hocSinhDAO().getHocSinh(hocSinh.getId());
+        HocSinhDangHocEntity hoc = new HocSinhDangHocEntity(new HocSinhEntity(
                 "",
                 hocSinh.getId(),
                 hocSinh.getName(),
                 hocSinh.getGender(),
                 hocSinh.getDob()
-        ), new KhoiLop(hocSinh.getLop()));
+        ), new KhoiEntity(hocSinh.getLop()));
         hoc.Id = hocSinhDangHoc.Id;
         database.hocSinhDAO().suaHocSinh(hoc);
     }
 
     public void add(IChiTietHocSinh hocSinh) {
-        HocSinhDangHoc hoc = new HocSinhDangHoc(new HocSinh(
+        HocSinhDangHocEntity hoc = new HocSinhDangHocEntity(new HocSinhEntity(
                 "",
                 hocSinh.getId(),
                 hocSinh.getName(),
                 hocSinh.getGender(),
                 hocSinh.getDob()
-        ), new KhoiLop(hocSinh.getLop()));
+        ), new KhoiEntity(hocSinh.getLop()));
         database.hocSinhDAO().themHocSinh(hoc);
     }
 

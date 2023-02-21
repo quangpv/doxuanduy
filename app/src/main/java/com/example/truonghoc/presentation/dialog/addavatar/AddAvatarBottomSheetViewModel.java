@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.truonghoc.data.model.HocSinhDangHoc;
+import com.example.truonghoc.data.model.HocSinhDangHocEntity;
 import com.example.truonghoc.presentation.helper.AppFileManager;
 
 public class AddAvatarBottomSheetViewModel extends ViewModel {
@@ -18,7 +18,7 @@ public class AddAvatarBottomSheetViewModel extends ViewModel {
        if(bundle==null){
            maHs=null;
        }else {
-           HocSinhDangHoc hs = bundle.getParcelable("hs");
+           HocSinhDangHocEntity hs = bundle.getParcelable("hs");
            maHs = hs.getHocSinh().getMaHocSinh();
        }
     }
