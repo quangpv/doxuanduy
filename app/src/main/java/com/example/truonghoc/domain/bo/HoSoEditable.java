@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
-import com.example.truonghoc.domain.ui.Subject;
+import com.example.truonghoc.domain.ui.Signal;
 import com.example.truonghoc.domain.ui.ValidateAble;
 
 import java.util.regex.Pattern;
@@ -75,7 +75,7 @@ public class HoSoEditable implements IHoSoEditable {
         }
     }
 
-    static class ValidateAbleChars extends Subject.MultipleSubscription implements CharSequence, ValidateAble {
+    static class ValidateAbleChars extends Signal.MultipleSubscription implements CharSequence, ValidateAble {
 
         protected String mErrorMessage = "";
 
@@ -87,7 +87,7 @@ public class HoSoEditable implements IHoSoEditable {
 
         void setValue(String value) {
             mValue = value;
-            notifyChange();
+            emit();
         }
 
         @Override

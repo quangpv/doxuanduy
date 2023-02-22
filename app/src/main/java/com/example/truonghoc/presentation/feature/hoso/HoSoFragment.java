@@ -43,33 +43,13 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
             binding.edtAddress.setText(it.getAddress());
             binding.edtName.setText(it.getName());
 
+            boolean isEditable = it instanceof IHoSoEditable;
             for (EditText editText : Arrays.asList(binding.edtSDT, binding.edtAddress, binding.edtName)) {
-                editText.setEnabled(it instanceof IHoSoEditable);
+                editText.setEnabled(isEditable);
             }
-            ViewUtils.show(binding.btnSave, it instanceof IHoSoEditable);
+            ViewUtils.show(binding.btnSave, isEditable);
+            if (isEditable) setupEditable(it);
 
-            binding.btnSave.setEnabled(ValidationUtils.isAllValid(
-                    it.getPhoneNumber(),
-                    it.getAddress(),
-                    it.getName()
-            ));
-
-            ObserveUtils.bindValidation(this, it.getPhoneNumber(), (validateAble) -> {
-                ViewUtils.setActivated(binding.edtSDT, !validateAble.isValid());
-                ViewUtils.show(binding.txtPhoneError, validateAble);
-            });
-            ObserveUtils.bindValidation(this, it.getAddress(), (validateAble) -> {
-                ViewUtils.setActivated(binding.edtAddress, !validateAble.isValid());
-            });
-            ObserveUtils.bindValidation(this, it.getName(), (validateAble) -> {
-                ViewUtils.setActivated(binding.edtName, !validateAble.isValid());
-            });
-            ObserveUtils.combineValidation(
-                    (isValid) -> binding.btnSave.setEnabled(isValid),
-                    it.getPhoneNumber(),
-                    it.getAddress(),
-                    it.getName()
-            );
         });
 
         viewModel.saveSuccess.observe(getViewLifecycleOwner(), it -> {
@@ -79,6 +59,31 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
         viewModel.error.observe(getViewLifecycleOwner(), it -> {
             toast(it.getMessage());
         });
+    }
+
+    private void setupEditable(IHoSo it) {
+        binding.btnSave.setEnabled(ValidationUtils.isAllValid(
+                it.getPhoneNumber(),
+                it.getAddress(),
+                it.getName()
+        ));
+
+        ObserveUtils.bindValidation(this, it.getPhoneNumber(), (validateAble) -> {
+            ViewUtils.setActivated(binding.edtSDT, !validateAble.isValid());
+            ViewUtils.show(binding.txtPhoneError, validateAble);
+        });
+        ObserveUtils.bindValidation(this, it.getAddress(), (validateAble) -> {
+            ViewUtils.setActivated(binding.edtAddress, !validateAble.isValid());
+        });
+        ObserveUtils.bindValidation(this, it.getName(), (validateAble) -> {
+            ViewUtils.setActivated(binding.edtName, !validateAble.isValid());
+        });
+        ObserveUtils.combineValidation(
+                (isValid) -> binding.btnSave.setEnabled(isValid),
+                it.getPhoneNumber(),
+                it.getAddress(),
+                it.getName()
+        );
     }
 
     private void registerTextChange(EditText editText, BiConsumer<String, IHoSoEditable> callback) {

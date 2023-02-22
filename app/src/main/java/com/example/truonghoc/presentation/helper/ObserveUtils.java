@@ -1,5 +1,7 @@
 package com.example.truonghoc.presentation.helper;
 
+import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
@@ -7,17 +9,18 @@ import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.truonghoc.domain.ui.ValidateAble;
-import com.example.truonghoc.domain.ui.Subject;
+import com.example.truonghoc.domain.ui.Signal;
+import com.example.truonghoc.presentation.model.BiConsumer;
 
 
 public class ObserveUtils {
     public static void bindValidation(LifecycleOwner owner, CharSequence observable, Consumer<ValidateAble> callback) {
-        if (!(observable instanceof Subject) || !(observable instanceof ValidateAble)) {
+        if (!(observable instanceof Signal) || !(observable instanceof ValidateAble)) {
             return;
         }
-        Subject subject = (Subject) observable;
+        Signal signal = (Signal) observable;
         ValidateAble validateAble = (ValidateAble) observable;
-        AutoCloseable closeable = subject.subscribe(() -> callback.accept(validateAble));
+        AutoCloseable closeable = signal.subscribe(() -> callback.accept(validateAble));
         LifecycleOwner owner1 = owner instanceof Fragment ? ((Fragment) owner).getViewLifecycleOwner() : owner;
 
         owner1.getLifecycle().addObserver(new DefaultLifecycleObserver() {
@@ -43,8 +46,8 @@ public class ObserveUtils {
             }
         };
         for (CharSequence field : fields) {
-            if (field instanceof ValidateAble && field instanceof Subject) {
-                ((Subject) field).subscribe(onChange);
+            if (field instanceof ValidateAble && field instanceof Signal) {
+                ((Signal) field).subscribe(onChange);
             }
         }
     }
