@@ -19,6 +19,7 @@ public class BaseViewModel extends ViewModel {
                 block.run();
             } catch (Throwable e) {
                 ((MutableLiveData) error).postValue(e);
+                e.printStackTrace();
             }
         });
         addCloseable(() -> future.cancel(true));

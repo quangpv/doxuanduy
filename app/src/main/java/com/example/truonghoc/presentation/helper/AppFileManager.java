@@ -1,20 +1,21 @@
 package com.example.truonghoc.presentation.helper;
 
 import android.app.Application;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.webkit.MimeTypeMap;
 
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 
 public class AppFileManager {
@@ -77,8 +78,8 @@ public class AppFileManager {
     public String luuAnhVaTraVeUriAvarta(String maHs) {
         String viTriLuu = layThuMucAnh() + "/" + maHs + ".jpg";
         Uri uri = anhTamThoi.getValue();
-        if(uri==null) return viTriLuu;
-        xuLyHinhAnh(uri,viTriLuu);
+        if (uri == null) return viTriLuu;
+        xuLyHinhAnh(uri, viTriLuu);
         xoaAnhTamThoi();
         return viTriLuu;
     }
@@ -91,9 +92,10 @@ public class AppFileManager {
         FileOutputStream fileOutputStream = null;
         InputStream inputStream = null;
         try {
-            if(kiemTraUriThuocLoaiNao(input))inputStream = application.getContentResolver().openInputStream(input);
+            if (kiemTraUriThuocLoaiNao(input))
+                inputStream = application.getContentResolver().openInputStream(input);
             else inputStream = new FileInputStream(input.getPath());
-            byte[] bytes = new byte[ inputStream.available()];
+            byte[] bytes = new byte[inputStream.available()];
             //bytes có kích thước mảng là 138395byte. giá trị từng byte {-1,-40,1, vân vân}
             if (inputStream.read(bytes) > 0) {
                 fileOutputStream = new FileOutputStream(outputPath);
@@ -106,7 +108,7 @@ public class AppFileManager {
             try {
                 if (inputStream != null) inputStream.close();
                 if (fileOutputStream != null) fileOutputStream.close();
-                if(!kiemTraUriThuocLoaiNao(input)) new File(input.getPath()).delete();
+                if (!kiemTraUriThuocLoaiNao(input)) new File(input.getPath()).delete();
             } catch (IOException ignored) {
             }
         }
@@ -114,5 +116,43 @@ public class AppFileManager {
 
     public void xoaAnhTamThoi() {
         anhTamThoi.postValue(Uri.parse(""));
+    }
+
+    public Uri saveToAppFolder(Uri uri) {
+        FileOutputStream fileOutputStream = null;
+        InputStream inputStream = null;
+        File outputFile = new File(getAppFolder("images"), "truonghoc." + getFileMimeType(uri));
+        try {
+            inputStream = application.getContentResolver().openInputStream(uri);
+            byte[] bytes = new byte[inputStream.available()];
+            if (inputStream.read(bytes) > 0) {
+                fileOutputStream = new FileOutputStream(outputFile);
+                fileOutputStream.write(bytes);
+                fileOutputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null) inputStream.close();
+                if (fileOutputStream != null) fileOutputStream.close();
+            } catch (IOException ignored) {
+            }
+        }
+
+        return Uri.fromFile(outputFile);
+    }
+
+    private File getAppFolder(String folderName) {
+        File file = new File(application.getExternalFilesDir("QuanLyHocSinh"), folderName);
+        file.mkdirs();
+        return file;
+    }
+
+    private String getFileMimeType(Uri uri) {
+        if (Objects.equals(uri.getScheme(), ContentResolver.SCHEME_CONTENT)) {
+            return MimeTypeMap.getSingleton().getExtensionFromMimeType(application.getContentResolver().getType(uri));
+        }
+        return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
     }
 }

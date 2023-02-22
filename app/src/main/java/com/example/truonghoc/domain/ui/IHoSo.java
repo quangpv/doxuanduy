@@ -6,4 +6,6 @@ public interface IHoSo {
     CharSequence getAddress();
 
     CharSequence getName();
+
+    IImage getImage();
 }

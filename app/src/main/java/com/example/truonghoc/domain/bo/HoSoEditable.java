@@ -1,11 +1,14 @@
 package com.example.truonghoc.domain.bo;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.domain.ui.Signal;
 import com.example.truonghoc.domain.ui.ValidateAble;
+import com.example.truonghoc.domain.ui.IImage;
 
 import java.util.regex.Pattern;
 
@@ -13,11 +16,19 @@ public class HoSoEditable implements IHoSoEditable {
     private final ValidateAbleChars mPhoneNumber;
     private final ValidateAbleChars mAddress;
     private final ValidateAbleChars mName;
+    private final IImage mImage;
 
     public HoSoEditable(ThongTinTruongHocEntity truongHocEntity) {
         mPhoneNumber = new PhoneNumberValidationChars(truongHocEntity.getSdtTruong());
         mAddress = new ValidateAbleChars(truongHocEntity.getDiaChiTruong());
         mName = new ValidateAbleChars(truongHocEntity.getTenTruong());
+        Uri uri = null;
+        try {
+            uri = Uri.parse(truongHocEntity.getImageUri());
+        } catch (Throwable ignored) {
+        }
+
+        mImage = new MutableUriImageWithSignal(uri);
     }
 
     @Override
@@ -48,6 +59,35 @@ public class HoSoEditable implements IHoSoEditable {
     @Override
     public CharSequence getName() {
         return mName;
+    }
+
+    @Override
+    public IImage getImage() {
+        return mImage;
+    }
+
+    static class MutableUriImageWithSignal extends MutableUriImage implements Signal {
+        private final Signal signal = new Signal.MultipleSubscription();
+
+        public MutableUriImageWithSignal(Uri uri) {
+            super(uri);
+        }
+
+        @Override
+        public void setUri(Uri uri) {
+            super.setUri(uri);
+            emit();
+        }
+
+        @Override
+        public AutoCloseable subscribe(Runnable subscription) {
+            return signal.subscribe(subscription);
+        }
+
+        @Override
+        public void emit() {
+            signal.emit();
+        }
     }
 
     static class PhoneNumberValidationChars extends ValidateAbleChars {

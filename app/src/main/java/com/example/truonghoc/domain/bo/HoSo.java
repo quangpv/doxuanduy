@@ -2,6 +2,7 @@ package com.example.truonghoc.domain.bo;
 
 import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
 import com.example.truonghoc.domain.ui.IHoSo;
+import com.example.truonghoc.domain.ui.IImage;
 
 public class HoSo implements IHoSo {
 
@@ -9,6 +10,7 @@ public class HoSo implements IHoSo {
 
     public HoSo(ThongTinTruongHocEntity truongHocEntity) {
         this.truongHocEntity = truongHocEntity;
+        this.truongHocEntity.getImageUri();
     }
 
     @Override
@@ -25,4 +27,10 @@ public class HoSo implements IHoSo {
     public String getName() {
         return truongHocEntity.getTenTruong();
     }
+
+    @Override
+    public IImage getImage() {
+        return null;
+    }
+
 }

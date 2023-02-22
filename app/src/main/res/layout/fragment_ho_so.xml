@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +22,17 @@
     </FrameLayout>
 
     <View style="@style/Theme.TruongHoc.Line.Horizontal" />
+
+    <com.example.truonghoc.presentation.widget.AppImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/size_120"
+        android:layout_height="@dimen/size_120"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/offset_horizontal"
+        android:background="@drawable/bg_circle_gray"
+        android:src="@drawable/ic_profile"
+        android:scaleType="centerInside"
+        app:circleCrop="true" />
 
     <TextView
         style="@style/Theme.TruongHoc.Text.Label"

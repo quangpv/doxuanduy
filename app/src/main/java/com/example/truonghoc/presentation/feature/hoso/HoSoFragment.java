@@ -12,6 +12,7 @@ import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.presentation.base.BindingFragment;
 import com.example.truonghoc.presentation.helper.ObserveUtils;
+import com.example.truonghoc.presentation.helper.PermissionSupporter;
 import com.example.truonghoc.presentation.helper.ValidationUtils;
 import com.example.truonghoc.presentation.helper.ViewUtils;
 import com.example.truonghoc.presentation.model.BiConsumer;
@@ -32,7 +33,12 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        PermissionSupporter permissionSupporter = new PermissionSupporter(this);
+
         binding.btnSave.setOnClickListener(v -> viewModel.save());
+        binding.imgAvatar.setOnClickListener(permissionSupporter.accessFile(new OpenToSelectImageAction(this, image -> {
+            viewModel.setImage(image);
+        })));
 
         registerTextChange(binding.edtName, (it, model) -> model.setName(it));
         registerTextChange(binding.edtSDT, (it, model) -> model.setPhoneNumber(it));
@@ -42,6 +48,7 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
             binding.edtSDT.setText(it.getPhoneNumber());
             binding.edtAddress.setText(it.getAddress());
             binding.edtName.setText(it.getName());
+            binding.imgAvatar.setImage(it.getImage());
 
             boolean isEditable = it instanceof IHoSoEditable;
             for (EditText editText : Arrays.asList(binding.edtSDT, binding.edtAddress, binding.edtName)) {
@@ -62,6 +69,8 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
     }
 
     private void setupEditable(IHoSo it) {
+        ObserveUtils.bind(this, it.getImage(), (image) -> binding.imgAvatar.setImage(image));
+
         binding.btnSave.setEnabled(ValidationUtils.isAllValid(
                 it.getPhoneNumber(),
                 it.getAddress(),
