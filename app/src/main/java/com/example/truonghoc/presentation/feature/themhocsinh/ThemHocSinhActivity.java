@@ -24,6 +24,7 @@ public class ThemHocSinhActivity extends BaseActivity {
         binding.btnBack.setOnClickListener(v -> onBackPressed());
         binding.btnConfirm.setOnClickListener(v -> viewModel.add());
 
+
         registerTextChange(binding.edtDob, (it, editable) -> editable.setDob(it));
         registerTextChange(binding.edtGioiTinh, (it, editable) -> editable.setGioiTinh(it));
         registerTextChange(binding.edtTen, (it, editable) -> editable.setName(it));

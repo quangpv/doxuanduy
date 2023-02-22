@@ -19,9 +19,7 @@ public class HocSinhViewModel extends ViewModel {
 
     public void search(String text) {
         mSearch = text;
-        appExecutors.execute(() -> {
-            hocSinhList.postValue(hocSinhRepository.getHocSinhList(text));
-        });
+        appExecutors.execute(() -> hocSinhList.postValue(hocSinhRepository.getHocSinhList(text)));
     }
 
     public void tryFetch() {

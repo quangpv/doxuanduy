@@ -13,7 +13,7 @@ import kotlin.jvm.functions.Function3;
 
 public abstract class BindingFragment<T extends ViewBinding> extends BaseFragment {
     private Function3<LayoutInflater, ViewGroup, Boolean, ViewBinding> inflate;
-    protected T binding;
+    public T binding;
 
     public void setInflate(Function3<LayoutInflater, ViewGroup, Boolean, ViewBinding> inflate) {
         this.inflate = inflate;
@@ -27,6 +27,7 @@ public abstract class BindingFragment<T extends ViewBinding> extends BaseFragmen
         binding = (T) inflate.invoke(inflater, container, false);
         return binding.getRoot();
     }
+
 
     @Override
     public void onDestroyView() {

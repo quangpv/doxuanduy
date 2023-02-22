@@ -60,7 +60,7 @@ public class ThongSinhHocSinhRepository {
 
     public void add(IChiTietHocSinh hocSinh) {
         HocSinhDangHocEntity hoc = new HocSinhDangHocEntity(new HocSinhEntity(
-                "",
+                 "",
                 hocSinh.getId(),
                 hocSinh.getName(),
                 hocSinh.getGender(),
