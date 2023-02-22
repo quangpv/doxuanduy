@@ -1,12 +1,21 @@
 package com.example.truonghoc.data.repository;
 
+import android.content.ContentResolver;
+import android.net.Uri;
+
 import com.example.truonghoc.data.datasource.AppDatasource;
 import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
+import com.example.truonghoc.domain.bo.HoSoEditable;
 import com.example.truonghoc.domain.ui.IHoSo;
-import com.example.truonghoc.domain.ui.IHoSoEditable;
+import com.example.truonghoc.domain.ui.IImage;
+import com.example.truonghoc.presentation.helper.AppFileManager;
+import com.example.truonghoc.domain.ui.HasUri;
+
+import java.util.Objects;
 
 public class TruongHocRepository {
     private final AppDatasource appDatasource = AppDatasource.getInstance();
+    private final AppFileManager appFileManager = AppFileManager.getInstance();
 
     public IHoSo getHoSo() {
         ThongTinTruongHocEntity truongHocEntity = appDatasource.layThongTinTruong();
@@ -14,76 +23,20 @@ public class TruongHocRepository {
     }
 
     public void save(IHoSo hoso) {
+        IImage image = hoso.getImage();
+        String imageUri = "";
+        if (image instanceof HasUri) {
+            Uri uri = ((HasUri) image).getUri();
+            if (Objects.equals(uri.getScheme(), ContentResolver.SCHEME_CONTENT)) {
+                uri = appFileManager.saveToAppFolder(uri);
+            }
+            imageUri = uri.toString();
+        }
         appDatasource.setThongTinTruong(new ThongTinTruongHocEntity(
-                hoso.getName(),
-                hoso.getAddress(),
-                hoso.getPhoneNumber()
+                hoso.getName().toString(),
+                hoso.getAddress().toString(),
+                hoso.getPhoneNumber().toString(),
+                imageUri
         ));
-    }
-
-    private static class HoSo implements IHoSo {
-
-        private final ThongTinTruongHocEntity truongHocEntity;
-
-        public HoSo(ThongTinTruongHocEntity truongHocEntity) {
-            this.truongHocEntity = truongHocEntity;
-        }
-
-        @Override
-        public String getPhoneNumber() {
-            return truongHocEntity.getSdtTruong();
-        }
-
-        @Override
-        public String getAddress() {
-            return truongHocEntity.getDiaChiTruong();
-        }
-
-        @Override
-        public String getName() {
-            return truongHocEntity.getTenTruong();
-        }
-    }
-
-    private static class HoSoEditable implements IHoSoEditable {
-        private String mPhoneNumber;
-        private String mAddress;
-        private String mName;
-
-        public HoSoEditable(ThongTinTruongHocEntity truongHocEntity) {
-            mPhoneNumber = truongHocEntity.getSdtTruong();
-            mAddress = truongHocEntity.getDiaChiTruong();
-            mName = truongHocEntity.getTenTruong();
-        }
-
-        @Override
-        public void setName(String name) {
-            mName = name;
-        }
-
-        @Override
-        public void setAddress(String address) {
-            mAddress = address;
-        }
-
-        @Override
-        public void setPhoneNumber(String phoneNumber) {
-            mPhoneNumber = phoneNumber;
-        }
-
-        @Override
-        public String getPhoneNumber() {
-            return mPhoneNumber;
-        }
-
-        @Override
-        public String getAddress() {
-            return mAddress;
-        }
-
-        @Override
-        public String getName() {
-            return mName;
-        }
     }
 }

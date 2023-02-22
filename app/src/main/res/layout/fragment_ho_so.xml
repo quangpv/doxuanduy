@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,6 +22,17 @@
     </FrameLayout>
 
     <View style="@style/Theme.TruongHoc.Line.Horizontal" />
+
+    <com.example.truonghoc.presentation.widget.AppImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="@dimen/size_120"
+        android:layout_height="@dimen/size_120"
+        android:layout_gravity="center"
+        android:layout_marginVertical="@dimen/offset_horizontal"
+        android:background="@drawable/bg_circle_gray"
+        android:src="@drawable/ic_profile"
+        android:scaleType="centerInside"
+        app:circleCrop="true" />
 
     <TextView
         style="@style/Theme.TruongHoc.Text.Label"
@@ -69,15 +82,27 @@
         android:layout_marginTop="@dimen/size_5"
         android:hint="@string/so_dien_thoai" />
 
+    <TextView
+        android:id="@+id/txtPhoneError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/offset_horizontal"
+        android:layout_marginTop="@dimen/size_2"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:text="Số điện thoại không đúng"
+        tools:visibility="visible" />
+
     <Button
         android:id="@+id/btnSave"
-        android:text="Lưu thay đổi"
-        android:layout_margin="@dimen/offset_horizontal"
         style="@style/Theme.TruongHoc.Button"
         android:layout_width="match_parent"
+        android:layout_margin="@dimen/offset_horizontal"
         android:minWidth="0dp"
         android:minHeight="0dp"
-        android:stateListAnimator="@null" />
+        android:stateListAnimator="@null"
+        android:text="Lưu thay đổi" />
 
 </LinearLayout>
 

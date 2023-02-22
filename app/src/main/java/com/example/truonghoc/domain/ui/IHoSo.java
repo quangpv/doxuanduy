@@ -1,9 +1,11 @@
 package com.example.truonghoc.domain.ui;
 
 public interface IHoSo {
-    String getPhoneNumber();
+    CharSequence getPhoneNumber();
 
-    String getAddress();
+    CharSequence getAddress();
 
-    String getName();
+    CharSequence getName();
+
+    IImage getImage();
 }

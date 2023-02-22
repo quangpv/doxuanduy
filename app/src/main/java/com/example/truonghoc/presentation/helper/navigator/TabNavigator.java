@@ -28,8 +28,12 @@ public class TabNavigator extends FragmentNavigator {
 
     @Override
     public void navigateTo(Class<? extends Fragment> fragmentClass, Bundle bundle) {
-        Fragment f = fragmentFactory.instantiate(Objects.requireNonNull(this.getClass().getClassLoader()), fragmentClass.getName());
+        Fragment f = fragmentFactory
+                .instantiate(Objects.requireNonNull(this.getClass().getClassLoader()), fragmentClass.getName());
         f.setArguments(bundle);
-        supportFragmentManager.beginTransaction().replace(container.getId(), f).commitAllowingStateLoss();
+        supportFragmentManager
+                .beginTransaction()
+                .replace(container.getId(), f)
+                .commitAllowingStateLoss();
     }
 }

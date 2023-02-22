@@ -31,7 +31,7 @@ public class AppDatasource {
 
     public ThongTinTruongHocEntity layThongTinTruong() {
         String truongHocStr = sharedPreferences.getString(TRUONGHOC, "");
-        if (truongHocStr.isEmpty()) return new ThongTinTruongHocEntity("", "", "");
+        if (truongHocStr.isEmpty()) return new ThongTinTruongHocEntity("", "", "", "");
         return parser.fromJson(truongHocStr, ThongTinTruongHocEntity.class);
     }
 }
