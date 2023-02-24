@@ -55,27 +55,17 @@ public class ThongTinHocSinhActivity extends BaseActivity {
                 viewModel.disableEdit();
                 return;
             }
-            DialogFactory.createXacNhanSuaThongTinHocSinh(this, () -> {
-                viewModel.save();
-            }, () -> {
-                viewModel.disableEdit();
-            }).show();
+            DialogFactory.createXacNhanSuaThongTinHocSinh(this, () -> viewModel.save(),
+                    () -> viewModel.disableEdit()).show();
         });
 
-        binding.btnDelete.setOnClickListener(v -> {
-            viewModel.delete(args.id);
-        });
-
+        binding.btnDelete.setOnClickListener(v -> viewModel.delete(args.id));
         binding.btnBack.setOnClickListener(v -> onBackPressed());
-
-        viewModel.xoaThanhCong.observe(this, v -> {
-            finish();
-        });
+        viewModel.xoaThanhCong.observe(this, v -> finish());
         viewModel.setId(args.id);
     }
 
     void registerTextChange(EditText editText, BiConsumer<String, IChiTietHocSinhEditable> callback) {
-
         editText.addTextChangedListener((OnTextChangeListener) it -> {
             if (!(viewModel.chiTiet.getValue() instanceof IChiTietHocSinhEditable)) {
                 return;

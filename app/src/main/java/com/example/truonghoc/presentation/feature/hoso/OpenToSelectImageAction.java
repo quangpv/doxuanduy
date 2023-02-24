@@ -14,13 +14,8 @@ public class OpenToSelectImageAction implements View.OnClickListener {
 
     private final ActivityResultLauncher<String> mLauncher;
 
-    public OpenToSelectImageAction(
-            ActivityResultCaller owner,
-            Consumer<IImage> onResult
-    ) {
-        mLauncher = owner.registerForActivityResult(new ActivityResultContracts.GetContent(), (result) -> {
-            onResult.accept(new UriImage(result));
-        });
+    public OpenToSelectImageAction(ActivityResultCaller owner, Consumer<IImage> onResult) {
+        mLauncher = owner.registerForActivityResult(new ActivityResultContracts.GetContent(), (result) -> onResult.accept(new UriImage(result)));
     }
 
     @Override

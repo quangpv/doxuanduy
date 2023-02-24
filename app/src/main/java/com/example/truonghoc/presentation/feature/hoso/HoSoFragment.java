@@ -6,10 +6,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Consumer;
+import androidx.lifecycle.Observer;
 
 import com.example.truonghoc.databinding.FragmentHoSoBinding;
 import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
+import com.example.truonghoc.domain.ui.IImage;
 import com.example.truonghoc.presentation.base.BindingFragment;
 import com.example.truonghoc.presentation.helper.ObserveUtils;
 import com.example.truonghoc.presentation.helper.PermissionSupporter;
@@ -36,14 +39,13 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
         PermissionSupporter permissionSupporter = new PermissionSupporter(this);
 
         binding.btnSave.setOnClickListener(v -> viewModel.save());
-        binding.imgAvatar.setOnClickListener(permissionSupporter.accessFile(new OpenToSelectImageAction(this, image -> {
-            viewModel.setImage(image);
-        })));
+        binding.imgAvatar.setOnClickListener(
+                permissionSupporter.accessFile(
+                        new OpenToSelectImageAction(this, image -> viewModel.setImage(image))));
 
         registerTextChange(binding.edtName, (it, model) -> model.setName(it));
         registerTextChange(binding.edtSDT, (it, model) -> model.setPhoneNumber(it));
         registerTextChange(binding.edtAddress, (it, model) -> model.setAddress(it));
-
         viewModel.hoso.observe(getViewLifecycleOwner(), it -> {
             binding.edtSDT.setText(it.getPhoneNumber());
             binding.edtAddress.setText(it.getAddress());
@@ -59,13 +61,8 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
 
         });
 
-        viewModel.saveSuccess.observe(getViewLifecycleOwner(), it -> {
-            toast("Lưu thành công");
-        });
-
-        viewModel.error.observe(getViewLifecycleOwner(), it -> {
-            toast(it.getMessage());
-        });
+        viewModel.saveSuccess.observe(getViewLifecycleOwner(), it -> toast("Lưu thành công"));
+        viewModel.error.observe(getViewLifecycleOwner(), it -> toast(it.getMessage()));
     }
 
     private void setupEditable(IHoSo it) {

@@ -15,6 +15,7 @@ public interface Signal {
         @Override
         public AutoCloseable subscribe(Runnable subscription) {
             mSubscription = subscription;
+
             return () -> mSubscription = null;
         }
 

@@ -47,7 +47,6 @@ public class HocSinhFragment extends BindingFragment<FragmentHocSinhBinding> {
         searchState.onSearching = (text) -> viewModel.search(text);
         hocSinhAdapter.onItemClick = item -> Router.open(this, new Routings.ThongTinHocSinh(item.getId()));
         binding.btnAdd.setOnClickListener(v -> Router.open(this, new Routings.TaoMoiHocSinh()));
-
         viewModel.hocSinhList.observe(getViewLifecycleOwner(), it -> {
             hocSinhAdapter.submit(it);
             ViewUtils.show(binding.txtEmpty, it.isEmpty());

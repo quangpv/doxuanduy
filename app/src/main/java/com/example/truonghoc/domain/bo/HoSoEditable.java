@@ -31,6 +31,7 @@ public class HoSoEditable implements IHoSoEditable {
         mImage = new MutableUriImageWithSignal(uri);
     }
 
+
     @Override
     public void setName(String name) {
         mName.setValue(name);
@@ -118,12 +119,11 @@ public class HoSoEditable implements IHoSoEditable {
     static class ValidateAbleChars extends Signal.MultipleSubscription implements CharSequence, ValidateAble {
 
         protected String mErrorMessage = "";
+        protected String mValue;
 
         public ValidateAbleChars(String original) {
             this.mValue = original;
         }
-
-        protected String mValue;
 
         void setValue(String value) {
             mValue = value;
