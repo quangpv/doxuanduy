@@ -1,28 +1,16 @@
 <resources>
-    <string name="app_name">TruongHoc</string>
-    <string name="mac_dinh">Không</string>
-    <string name="truong_view">Trường:</string>
-    <string name="dia_chi_view">D/C:</string>
-    <string name="sdt_view">SĐT:</string>
-    <string name="sua">Sửa</string>
-    <string name="luu">Lưu</string>
-    <string name="tieude_hoc_sinh">Tất Cả Học Sinh</string>
-    <string name="tieude_giao_vien">Tất Cả Giáo Viên</string>
-    <string name="ten">Tên: %1$s</string>
-    <string name="gioi_tinh">Giới Tính: %1$s</string>
-    <string name="sinh_ngay">Sinh Ngày: %1$s</string>
-    <string name="lop">Lớp: %1$s</string>
-    <string name="ten_view">Họ Và Tên</string>
-    <string name="gioitinh_view">Giới Tính</string>
-    <string name="sinhngay_view">Ngày/Tháng/Năm Sinh</string>
-    <string name="lop_view"> Lớp Học</string>
-    <string name="chup_anh">Chụp Ảnh</string>
-    <string name="thu_vien">Thư Viện</string>
+    <string name="app_name">QuanLyThuVien</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tongsach">Tổng: %1$s</string>
+    <string name="tonsach">Tồn: %1$s</string>
+    <string name="tieude_ds_sach">Tất Cả Sách</string>
+    <string name="tieude_ds_docgia"> Tất Cả Độc Giả</string>
+    <string name="tieude_ds_muontra"> Tất Cả Mượn Trả</string>
+    <string name="hint_search_muontra">Null</string>
+    <string name="hint_search_sach">Tìm sách</string>
+    <string name="hint_search_docgia">Tìm độc giả</string>
+    <string name="tieude_thongtin_sach">Thông Tin Sách</string>
+    <string name="tieude_themsach">Thêm Sách</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_danh_sach_hoc_sinh">Danh Sách Học Sinh</string>
-    <string name="tim_kiem_hoc_sinh">Tìm kiếm học sinh</string>
-    <string name="ten_truong">Tên trường</string>
-    <string name="dia_chi_truong">Địa chỉ trường</string>
-    <string name="so_dien_thoai">Số điện thoại</string>
 </resources>
