@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/muontra"
+        android:checked="true"
+        android:title="Mượn Trả" />
+    <item
+        android:id="@+id/docgia"
+        android:checked="true"
+        android:title="Độc Giả" />
+    <item
+        android:id="@+id/sach"
+        android:checked="true"
+        android:title="Sách" />
+</menu>
