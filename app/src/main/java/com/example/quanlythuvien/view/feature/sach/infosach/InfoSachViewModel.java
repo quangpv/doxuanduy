@@ -76,7 +76,7 @@ public class InfoSachViewModel extends BaseViewModel {
         if (!(iSach instanceof SachMoi)) return;
         appExecutors.execute(() -> {
             sachKho.capNhapSach((ISachGet) iSach);
-            timSachTheoMaSach(((SachMoi) iSach).getMaSach());
+            timSachTheoMaSach(((SachMoi) iSach).getMaSach().toString());
         });
     }
 

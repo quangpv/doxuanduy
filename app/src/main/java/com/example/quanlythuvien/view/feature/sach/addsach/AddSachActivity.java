@@ -1,11 +1,25 @@
 package com.example.quanlythuvien.view.feature.sach.addsach;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Consumer;
+import androidx.lifecycle.Observer;
 
 import com.example.quanlythuvien.R;
 import com.example.quanlythuvien.databinding.ActivityAddSachBinding;
+import com.example.quanlythuvien.domain.bo.SachMoi;
+import com.example.quanlythuvien.domain.ui.IKiemTraGiaTriNhap;
+import com.example.quanlythuvien.domain.ui.ISach;
+import com.example.quanlythuvien.domain.ui.ISachGet;
 import com.example.quanlythuvien.view.base.BaseActivity;
 import com.example.quanlythuvien.view.help.DiaLogFactory;
+import com.example.quanlythuvien.view.help.HienThiView;
+import com.example.quanlythuvien.view.help.LangNgheSuKien;
 
 public class AddSachActivity extends BaseActivity {
     ActivityAddSachBinding binding;
@@ -16,6 +30,12 @@ public class AddSachActivity extends BaseActivity {
         super.onBackPressed();
         DiaLogFactory.showDialog(this, "Hủy Thêm?", this::finish, () -> {
         });
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
     }
 
     @Override
@@ -34,7 +54,15 @@ public class AddSachActivity extends BaseActivity {
         viewModel.langNgheEditText(binding.namxbNhap, (s, iSach) -> iSach.setNamXuatBan(s));
         viewModel.langNgheEditText(binding.nxbNhap, (s, iSach) -> iSach.setNhaXuatBan(s));
         viewModel.langNgheEditText(binding.tongNhap, (s, iSach) -> iSach.setTongSach(Integer.parseInt(s)));
-        viewModel.thongBao.observe(this, this::toast);
+        viewModel.thongBao.observe(this, throwable -> toast(throwable.getMessage()));
+        viewModel.sach.observe(this, iSach -> {
+            ISachGet iSachGet = iSach instanceof SachMoi ? (ISachGet)iSach:null;
+            if(iSachGet==null) return;
+            LangNgheSuKien.theoDoiGiaTriNhap(this, iSachGet.getMaSach(),
+                    iKiemTra -> HienThiView.hienThiTextLoi(binding.masach,iKiemTra));
+            LangNgheSuKien.theoDoiGiaTriNhap(this, iSachGet.getTenSach(),
+                    iKiemTra -> HienThiView.hienThiTextLoi(binding.tensach,iKiemTra));
+        });
         viewModel.thongBaoThanhCong.observe(this, s -> {
             toast(s);
             finish();

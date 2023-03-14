@@ -68,7 +68,7 @@ public class SachKho {
     }
 
     public void themSachVaoKho(ISachGet iSachGet) {
-        Sach sach = new Sach(iSachGet.getMaSach(), iSachGet.getTenSach(), iSachGet.getLoaiSach(), iSachGet.getTenTacGia(), iSachGet.getNhaXuatBan(), iSachGet.getNamXuatBan(), iSachGet.getTongSach());
+        Sach sach = new Sach(iSachGet.getMaSach().toString(), iSachGet.getTenSach().toString(), iSachGet.getLoaiSach(), iSachGet.getTenTacGia(), iSachGet.getNhaXuatBan(), iSachGet.getNamXuatBan(), iSachGet.getTongSach());
         thuVienDao.themSach(sach);
     }
 
@@ -118,8 +118,8 @@ public class SachKho {
     }
 
     public void capNhapSach(ISachGet iSach) {
-        Sach sach = thuVienDao.laySachTheoMaSach(iSach.getMaSach());
-        Sach sachCapNhat = new Sach(iSach.getMaSach(), iSach.getTenSach(), iSach.getLoaiSach(), iSach.getTenTacGia(), iSach.getNhaXuatBan(), iSach.getNamXuatBan(), iSach.getTongSach());
+        Sach sach = thuVienDao.laySachTheoMaSach(iSach.getMaSach().toString());
+        Sach sachCapNhat = new Sach(iSach.getMaSach().toString(), iSach.getTenSach().toString(), iSach.getLoaiSach(), iSach.getTenTacGia(), iSach.getNhaXuatBan(), iSach.getNamXuatBan(), iSach.getTongSach());
         sachCapNhat.id = sach.id;
         thuVienDao.capNhatSach(sachCapNhat);
     }

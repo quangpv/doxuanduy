@@ -42,10 +42,7 @@ public class SachFragment extends BaseFragment<FragmentSachBinding> {
         stateSearch.onSearching = (s) -> viewModel.search(s);
         binding.btnAdd.setOnClickListener(v -> OpenActivity.open(this,AddSachActivity.class,null));
         sachAdater.onItemClick = itemList -> OpenActivity.open(this, InfoSachActivity.class,itemList.getMaSach());
-        sachAdater.onClickXoa = itemList -> {
-            viewModel.xoaSach(itemList);
-            sachAdater.xoaSach(itemList);
-        };
+        sachAdater.onClickXoa = itemList -> viewModel.xoaSach(itemList);
         viewModel.danhSach.observe(getViewLifecycleOwner(), it -> {
             sachAdater.setDanhSach(it);
             HienThiView.show(binding.nullvalue, it.isEmpty());

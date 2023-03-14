@@ -7,6 +7,7 @@ import android.os.Looper;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AppExecutors {
     private static AppExecutors sAppExecutors;
@@ -22,6 +23,10 @@ public class AppExecutors {
 
     public void execute(Runnable runnable) {
         executor.execute(runnable);
+    }
+
+    public Future<?> run(Runnable runnable) {
+        return executor.submit(runnable);
     }
 
 

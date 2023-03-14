@@ -1,29 +1,31 @@
 package com.example.quanlythuvien.domain.bo;
 
+import com.example.quanlythuvien.domain.ui.IKiemTraGiaTriNhap;
 import com.example.quanlythuvien.domain.ui.ISachGet;
 import com.example.quanlythuvien.domain.ui.ISachSet;
 
 import java.util.Objects;
 
-public class SachMoi implements ISachGet, ISachSet  {
-    private String maSach, tenSach, loaiSach, nhaXuatBan, tenTacGia, namXuatBan;
+public class SachMoi implements ISachGet, ISachSet{
+    private ChuoiNhap maSach, tenSach;
+    private String loaiSach, nhaXuatBan, tenTacGia, namXuatBan;
     private int tongSach, choThue;
     private ISachGet iSachGet;
 
     public SachMoi() {
-        this.maSach = "";
-        this.tenSach = "";
+        this.maSach = new ChuoiNhap("");
+        this.tenSach = new ChuoiNhap("");
         this.loaiSach = "";
         this.nhaXuatBan = "";
         this.tenTacGia = "";
         this.namXuatBan = "";
         this.tongSach = -1;
-        this.choThue =-1;
+        this.choThue = -1;
     }
     public SachMoi(ISachGet iSachGet) {
         this.iSachGet=iSachGet;
-        this.maSach = iSachGet.getMaSach();
-        this.tenSach = iSachGet.getTenSach();
+        this.maSach = new ChuoiNhap(iSachGet.getMaSach().toString());
+        this.tenSach = new ChuoiNhap(iSachGet.getTenSach().toString());
         this.loaiSach = iSachGet.getLoaiSach();
         this.tenTacGia = iSachGet.getTenTacGia();
         this.nhaXuatBan = iSachGet.getNhaXuatBan();
@@ -37,8 +39,8 @@ public class SachMoi implements ISachGet, ISachSet  {
     }
 
     public boolean kiemTraDaSuaChua(){
-        return !Objects.equals(iSachGet.getMaSach(),maSach)||
-                !Objects.equals(iSachGet.getTenSach(),tenSach)||
+        return !Objects.equals(iSachGet.getMaSach(),maSach.toString())||
+                !Objects.equals(iSachGet.getTenSach(),tenSach.toString())||
                 !Objects.equals(iSachGet.getTenTacGia(),tenTacGia)||
                 !Objects.equals(iSachGet.getLoaiSach(),loaiSach)||
                 !Objects.equals(iSachGet.getNhaXuatBan(),nhaXuatBan)||
@@ -46,15 +48,14 @@ public class SachMoi implements ISachGet, ISachSet  {
                 !Objects.equals(iSachGet.getTongSach(),tongSach)||
                 !Objects.equals(iSachGet.getChoThue(),choThue);
 
-
     }
     @Override
-    public String getMaSach() {
+    public CharSequence getMaSach() {
         return this.maSach;
     }
 
     @Override
-    public String getTenSach() {
+    public CharSequence getTenSach() {
         return this.tenSach;
     }
 
@@ -90,12 +91,12 @@ public class SachMoi implements ISachGet, ISachSet  {
 
     @Override
     public void setMaSach(String maSach) {
-        this.maSach=maSach;
+        this.maSach.setGiaTriNhapVao(maSach);
     }
 
     @Override
     public void setTenSach(String tenSach) {
-        this.tenSach=tenSach;
+        this.tenSach.setGiaTriNhapVao(tenSach);
     }
 
     @Override
