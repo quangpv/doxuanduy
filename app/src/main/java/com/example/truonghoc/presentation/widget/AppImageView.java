@@ -13,6 +13,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.truonghoc.R;
 import com.example.truonghoc.domain.ui.HasBitmap;
@@ -75,6 +76,7 @@ public class AppImageView extends AppCompatImageView {
             builder = builder.transform(new CircleCrop());
         }
         builder = builder.skipMemoryCache(true);
+        builder = builder.diskCacheStrategy(DiskCacheStrategy.NONE);
         builder.into(this);
     }
 }
