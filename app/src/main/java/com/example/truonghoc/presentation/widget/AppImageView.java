@@ -15,6 +15,8 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.truonghoc.R;
+import com.example.truonghoc.domain.ui.HasBitmap;
+import com.example.truonghoc.domain.ui.HasImage;
 import com.example.truonghoc.domain.ui.HasResourceId;
 import com.example.truonghoc.domain.ui.HasUri;
 import com.example.truonghoc.domain.ui.HasUrl;
@@ -48,6 +50,10 @@ public class AppImageView extends AppCompatImageView {
     }
 
     public void setImage(IImage image) {
+        if (image instanceof HasImage) {
+            setImage(((HasImage) image).getImage());
+            return;
+        }
         RequestManager glide = Glide.with(this);
         RequestBuilder<Drawable> builder = null;
 
@@ -58,6 +64,8 @@ public class AppImageView extends AppCompatImageView {
             builder = glide.load(((HasUrl) image).getUrl());
         } else if (image instanceof HasResourceId) {
             builder = glide.load(((HasResourceId) image).getResourceId());
+        } else if (image instanceof HasBitmap) {
+            builder = glide.load(((HasBitmap) image).getBitmap());
         }
 
         if (builder == null) {
@@ -66,6 +74,7 @@ public class AppImageView extends AppCompatImageView {
         if (mIsCircleCrop) {
             builder = builder.transform(new CircleCrop());
         }
+        builder = builder.skipMemoryCache(true);
         builder.into(this);
     }
 }

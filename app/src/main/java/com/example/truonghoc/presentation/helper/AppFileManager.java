@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -154,5 +155,16 @@ public class AppFileManager {
             return MimeTypeMap.getSingleton().getExtensionFromMimeType(application.getContentResolver().getType(uri));
         }
         return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
+    }
+
+    public Uri saveToAppFolder(Bitmap bitmap) {
+        File outputFile = new File(getAppFolder("images"), "truonghoc.jpg");
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, new FileOutputStream(outputFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return Uri.fromFile(outputFile);
     }
 }

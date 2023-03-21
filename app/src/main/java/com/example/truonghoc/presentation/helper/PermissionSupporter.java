@@ -15,7 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 public class PermissionSupporter {
     private static final String[] CAMERA = new String[]{
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
     };
     private final LifecycleOwner owner;
 

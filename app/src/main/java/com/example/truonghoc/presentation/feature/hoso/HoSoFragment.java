@@ -11,6 +11,7 @@ import com.example.truonghoc.databinding.FragmentHoSoBinding;
 import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.presentation.base.BindingFragment;
+import com.example.truonghoc.presentation.helper.DialogFactory;
 import com.example.truonghoc.presentation.helper.ObserveUtils;
 import com.example.truonghoc.presentation.helper.PermissionSupporter;
 import com.example.truonghoc.presentation.helper.ValidationUtils;
@@ -34,11 +35,25 @@ public class HoSoFragment extends BindingFragment<FragmentHoSoBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         PermissionSupporter permissionSupporter = new PermissionSupporter(this);
+        View.OnClickListener accessWriteFile = permissionSupporter
+                .accessFile(new OpenToSelectImageAction(this, image -> {
+                    viewModel.setImage(image);
+                }));
+        View.OnClickListener accessToTakePicture = permissionSupporter
+                .accessCamera(new TakePictureToSelectImageAction(this, image -> {
+                    viewModel.setImage(image);
+                }));
 
         binding.btnSave.setOnClickListener(v -> viewModel.save());
-        binding.imgAvatar.setOnClickListener(permissionSupporter.accessFile(new OpenToSelectImageAction(this, image -> {
-            viewModel.setImage(image);
-        })));
+        binding.imgAvatar.setOnClickListener(v -> {
+            DialogFactory.createTakePhotoOrGallery(requireContext(), isCamera -> {
+                if (isCamera) {
+                    accessToTakePicture.onClick(v);
+                } else {
+                    accessWriteFile.onClick(v);
+                }
+            }).show();
+        });
 
         registerTextChange(binding.edtName, (it, model) -> model.setName(it));
         registerTextChange(binding.edtSDT, (it, model) -> model.setPhoneNumber(it));

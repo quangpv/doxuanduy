@@ -6,6 +6,7 @@ import com.example.truonghoc.data.repository.TruongHocRepository;
 import com.example.truonghoc.domain.ui.IHoSo;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
 import com.example.truonghoc.domain.ui.IImage;
+import com.example.truonghoc.domain.ui.ImageSettable;
 import com.example.truonghoc.domain.ui.UriSettable;
 import com.example.truonghoc.presentation.base.BaseViewModel;
 import com.example.truonghoc.presentation.helper.ValidationUtils;
@@ -47,9 +48,9 @@ public class HoSoViewModel extends BaseViewModel {
     public void setImage(IImage image) {
         IHoSo hoso1 = hoso.getValue();
         if (hoso1 == null) return;
-        if (!(hoso1.getImage() instanceof UriSettable)) return;
-        if (!(image instanceof HasUri)) return;
-
-        ((UriSettable) hoso1.getImage()).setUri(((HasUri) image).getUri());
+        IImage settableImage = hoso1.getImage();
+        if (settableImage instanceof ImageSettable) {
+            ((ImageSettable) settableImage).setImage(image);
+        }
     }
 }

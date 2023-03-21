@@ -5,7 +5,9 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 
 import com.example.truonghoc.data.model.ThongTinTruongHocEntity;
+import com.example.truonghoc.domain.ui.HasImage;
 import com.example.truonghoc.domain.ui.IHoSoEditable;
+import com.example.truonghoc.domain.ui.ImageSettable;
 import com.example.truonghoc.domain.ui.Signal;
 import com.example.truonghoc.domain.ui.ValidateAble;
 import com.example.truonghoc.domain.ui.IImage;
@@ -28,7 +30,7 @@ public class HoSoEditable implements IHoSoEditable {
         } catch (Throwable ignored) {
         }
 
-        mImage = new MutableUriImageWithSignal(uri);
+        mImage = new MutableImageWithSignal(new UriImage(uri));
     }
 
     @Override
@@ -66,17 +68,12 @@ public class HoSoEditable implements IHoSoEditable {
         return mImage;
     }
 
-    static class MutableUriImageWithSignal extends MutableUriImage implements Signal {
+    static class MutableImageWithSignal implements IImage, Signal, ImageSettable, HasImage {
         private final Signal signal = new Signal.MultipleSubscription();
+        private IImage mImage;
 
-        public MutableUriImageWithSignal(Uri uri) {
-            super(uri);
-        }
-
-        @Override
-        public void setUri(Uri uri) {
-            super.setUri(uri);
-            emit();
+        public MutableImageWithSignal(IImage image) {
+            this.mImage = image;
         }
 
         @Override
@@ -87,6 +84,17 @@ public class HoSoEditable implements IHoSoEditable {
         @Override
         public void emit() {
             signal.emit();
+        }
+
+        @Override
+        public void setImage(IImage image) {
+            mImage = image;
+            emit();
+        }
+
+        @Override
+        public IImage getImage() {
+            return mImage;
         }
     }
 
