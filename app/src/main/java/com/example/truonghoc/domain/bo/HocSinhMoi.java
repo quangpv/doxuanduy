@@ -2,12 +2,13 @@ package com.example.truonghoc.domain.bo;
 
 import com.example.truonghoc.domain.ui.HasSetId;
 import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.IDate;
 
 public class HocSinhMoi implements IChiTietHocSinhEditable, HasSetId {
     private String mLop;
     private String mName;
     private String mGender;
-    private String mDob;
+    private IDate mDob;
     private String mId;
 
     public HocSinhMoi() {
@@ -15,7 +16,7 @@ public class HocSinhMoi implements IChiTietHocSinhEditable, HasSetId {
         mLop = "";
         mName = "";
         mGender = "";
-        mDob = "";
+        mDob = new MutableDate("");
     }
 
     @Override
@@ -44,18 +45,13 @@ public class HocSinhMoi implements IChiTietHocSinhEditable, HasSetId {
     }
 
     @Override
-    public String getDob() {
+    public IDate getDob() {
         return mDob;
     }
 
     @Override
     public void setName(String name) {
         this.mName = name;
-    }
-
-    @Override
-    public void setDob(String ngaySinh) {
-        this.mDob = ngaySinh;
     }
 
     @Override

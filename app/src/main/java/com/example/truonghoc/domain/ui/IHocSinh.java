@@ -7,5 +7,5 @@ public interface IHocSinh {
 
     String getGender();
 
-    String getDob();
+    IDate getDob();
 }

@@ -1,10 +1,12 @@
 package com.example.truonghoc.data.repository;
 
 import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
-import com.example.truonghoc.data.model.HocSinhEntity;
 import com.example.truonghoc.data.model.HocSinhDangHocEntity;
+import com.example.truonghoc.data.model.HocSinhEntity;
 import com.example.truonghoc.data.model.KhoiEntity;
+import com.example.truonghoc.domain.bo.StringDate;
 import com.example.truonghoc.domain.ui.IChiTietHocSinh;
+import com.example.truonghoc.domain.ui.IDate;
 
 public class ThongSinhHocSinhRepository {
     private static final ThongSinhHocSinhRepository sInstance = new ThongSinhHocSinhRepository();
@@ -39,8 +41,8 @@ public class ThongSinhHocSinhRepository {
             }
 
             @Override
-            public String getDob() {
-                return hocSinhDangHoc.getHocSinh().getSinhNgay();
+            public IDate getDob() {
+                return new StringDate(hocSinhDangHoc.getHocSinh().getSinhNgay());
             }
         };
     }
@@ -52,7 +54,7 @@ public class ThongSinhHocSinhRepository {
                 hocSinh.getId(),
                 hocSinh.getName(),
                 hocSinh.getGender(),
-                hocSinh.getDob()
+                hocSinh.getDob().toString()
         ), new KhoiEntity(hocSinh.getLop()));
         hoc.Id = hocSinhDangHoc.Id;
         database.hocSinhDAO().suaHocSinh(hoc);
@@ -64,7 +66,7 @@ public class ThongSinhHocSinhRepository {
                 hocSinh.getId(),
                 hocSinh.getName(),
                 hocSinh.getGender(),
-                hocSinh.getDob()
+                hocSinh.getDob().toString()
         ), new KhoiEntity(hocSinh.getLop()));
         database.hocSinhDAO().themHocSinh(hoc);
     }

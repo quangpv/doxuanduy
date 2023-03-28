@@ -11,6 +11,8 @@ import com.example.truonghoc.presentation.base.BaseActivity;
 import com.example.truonghoc.presentation.helper.OnTextChangeListener;
 import com.example.truonghoc.presentation.model.BiConsumer;
 
+import java.util.Objects;
+
 public class ThemHocSinhActivity extends BaseActivity {
     private ActivityThemHocSinhBinding binding;
     private ThemHocSinhViewModel viewModel;
@@ -24,7 +26,9 @@ public class ThemHocSinhActivity extends BaseActivity {
         binding.btnBack.setOnClickListener(v -> onBackPressed());
         binding.btnConfirm.setOnClickListener(v -> viewModel.add());
 
-        registerTextChange(binding.edtDob, (it, editable) -> editable.setDob(it));
+        binding.btnDob.setOnClickListener(new PickDateAction(
+                () -> Objects.requireNonNull(viewModel.hocSinh.getValue()).getDob())
+        );
         registerTextChange(binding.edtGioiTinh, (it, editable) -> editable.setGioiTinh(it));
         registerTextChange(binding.edtTen, (it, editable) -> editable.setName(it));
         registerTextChange(binding.edtLop, (it, editable) -> editable.setLop(it));

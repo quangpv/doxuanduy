@@ -59,7 +59,7 @@ public class HocSinhAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void bind(IHocSinh item) {
             binding.txtHoten.setText(item.getName());
             binding.txtGioiTinh.setText(item.getGender());
-            binding.txtNgaySinh.setText(item.getDob());
+            binding.txtNgaySinh.setText(item.getDob().toString());
             itemView.setOnClickListener(v -> {
                 if (onItemClick != null) onItemClick.accept(item);
             });

@@ -8,11 +8,14 @@ import androidx.annotation.Nullable;
 import com.example.truonghoc.databinding.ActivityThongTinHocSinhBinding;
 import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
 import com.example.truonghoc.presentation.base.BaseActivity;
+import com.example.truonghoc.presentation.feature.themhocsinh.PickDateAction;
 import com.example.truonghoc.presentation.helper.DialogFactory;
 import com.example.truonghoc.presentation.helper.OnTextChangeListener;
 import com.example.truonghoc.presentation.helper.router.Arguments;
 import com.example.truonghoc.presentation.helper.router.Routings;
 import com.example.truonghoc.presentation.model.BiConsumer;
+
+import java.util.Objects;
 
 
 public class ThongTinHocSinhActivity extends BaseActivity {
@@ -29,7 +32,7 @@ public class ThongTinHocSinhActivity extends BaseActivity {
 
         viewModel.chiTiet.observe(this, it -> {
             binding.edtTen.setText(it.getName());
-            binding.edtDob.setText(it.getDob());
+            binding.btnDob.setText(it.getDob().toString());
             binding.edtGioiTinh.setText(it.getGender());
             binding.edtLop.setText(it.getLop());
 
@@ -37,13 +40,15 @@ public class ThongTinHocSinhActivity extends BaseActivity {
             binding.edtTen.setEnabled(isEditable);
             binding.edtGioiTinh.setEnabled(isEditable);
             binding.edtLop.setEnabled(isEditable);
-            binding.edtDob.setEnabled(isEditable);
+            binding.btnDob.setEnabled(isEditable);
         });
 
         registerTextChange(binding.edtTen, (it, editable) -> editable.setName(it));
         registerTextChange(binding.edtGioiTinh, (it, editable) -> editable.setGioiTinh(it));
         registerTextChange(binding.edtLop, (it, editable) -> editable.setLop(it));
-        registerTextChange(binding.edtDob, (it, editable) -> editable.setDob(it));
+        binding.btnDob.setOnClickListener(new PickDateAction(
+                () -> Objects.requireNonNull(viewModel.chiTiet.getValue()).getDob())
+        );
 
         binding.btnEdit.setOnClickListener(v -> {
             v.setSelected(!v.isSelected());

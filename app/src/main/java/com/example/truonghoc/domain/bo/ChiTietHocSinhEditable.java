@@ -3,6 +3,7 @@ package com.example.truonghoc.domain.bo;
 import com.example.truonghoc.domain.ui.HasIsEdited;
 import com.example.truonghoc.domain.ui.IChiTietHocSinh;
 import com.example.truonghoc.domain.ui.IChiTietHocSinhEditable;
+import com.example.truonghoc.domain.ui.IDate;
 
 import java.util.Objects;
 
@@ -11,14 +12,14 @@ public class ChiTietHocSinhEditable implements IChiTietHocSinhEditable, HasIsEdi
     private String mLop;
     private String mName;
     private String mGender;
-    private String mDob;
+    private IDate mDob;
 
     public ChiTietHocSinhEditable(IChiTietHocSinh hocSinh) {
         this.hocSinh = hocSinh;
         mLop = hocSinh.getLop();
         mName = hocSinh.getName();
         mGender = hocSinh.getGender();
-        mDob = hocSinh.getDob();
+        mDob = new MutableDate(hocSinh.getDob().toString());
     }
 
     @Override
@@ -42,14 +43,14 @@ public class ChiTietHocSinhEditable implements IChiTietHocSinhEditable, HasIsEdi
     }
 
     @Override
-    public String getDob() {
+    public IDate getDob() {
         return mDob;
     }
 
     @Override
     public boolean isEdited() {
         return !Objects.equals(hocSinh.getLop(), mLop)
-                || !Objects.equals(hocSinh.getDob(), mDob)
+                || !Objects.equals(hocSinh.getDob().toString(), mDob.toString())
                 || !Objects.equals(hocSinh.getGender(), mGender)
                 || !Objects.equals(hocSinh.getName(), mName);
     }
@@ -61,11 +62,6 @@ public class ChiTietHocSinhEditable implements IChiTietHocSinhEditable, HasIsEdi
     @Override
     public void setName(String name) {
         this.mName = name;
-    }
-
-    @Override
-    public void setDob(String ngaySinh) {
-        this.mDob = ngaySinh;
     }
 
     @Override

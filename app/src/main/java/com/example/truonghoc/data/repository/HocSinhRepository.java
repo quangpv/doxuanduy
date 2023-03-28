@@ -2,8 +2,10 @@ package com.example.truonghoc.data.repository;
 
 import com.example.truonghoc.data.datasource.HocSinhDangHocDAO;
 import com.example.truonghoc.data.datasource.HocSinhDangHocDataBase;
-import com.example.truonghoc.data.model.HocSinhEntity;
 import com.example.truonghoc.data.model.HocSinhDangHocEntity;
+import com.example.truonghoc.data.model.HocSinhEntity;
+import com.example.truonghoc.domain.bo.StringDate;
+import com.example.truonghoc.domain.ui.IDate;
 import com.example.truonghoc.domain.ui.IHocSinh;
 
 import java.util.ArrayList;
@@ -56,10 +58,10 @@ public class HocSinhRepository {
             }
 
             @Override
-            public String getDob() {
+            public IDate getDob() {
                 String ngaySinh = hocSinhDangHoc.getHocSinh().getSinhNgay();
-                if (ngaySinh.isEmpty()) return "Không rõ ngày sinh";
-                return ngaySinh;
+                if (ngaySinh.isEmpty()) return new StringDate("Không rõ ngày sinh");
+                return new StringDate(ngaySinh);
             }
         };
     }
